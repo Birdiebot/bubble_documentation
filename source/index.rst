@@ -25,9 +25,10 @@ Bubble的前身是开源项目BTP_DM。随着RMU赛场需要的机器人系统�
 
 快速开始
 ----------------------
-* :doc: `通过预构建的Docker容器使用Bubble <getting_started/build_bubble_from_source_code>`
-通过源码构建Bubble
-使用Bubble的参数设置说明
+我们提供了两种方式部署Bubble。部署Bubble的过程中，可能需要对配置文件进行一些修改。
+* :doc: `通过预构建的Docker容器使用Bubble <getting_started/build_bubble_from_source_code>`__
+* :doc: `通过源码构建Bubble <getting_started/use_docker_launch_bubble>`
+* :doc: `使用Bubble的参数设置说明`
 
 
 设计
