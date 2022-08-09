@@ -5,6 +5,14 @@
    :hidden:
    :glob:
 
-   getting_started/use_docker_launch_bubble
-   getting_started/build_bubble_from_source_code
+   getting_started/通过预构建的Docker容器使用
+   getting_started/通过源码构建
+   getting_started/使用bubble_launch为不同的机器人配置参数
+
+* `通过预构建的Docker容器使用 <getting_started/通过预构建的Docker容器使用.html>`__
+
+* `通过源码构建 <getting_started/通过源码构建.html>`__
+
+* `使用bubble_launch为不同的机器人配置参数 <getting_started/使用bubble_launch为不同的机器人配置参数.html>`__
+
 
