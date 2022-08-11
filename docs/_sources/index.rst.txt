@@ -3,18 +3,19 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
   
-Bubble文档
-==================================
+Bubble-基于ROS2的RoboMaster视觉软件栈
+=======================================
 
 .. toctree::
    :titlesonly:
-   :maxdepth: 2
+   :maxdepth: 3
    :hidden:
 
    快速开始
+   教程
    设计
-   开发者指南
    算法原理及功能实现
+   开发者指南
    API-documentation
    Bubble项目
    Bubble资源
