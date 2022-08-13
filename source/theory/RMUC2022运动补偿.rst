@@ -26,13 +26,14 @@ RMUC2022运动补偿
 数学推导
 ----------------------------
 
-在\ :math:`O_{chassis\ xyz}`\ 中:
+在\ :math:`O_{chassis\_xyz}`\ 中:
 
-:math:`O_{gimbal\ xyz}`\ 中空间目标点\ :math:`P_0(x_0, y_0, z_0)`\ 、\ :math:`\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top`\在变换矩阵\ :math:`^{chassis}_{gimbal}T`\ 作用下，
-变换为\ :math:`P{(p_x, p_y, p_z)}`\ 、\ :math:`\vec{v} = [vx, vy, vz]^\top`，空间向量\ :math:`\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top`。
+:math:`O_{gimbal\_xyz}` 中空间目标点\ :math:`P_0(x_0, y_0, z_0)`\ 、\ :math:`\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top`\在变换矩阵 :math:`^{chassis}_{gimbal}T` 作用下，
+变换为 :math:`P{(p_x, p_y, p_z)}` 、\ :math:`\vec{v} = [vx, vy, vz]^\top`，空间向量\ :math:`\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top`。
 其中：
 
-:math:`^{chassis}_{gimbal}T = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R & ^{chassis}_{gimbal}p \\  0 & 1 \end{array}\right]`
+.. math::
+    ^{chassis}_{gimbal}T = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R & ^{chassis}_{gimbal}p \\  0 & 1 \end{array}\right]
 
 弹丸初速度 :math:`||\vec{v}||` 通过裁判系统获得，一般地： :math:`||\vec{v}|| = ||\vec{v}_0|| = 30m/s` 
 
@@ -63,10 +64,51 @@ RMUC2022运动补偿
 .. math::
 
     \alpha_{pitch} = \arcsin \frac{-p_z-\frac{1}{2}gt^2}{||\vec{v}||t}
-    
+
     \alpha_{yaw} = \arcsin \frac{p_y - v_{chassis}t}{||\vec{v}||t \cos \alpha_{pitch}}
 
 由于云台 :math:`yaw` 轴与 :math:`pitch` 轴刚性连接到底盘，云台在底盘坐标系下偏转角度 :math:`\alpha_{yaw}` 和 :math:`\alpha_{pitch}` 即为云台相对于当前位置偏转角度。
 
 功能实现
 ------------------------------------------
+.. note:: 运动补偿的相关代码位于 ``bubble_contrib/bubble_aming`` 模块下
+
+变换矩阵 :math:`^{chassis}_{gimbal}T` 通过机器人URDF文件及当前偏转绝对角度通过tf tree获取。
+
+目标点 :math:`P_0(x_0, y_0, z_0)` 信息通过识别器经由 `PnP解算 <https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html>`__ 获得。
+PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下：
+
+.. math::
+
+    \left[\begin{array}{c}X_{c} \\ Y_{c} \\ Z_{c} \\ 1\end{array}\right]=\left[\begin{array}{cccc}r_{11} & r_{12} & r_{13} & t_{x} \\ r_{21} & r_{22} & r_{23} & t_{y} \\ r_{31} & r_{32} & r_{33} & t_{z} \\ 0 & 0 & 0 & 1\end{array}\right]\left[\begin{array}{c}X_{w} \\ Y_{w} \\ Z_{w} \\ 1\end{array}\right]
+
+对于实际使用的目标在 :math:`O_{gimbal\_xyz}` 下的位姿估计值，由于相机坐标系与云台坐标系存在平移偏移。
+实现过程中，解算结果的 ``tvec`` 为目标在云台坐标系（更准确地说是在弹丸射出的摩擦轮位置坐标系）的位姿信息。
+此外，在进行补偿的过程中， :math:`t` 为弹丸射出后击中目标的时间，而 :math:`O_{chassis\_xyz}` 原点位于机器人底盘的几何中心。
+因此，实际求解过程中使用的 :math:`^{chassis}_{gimbal}T` 与数学推导中有一定的变化。
+
+tf tree获取的 :math:`^{chassis}_{gimbal}T_{tf\_tree}` 为：
+
+.. math::
+
+    ^{chassis}_{gimbal}T_{tf\_tree} = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R & ^{chassis}_{gimbal}p \\  0 & 1 \end{array}\right]
+
+实际使用的 :math:`^{chassis}_{gimbal}T` 为：
+
+.. math::
+
+    ^{chassis}_{gimbal}T_{tf\_tree} = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R^\top & 0 \\  0 & 1 \end{array}\right]
+
+获得 :math:`^{chassis}_{gimbal}T` 后，
+能够求解空间向量\ :math:`\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top` 。
+
+通过numpy的 `numpy.poly1d <https://numpy.org/doc/stable/reference/generated/numpy.poly1d.html>`__ 模块，
+求解含 :math:`t` 多项式 :math:`\frac{1}{4}g^2 t^4+(v_{chassis}^2-gp_z-||\vec{v}||^2)t^2 - 2p_y v_{chassis}t + ||\overrightarrow{O_{gimbal}P}||^2 = 0` 的解。
+
+:math:`t` 应当包含4个解，刨除两个负数解后， :math:`t` 的剩余解分别弹丸在瞄准姿态和抛射姿态击中目标的时间。取其中较小的一个，即为所求时间 :math:`t` 。
+
+一般的， :math:`\alpha_{yaw}` 和 :math:`\alpha_{pitch}` 值域均为 :math:`[-\frac{\pi}{2}, \frac{\pi}{2}]` ，因此使用 :math:`\arcsin` 求解。
+
+结语
+------------------
+文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对 :math:`\overrightarrow{O_{gimbal}P}` 矩阵的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。
