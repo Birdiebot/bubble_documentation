@@ -1,0 +1,72 @@
+RMUC2022运动补偿
+=================================================
+:Authors:
+    Ligcox, 
+    Li
+
+概述
+----------------------------
+在RMU竞赛中，机器人自身的运动会对自瞄系统产生极大的偏差。该文档阐述了通过运动补偿模块，消除由于哨兵机器人自身底盘运动对自瞄系统产生的偏差。
+
+流程
+----------------------------
+【添加流程图】
+
+坐标系定义
+----------------------------
+.. note:: 坐标系定义原则上参考 `REP103 <https://www.ros.org/reps/rep-0103.html>`__，但针对RMU进行了一定的简化，请参阅 `Bubble坐标系 <guide/Bubble坐标系.html>`__  
+
+云台坐标系通过\ :math:`yaw`\ 轴与\ :math:`pitch`\ 轴连接在底盘上，初始坐标系\ :math:`O_{gimbal\ xyz}`\。
+
+其中：前方为\ :math:`{x}`\ 正方向，右方为\ :math:`{y}`\ 正方向，上侧为\ :math:`{z}`\ 正方向。重力加速度 :math:`g` 方向为 :math:`z` 轴负方向。
+
+【添加rviz坐标系定义】
+
+
+数学推导
+----------------------------
+
+在\ :math:`O_{chassis\ xyz}`\ 中:
+
+:math:`O_{gimbal\ xyz}`\ 中空间目标点\ :math:`P_0(x_0, y_0, z_0)`\ 、\ :math:`\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top`\在变换矩阵\ :math:`^{chassis}_{gimbal}T`\ 作用下，
+变换为\ :math:`P{(p_x, p_y, p_z)}`\ 、\ :math:`\vec{v} = [vx, vy, vz]^\top`，空间向量\ :math:`\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top`。
+其中：
+
+:math:`^{chassis}_{gimbal}T = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R & ^{chassis}_{gimbal}p \\  0 & 1 \end{array}\right]`
+
+弹丸初速度 :math:`||\vec{v}||` 通过裁判系统获得，一般地： :math:`||\vec{v}|| = ||\vec{v}_0|| = 30m/s` 
+
+弹丸在空中飞行时间\ :math:`t` 
+
+底盘速度 :math:`\vec{v}_{chassis} = (v_{chassis}, 0 ,0)`
+
+经过修正后，云台偏转角度在底盘坐标系下的偏转角度为 :math:`\alpha_{yaw}` 和 :math:`\alpha_{pitch}`。
+
+
+根据几何关系，有：
+
+.. math::
+
+    \overrightarrow{O_{gimbal}P} = \left[\begin{array}{ccc}
+        p_x \\ p_y \\ p_z
+    \end{array}\right] = 
+    \left[\begin{array}{ccc}
+        ||\vec{v}||t\cos \alpha_{pitch}  \cos \alpha_{yaw} \\
+        ||\vec{v}||t\cos \alpha_{pitch}\sin \alpha_{yaw} + v_{chassis}t \\
+        -||\vec{v}||t\sin \alpha_{pitch} - \frac{1}{2} gt^2 \\
+    \end{array}\right]
+    \Longrightarrow \\
+    \frac{1}{4}g^2 t^4+(v_{chassis}^2-gp_z-||\vec{v}||^2)t^2 - 2p_y v_{chassis}t + ||\overrightarrow{O_{gimbal}P}||^2 = 0
+
+则:
+
+.. math::
+
+    \alpha_{pitch} = \arcsin \frac{-p_z-\frac{1}{2}gt^2}{||\vec{v}||t}
+    
+    \alpha_{yaw} = \arcsin \frac{p_y - v_{chassis}t}{||\vec{v}||t \cos \alpha_{pitch}}
+
+由于云台 :math:`yaw` 轴与 :math:`pitch` 轴刚性连接到底盘，云台在底盘坐标系下偏转角度 :math:`\alpha_{yaw}` 和 :math:`\alpha_{pitch}` 即为云台相对于当前位置偏转角度。
+
+功能实现
+------------------------------------------

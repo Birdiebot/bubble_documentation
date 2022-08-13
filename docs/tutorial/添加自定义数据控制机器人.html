@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="设计" href="../%E8%AE%BE%E8%AE%A1.html" />
+    <link rel="next" title="算法原理及功能实现" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" />
     <link rel="prev" title="控制机器人并接收机器人数据" href="%E6%8E%A7%E5%88%B6%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B9%B6%E6%8E%A5%E6%94%B6%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%95%B0%E6%8D%AE.html" /> 
 </head>
 
@@ -45,11 +45,12 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">添加自定义数据控制机器人</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
 </ul>
 
@@ -82,11 +83,16 @@
 <h1>添加自定义数据控制机器人<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
 <p><strong>Goal:</strong> 通过添加自定义的数据类型，在bubble传递数据，控制机器人完成自定义的功能</p>
 <section id="id2">
-<h2>1 添加自定义消息类型<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>先决条件<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>您具备了ROS的基本知识，掌握了如何 <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html">创建自定义 msg 和 srv 文件</a>。
+并能够了解 <a class="reference external" href="控制机器人并接收机器人数据.html">在Bubble中如何发送和接收数据</a>。</p>
+</section>
+<section id="id3">
+<h2>1 添加自定义消息类型<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <p>自定义的消息类型应该被放置于 <code class="docutils literal notranslate"><span class="pre">bubble_interface</span></code> 模块中，绝大部分需要使用比赛信息和识别器推理结果已在 <code class="docutils literal notranslate"><span class="pre">game_msgs</span></code> 和  <code class="docutils literal notranslate"><span class="pre">bbox_ex_msgs</span></code> 中定义</p>
 <p>对于自定义的控制信息，应被放置于 <code class="docutils literal notranslate"><span class="pre">rmctrl_msgs</span></code> 功能包下。</p>
-<section id="id3">
-<h3>1.1 编写消息文件<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h3>1.1 编写消息文件<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <p>在 <code class="docutils literal notranslate"><span class="pre">rmctrl_msgs/mgs</span></code> 下新建文件：</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">touch rmctrl_msgs/mgs/CustomDataType.msg</span>
 </pre></div>
@@ -145,8 +151,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id4">
-<h3>2.2 在协议中添加新的消息类型<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<section id="id5">
+<h3>2.2 在协议中添加新的消息类型<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <p>在BCP协议层中定义上位机和下位机通讯的数据类型，修改 <code class="docutils literal notranslate"><span class="pre">bubble_core/bubble_protocol/bubble_protocol/protocol.py</span></code> ：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">custom_data_info</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
 <span class="n">custom_data_info</span><span class="p">[</span><span class="s2">&quot;test_datat_type1_mean&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">TYPE_FOR_CTYPE</span><span class="p">[</span><span class="s2">&quot;uint8&quot;</span><span class="p">],</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
@@ -163,8 +169,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>2.3 解释代码<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<section id="id6">
+<h3>2.3 解释代码<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <p>首先包含我们刚刚定义的 <code class="docutils literal notranslate"><span class="pre">CustomDataType</span></code> 消息类型</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">rmctrl_msgs.msg</span> <span class="kn">import</span> <span class="n">CustomDataType</span>
 </pre></div>
@@ -203,14 +209,14 @@
 </div>
 </section>
 </section>
-<section id="id6">
-<h2>3 接受来自MCU的自定义消息<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<section id="id7">
+<h2>3 接受来自MCU的自定义消息<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>在后续的Bubble版本中，可能对机器人状态发布的BCP部分发生小范围的改动</p>
 </div>
-<section id="id7">
-<h3>3.1 添加机器人状态定义<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<section id="id8">
+<h3>3.1 添加机器人状态定义<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <p>在机器人状态中，添加自定义的机器人状态信息。修改 <code class="docutils literal notranslate"><span class="pre">bubble_core/bubble_protocol/bubble_protocol/protocol.py</span></code> ：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">STATUS</span> <span class="o">=</span> <span class="p">{</span>
     <span class="c1"># Other status define codes</span>
@@ -226,8 +232,8 @@
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3>3.1 发布自定义的机器人状态信息<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<section id="id9">
+<h3>3.1 发布自定义的机器人状态信息<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
 <p>修改 <code class="docutils literal notranslate"><span class="pre">bubble_core/bubble_protocol/bubble_protocol/protocol.py</span></code> ：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">status_init</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="c1"># non-realtime publisher api</span>
@@ -266,7 +272,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="%E6%8E%A7%E5%88%B6%E6%9C%BA%E5%99%A8%E4%BA%BA%E5%B9%B6%E6%8E%A5%E6%94%B6%E6%9C%BA%E5%99%A8%E4%BA%BA%E6%95%B0%E6%8D%AE.html" class="btn btn-neutral float-left" title="控制机器人并接收机器人数据" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../%E8%AE%BE%E8%AE%A1.html" class="btn btn-neutral float-right" title="设计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" class="btn btn-neutral float-right" title="算法原理及功能实现" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

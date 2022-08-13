@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RMUC2022运动补偿 &mdash; bubble v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> bubble
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">bubble</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>RMUC2022运动补偿</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/theory/RMUC2022运动补偿.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rmuc2022">
+<h1>RMUC2022运动补偿<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Ligcox,
+Li</p>
+</dd>
+</dl>
+<section id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>在RMU竞赛中，机器人自身的运动会对自瞄系统产生极大的偏差。该文档阐述了通过运动补偿模块，消除由于哨兵机器人自身底盘运动对自瞄系统产生的偏差。</p>
+</section>
+<section id="id2">
+<h2>流程<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>【添加流程图】</p>
+</section>
+<section id="id3">
+<h2>坐标系定义<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>，但针对RMU进行了一定的简化，请参阅 <a class="reference external" href="guide/Bubble坐标系.html">Bubble坐标系</a></p>
+</div>
+<p>云台坐标系通过<span class="math notranslate nohighlight">\(yaw\)</span>轴与<span class="math notranslate nohighlight">\(pitch\)</span>轴连接在底盘上，初始坐标系<span class="math notranslate nohighlight">\(O_{gimbal\ xyz}\)</span>。</p>
+<p>其中：前方为<span class="math notranslate nohighlight">\({x}\)</span>正方向，右方为<span class="math notranslate nohighlight">\({y}\)</span>正方向，上侧为<span class="math notranslate nohighlight">\({z}\)</span>正方向。重力加速度 <span class="math notranslate nohighlight">\(g\)</span> 方向为 <span class="math notranslate nohighlight">\(z\)</span> 轴负方向。</p>
+<p>【添加rviz坐标系定义】</p>
+</section>
+<section id="id4">
+<h2>数学推导<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<p>在<span class="math notranslate nohighlight">\(O_{chassis\ xyz}\)</span>中:</p>
+<p><span class="math notranslate nohighlight">\(O_{gimbal\ xyz}\)</span>中空间目标点<span class="math notranslate nohighlight">\(P_0(x_0, y_0, z_0)\)</span>、<span class="math notranslate nohighlight">\(\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top\)</span>在变换矩阵<span class="math notranslate nohighlight">\(^{chassis}_{gimbal}T\)</span>作用下，
+变换为<span class="math notranslate nohighlight">\(P{(p_x, p_y, p_z)}\)</span>、<span class="math notranslate nohighlight">\(\vec{v} = [vx, vy, vz]^\top\)</span>，空间向量<span class="math notranslate nohighlight">\(\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top\)</span>。
+其中：</p>
+<p><span class="math notranslate nohighlight">\(^{chassis}_{gimbal}T = \left[\begin{array}{ccc}  ^{chassis}_{gimbal}R &amp; ^{chassis}_{gimbal}p \\  0 &amp; 1 \end{array}\right]\)</span></p>
+<p>弹丸初速度 <span class="math notranslate nohighlight">\(||\vec{v}||\)</span> 通过裁判系统获得，一般地： <span class="math notranslate nohighlight">\(||\vec{v}|| = ||\vec{v}_0|| = 30m/s\)</span></p>
+<p>弹丸在空中飞行时间<span class="math notranslate nohighlight">\(t\)</span></p>
+<p>底盘速度 <span class="math notranslate nohighlight">\(\vec{v}_{chassis} = (v_{chassis}, 0 ,0)\)</span></p>
+<p>经过修正后，云台偏转角度在底盘坐标系下的偏转角度为 <span class="math notranslate nohighlight">\(\alpha_{yaw}\)</span> 和 <span class="math notranslate nohighlight">\(\alpha_{pitch}\)</span>。</p>
+<p>根据几何关系，有：</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\overrightarrow{O_{gimbal}P} = \left[\begin{array}{ccc}
+    p_x \\ p_y \\ p_z
+\end{array}\right] =
+\left[\begin{array}{ccc}
+    ||\vec{v}||t\cos \alpha_{pitch}  \cos \alpha_{yaw} \\
+    ||\vec{v}||t\cos \alpha_{pitch}\sin \alpha_{yaw} + v_{chassis}t \\
+    -||\vec{v}||t\sin \alpha_{pitch} - \frac{1}{2} gt^2 \\
+\end{array}\right]
+\Longrightarrow \\
+\frac{1}{4}g^2 t^4+(v_{chassis}^2-gp_z-||\vec{v}||^2)t^2 - 2p_y v_{chassis}t + ||\overrightarrow{O_{gimbal}P}||^2 = 0\end{split}\]</div>
+<p>则:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}\alpha_{pitch} = \arcsin \frac{-p_z-\frac{1}{2}gt^2}{||\vec{v}||t}\\\alpha_{yaw} = \arcsin \frac{p_y - v_{chassis}t}{||\vec{v}||t \cos \alpha_{pitch}}\end{aligned}\end{align} \]</div>
+<p>由于云台 <span class="math notranslate nohighlight">\(yaw\)</span> 轴与 <span class="math notranslate nohighlight">\(pitch\)</span> 轴刚性连接到底盘，云台在底盘坐标系下偏转角度 <span class="math notranslate nohighlight">\(\alpha_{yaw}\)</span> 和 <span class="math notranslate nohighlight">\(\alpha_{pitch}\)</span> 即为云台相对于当前位置偏转角度。</p>
+</section>
+<section id="id5">
+<h2>功能实现<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Birdiebot R&amp;D Department Shanghai University Of Engineering Science.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

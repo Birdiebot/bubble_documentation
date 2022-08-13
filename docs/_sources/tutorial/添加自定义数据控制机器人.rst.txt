@@ -2,6 +2,11 @@
 ===========================
 **Goal:** 通过添加自定义的数据类型，在bubble传递数据，控制机器人完成自定义的功能
 
+先决条件
+------------------------------
+您具备了ROS的基本知识，掌握了如何 `创建自定义 msg 和 srv 文件 <https://docs.ros.org/en/humble/Tutorials/Beginner-Client-Libraries/Custom-ROS2-Interfaces.html>`__。
+并能够了解 `在Bubble中如何发送和接收数据 <控制机器人并接收机器人数据.html>`__。
+
 1 添加自定义消息类型
 ------------------------------
 自定义的消息类型应该被放置于 ``bubble_interface`` 模块中，绝大部分需要使用比赛信息和识别器推理结果已在 ``game_msgs`` 和  ``bbox_ex_msgs`` 中定义

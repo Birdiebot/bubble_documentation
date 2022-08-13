@@ -5,6 +5,8 @@
    :hidden:
    :glob:
 
+   guide/Bubble坐标系
+   guide/术语中英文对照表
    guide/消息接口
 
 
