@@ -111,4 +111,4 @@ tf tree获取的 :math:`^{chassis}_{gimbal}T_{tf\_tree}` 为：
 
 结语
 ------------------
-文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对 :math:`\overrightarrow{O_{gimbal}P}` 矩阵的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。
+文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对向量 :math:`\overrightarrow{O_{gimbal}P}` 的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。
