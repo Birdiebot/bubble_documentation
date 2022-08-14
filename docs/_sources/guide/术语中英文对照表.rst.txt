@@ -1,2 +1,63 @@
 术语中英文对照表
 ==========================
+
+该文档对Bubble中使用的专业术语进行了定义
+
+机器人名称
+-------------------------
+.. csv-table::
+    :header: 中文,英文,机器人ID,备注
+    :align: center
+    :widths: 1,2,2,5
+
+    英雄,hero,1,\-
+    工程,engineer,2,\-
+    步兵,infantry,345,除RMUC全自动步兵、RMUA AI机器人以外的其他步兵机器人
+    无人机,air,6,仅RMUC可用
+    哨兵,sentry,7,仅单云台哨兵可用
+    哨兵上云台,sentry_up,7,仅双云台哨兵且云台分别控制可用
+    哨兵下云台,sentry_down,7,仅双云台哨兵且云台分别控制可用
+    雷达,radar,TODO,\-
+    AI机器人,standard,345,RMUC全自动步兵、RMUA AI机器人
+    基地,base,8,\-
+    前哨站,outpost,TODO,仅RMUC可用
+    哨岗,outpost,TODO,仅RMUA可用
+
+机器人结构术语
+-------------------------
+.. csv-table::
+    :header: 中文,英文,备注
+    :align: center
+    :widths: 1,2,5
+
+    底盘,chassis,\-
+    云台,gimbal,\-
+    装甲板,armour,在部分较早的代码中可能使用armor
+    弹丸,projectile,\-
+    弹道,trajectory,\-
+
+RMU游戏机制
+-------------------------
+.. csv-table::
+    :header: 中文,别名,英文,备注
+    :align: center
+    :widths: 1,2,2,5
+
+    （大/小）能量机关,（大、小）符,power_rune,符是RMUC2019及更早出现的概念，之后会使用符替代能量机关
+    哨兵轨道,\-,TODO,\-
+    暴击,TODO,TODO,RMUA相关概念
+    潜伏,TODO,TODO,RMUA相关概念
+
+杂项
+--------------------------
+.. csv-table::
+    :header: 中文,英文,备注
+    :align: center
+    :widths: 1,2,5
+
+    上位机,on_board,机器人上配备的高级运算平台，如Jetson，NUC等
+    下位机,up_board/MCU,机器人控制核心，文档中出现的MCU、C板一般均指下位机，但严格意义上这些概念不完全等效
+    C板,RoboMaster Development Board Type C, `ROBOMASTER开发板C型 <https://www.robomaster.com/zh-CN/products/components/general/development-board-type-c/info>`__
+    木鸢通讯协议,BCP,TODO
+    通讯系统核心,BCP core,TODO
+

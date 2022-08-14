@@ -5,10 +5,9 @@
    :hidden:
    :glob:
 
-   guide/Bubble坐标系
+   guide/Bubble开发规范
    guide/术语中英文对照表
-   guide/消息接口
-
+   guide/木鸢通讯协议
 
 功能包
 --------------------

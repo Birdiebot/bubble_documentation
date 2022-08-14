@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -19,7 +20,9 @@
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="设计" href="../%E8%AE%BE%E8%AE%A1.html" />
+    <link rel="prev" title="算法原理及功能实现" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -28,6 +31,7 @@
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
             <a href="../index.html" class="icon icon-home"> bubble
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -37,10 +41,13 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RMUC2022运动补偿</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
@@ -63,6 +70,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a> &raquo;</li>
       <li>RMUC2022运动补偿</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/theory/RMUC2022运动补偿.rst.txt" rel="nofollow"> View page source</a>
@@ -80,6 +88,15 @@
 <dd class="field-odd"><p>Ligcox,
 Li</p>
 </dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:ligcox&#37;&#52;&#48;birdiebot&#46;top">ligcox<span>&#64;</span>birdiebot<span>&#46;</span>top</a></p>
+</dd>
+<dt class="field-odd">Date</dt>
+<dd class="field-odd"><p>2022/08/14</p>
+</dd>
+<dt class="field-even">Copyright</dt>
+<dd class="field-even"><p>This document has been placed in the public domain.</p>
+</dd>
 </dl>
 <section id="id1">
 <h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
@@ -95,8 +112,8 @@ Li</p>
 <p class="admonition-title">Note</p>
 <p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>，但针对RMU进行了一定的简化，请参阅 <a class="reference external" href="guide/Bubble坐标系.html">Bubble坐标系</a></p>
 </div>
-<p>云台坐标系通过<span class="math notranslate nohighlight">\(yaw\)</span>轴与<span class="math notranslate nohighlight">\(pitch\)</span>轴连接在底盘上，初始坐标系<span class="math notranslate nohighlight">\(O_{gimbal\ xyz}\)</span>。</p>
-<p>其中：前方为<span class="math notranslate nohighlight">\({x}\)</span>正方向，右方为<span class="math notranslate nohighlight">\({y}\)</span>正方向，上侧为<span class="math notranslate nohighlight">\({z}\)</span>正方向。重力加速度 <span class="math notranslate nohighlight">\(g\)</span> 方向为 <span class="math notranslate nohighlight">\(z\)</span> 轴负方向。</p>
+<p>云台坐标系通过<span class="math notranslate nohighlight">\(yaw\)</span>轴与<span class="math notranslate nohighlight">\(pitch\)</span>轴连接在底盘上，初始坐标系<span class="math notranslate nohighlight">\(O_{gimbal\_xyz}\)</span>。</p>
+<p>其中：前方为<span class="math notranslate nohighlight">\({x}\)</span>正方向，左方为<span class="math notranslate nohighlight">\({y}\)</span>正方向，上侧为<span class="math notranslate nohighlight">\({z}\)</span>正方向。重力加速度 <span class="math notranslate nohighlight">\(g\)</span> 方向为 <span class="math notranslate nohighlight">\(z\)</span> 轴负方向。</p>
 <p>【添加rviz坐标系定义】</p>
 </section>
 <section id="id4">
@@ -158,14 +175,17 @@ PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下�
 </section>
 <section id="id6">
 <h2>结语<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
-<p>文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对 <span class="math notranslate nohighlight">\(\overrightarrow{O_{gimbal}P}\)</span> 矩阵的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。</p>
+<p>文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对向量 <span class="math notranslate nohighlight">\(\overrightarrow{O_{gimbal}P}\)</span> 的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。</p>
 </section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" class="btn btn-neutral float-left" title="算法原理及功能实现" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../%E8%AE%BE%E8%AE%A1.html" class="btn btn-neutral float-right" title="设计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>参数配置 &mdash; bubble v1.0 documentation</title>
+  <title>木鸢通讯协议 &mdash; bubble v1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
@@ -20,8 +20,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="教程" href="../%E6%95%99%E7%A8%8B.html" />
-    <link rel="prev" title="通过源码构建" href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html" /> 
+    <link rel="next" title="API-documentation" href="../API-documentation.html" />
+    <link rel="prev" title="术语中英文对照表" href="%E6%9C%AF%E8%AF%AD%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,16 +41,16 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="%E9%80%9A%E8%BF%87%E9%A2%84%E6%9E%84%E5%BB%BA%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8.html">通过预构建的Docker容器使用</a></li>
-<li class="toctree-l2"><a class="reference internal" href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html">通过源码构建</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">参数配置</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Bubble%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83.html">Bubble开发规范</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E6%9C%AF%E8%AF%AD%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8.html">术语中英文对照表</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">木鸢通讯协议</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
@@ -71,10 +71,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a> &raquo;</li>
-      <li>参数配置</li>
+          <li><a href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a> &raquo;</li>
+      <li>木鸢通讯协议</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/getting_started/参数配置.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/guide/木鸢通讯协议.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -83,15 +83,15 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>参数配置<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<h1>木鸢通讯协议<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html" class="btn btn-neutral float-left" title="通过源码构建" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../%E6%95%99%E7%A8%8B.html" class="btn btn-neutral float-right" title="教程" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="%E6%9C%AF%E8%AF%AD%E4%B8%AD%E8%8B%B1%E6%96%87%E5%AF%B9%E7%85%A7%E8%A1%A8.html" class="btn btn-neutral float-left" title="术语中英文对照表" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../API-documentation.html" class="btn btn-neutral float-right" title="API-documentation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
