@@ -40,3 +40,21 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 html_favicon = 'favicon.ico'
 html_logo = 'logo.png'
+
+language = 'zh_CN'
+
+latex_engine = 'xelatex'
+latex_elements = {
+    'preamble': r'''
+                \usepackage[titles]{tocloft}
+                \cftsetpnumwidth {1.25cm}\cftsetrmarg{1.5cm}
+                \setlength{\cftchapnumwidth}{0.75cm}
+                \setlength{\cftsecindent}{\cftchapnumwidth}
+                \setlength{\cftsecnumwidth}{1.25cm}
+                \usepackage[table,xcdraw]{xcolor}
+                \documentclass[xcolor=table]{beamer}
+                ''',
+    'fncychap': r'\usepackage[Bjornstrup]{fncychap}',
+    'printindex': r'\footnotesize\raggedright\printindex',
+}
+latex_show_urls = 'footnote'
