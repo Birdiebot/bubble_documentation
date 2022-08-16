@@ -26,7 +26,10 @@ copyright = '{}, {}'.format(time.strftime('%Y'), 'Birdiebot R&D Department Shang
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = ['sphinx_tabs.tabs']
+extensions = [
+    'sphinx_tabs.tabs',
+    # 'sphinx.ext.imgmath'
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
