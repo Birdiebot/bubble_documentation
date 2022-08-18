@@ -84,6 +84,66 @@
              
   <section id="docker">
 <h1>通过预构建的Docker容器使用<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h1>
+<section id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>Bubble提供了一个预构建Docker容器，快速完成环境的搭建。
+您可以在容器中运行Bubble。Bubble的docker镜像托管在【添加链接】。</p>
+<p>Bubble的Docker镜像基于 <a class="reference external" href="https://github.com/dusty-nv/jetson-containers">dustynv的galactic-ros-base-l4t-r34.1.1</a> 构建。镜像提供了：</p>
+<ul class="simple">
+<li><p>Ros Galactic环境</p></li>
+<li><p>l4t rootfs 的包子集（Multimedia、Gstreamer、Camera、Core、3D Core、Vulkan、Weston）</p></li>
+<li><p>CUDA、CuDNN和TensorRT</p></li>
+<li><p>hikrobot工业相机驱动</p></li>
+<li><p>Bubble运行时所需要的环境依赖</p></li>
+</ul>
+</section>
+<section id="bubble">
+<h2>运行Bubble的容器<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
+<section id="id2">
+<h3>先决条件<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<p>Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime已经安装。</p>
+</section>
+<section id="id3">
+<h3>运行容器<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>允许外部应用程序连接到主机的显示器：</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">xhost +</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>使用 docker 命令运行 docker 容器</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --rm --net=host --runtime nvidia \</span>
+<span class="go">    -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix \</span>
+<span class="go">    --device=/dev/bus/usb/ --device=/dev/ttyTHS0 \</span>
+<span class="go">    -v /home/nvidia/Desktop/bubble:/home/bubble \</span>
+<span class="go">    birdiebot/bubble-aarch64v8:1.0.1 /bin/bash</span>
+</pre></div>
+</div>
+<ul>
+<li><p>参数说明：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>-it表示以交互模式运行</p></li>
+<li><p>–rm完成后将删除容器</p></li>
+<li><p>–runtime nvidia将在运行Bubble容器时使用NVIDIA容器运行时</p></li>
+<li><p>-v是挂载目录，用于挂载主机的 X11 显示在容器文件系统中以渲染输出视频</p></li>
+<li><p>–device是共享主机中的usb设备（主要是工业相机）和串口设备</p></li>
+<li><p>1.0.1是bubble版本对应的镜像标签</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h3>运行Bubble<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p>根据之前设置的源码路径，运行Bubble。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch bubble_bringup sentry_launch.py</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 

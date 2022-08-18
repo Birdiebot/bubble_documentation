@@ -44,7 +44,6 @@ html_static_path = ['_static']
 html_favicon = 'favicon.ico'
 html_logo = 'logo.png'
 
-language = 'zh_CN'
 
 latex_engine = 'xelatex'
 latex_elements = {
