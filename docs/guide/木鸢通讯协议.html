@@ -17,7 +17,6 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -85,8 +84,62 @@
              
   <section id="id1">
 <h1>木鸢通讯协议<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
-<section id="id2">
-<h2>修改日志<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<div class="contents local topic" id="id2">
+<p class="topic-title">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id3" id="id27">修改日志</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id28">声明</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id29">1 前言</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id30">2 通讯协议介绍</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id7" id="id31">2.1 通讯帧基本格式</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id32">2.2 基本配置</a></p>
+<ul>
+<li><p><a class="reference internal" href="#com" id="id33">2.2.1 COM设置</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id34">2.2.2 波特率配置</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id10" id="id35">3 数据帧介绍</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id11" id="id36">3.1 心跳数据</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id37">3.2 底盘数据</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id13" id="id38">3.2.1 速度方式控制</a></p></li>
+<li><p><a class="reference internal" href="#id14" id="id39">3.2.2 里程计方式控制</a></p></li>
+<li><p><a class="reference internal" href="#id15" id="id40">3.2.3 角/线速度方式控制</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id16" id="id41">3.3 云台数据</a></p>
+<ul>
+<li><p><a class="reference internal" href="#rpy" id="id42">3.3.1 欧拉角rpy方式控制</a></p></li>
+<li><p><a class="reference internal" href="#id17" id="id43">3.3.2 四元数方式控制</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id18" id="id44">3.4 裁判系统数据</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id19" id="id45">3.4.1 比赛类型数据</a></p></li>
+<li><p><a class="reference internal" href="#id20" id="id46">3.4.2 机器人血量数据</a></p></li>
+<li><p><a class="reference internal" href="#id21" id="id47">3.4.3 增益区数据</a></p></li>
+<li><p><a class="reference internal" href="#id22" id="id48">3.4.4 机器人颜色数据</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id23" id="id49">3.5 发射机构数据</a></p></li>
+<li><p><a class="reference internal" href="#id24" id="id50">3.6 模式控制</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id25" id="id51">3.6.1 控制模式</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id26" id="id52">3.6 故障信息</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#i" id="id53">附录I 目标地址表</a></p></li>
+<li><p><a class="reference internal" href="#ii" id="id54">附录II 功能码表</a></p></li>
+</ul>
+</div>
+<section id="id3">
+<h2><a class="toc-backref" href="#id27">修改日志</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <table class="colwidths-given docutils align-center">
 <colgroup>
 <col style="width: 18%" />
@@ -120,102 +173,88 @@
 </tbody>
 </table>
 </section>
-<section id="id3">
-<h2>声明<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<section id="id4">
+<h2><a class="toc-backref" href="#id28">声明</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <p>木鸢通讯协议是一个针对RMU定制的上下位机通讯协议，
 木鸢通讯协议包含在BTPDM、Bubble等开源项目中，鼓励在尊重著作权基础上对木鸢通讯协议进行使用、修改和二次发布。</p>
 </section>
-<section id="id4">
-<h2>1 前言<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<section id="id5">
+<h2><a class="toc-backref" href="#id29">1 前言</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <p>为了适应Robomaster赛场多种数据类型的传输，保证高效的通信效率，MCU与上位机之间的数据传输遵守BCP（Birdiebot Communication Protocol，Birdiebot通讯协议）格式。
 BCP在确保通信高效、源码简单、可移植性高的基础上，实现数据正确性判断，有效避免数据传输过程中出现的错误数据的错误解析。
 BCP提供对RMU机器人多种类型功能的操作，能够在不同架构下稳定运行，实现RMU赛场的数据传输和解析需求。</p>
-<p>通过木鸢上位机和其他拓展工具，能够快速查看机器人状态和交互信息，仅需编写相应的下位机程序接收BCP数据，即可实现对不同种类机器人的控制。</p>
+<p>木鸢通讯协议在实现过程中参考了 <a class="reference external" href="http://www.anotc.com/">匿名通讯协议</a> 和 <a class="reference external" href="https://rm-static.djicdn.com/tem/17348/RoboMaster%202021%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.0%EF%BC%8820210203%EF%BC%89.pdf">RoboMaster裁判系统串口协议</a> 。
+通过木鸢上位机和其他拓展工具，能够快速查看机器人状态和交互信息，仅需编写相应的下位机程序接收BCP数据，即可实现对不同种类机器人的控制。</p>
 </section>
-<section id="id5">
-<h2>2 通讯协议介绍<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <section id="id6">
-<h3>2.1 通讯帧基本格式<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<h2><a class="toc-backref" href="#id30">2 通讯协议介绍</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<section id="id7">
+<h3><a class="toc-backref" href="#id31">2.1 通讯帧基本格式</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 100%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>枕头HEAD</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>1</p></td>
-</tr>
-</tbody>
-</table>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 7%" />
-<col style="width: 12%" />
-<col style="width: 17%" />
+<col style="width: 9%" />
 <col style="width: 11%" />
+<col style="width: 21%" />
 <col style="width: 11%" />
-<col style="width: 12%" />
-<col style="width: 14%" />
+<col style="width: 19%" />
 <col style="width: 15%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"></th>
-<th class="head"><p>Frame Header</p></th>
-<th class="head"><p>Destination Address</p></th>
-<th class="head"><p>Function ID</p></th>
-<th class="head"><p>Data Length</p></th>
-<th class="head"><p>Data Content</p></th>
-<th class="head"><p>Summation Check</p></th>
-<th class="head"><p>Additional check</p></th>
+<th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
 </tr>
+<tr class="row-even"><th class="head" rowspan="2"></th>
+<th class="head" rowspan="2"><p>HEAD</p></th>
+<th class="head" rowspan="2"><p>D_ADDR</p></th>
+<th class="head" rowspan="2"><p>ID</p></th>
+<th class="head" rowspan="2"><p>LEN</p></th>
+<th class="head" rowspan="2"><p>DATA</p></th>
+<th class="head" rowspan="2"><p>SC</p></th>
+<th class="head" rowspan="2"><p>AC</p></th>
+</tr>
+<tr class="row-odd"></tr>
 </thead>
 <tbody>
-<tr class="row-even"><td></td>
-<td><p>HEAD</p></td>
-<td><p>D_ADDR</p></td>
-<td><p>ID</p></td>
-<td><p>LEN</p></td>
-<td><p>DATA</p></td>
-<td><p>SC</p></td>
-<td><p>AC</p></td>
+<tr class="row-even"><td rowspan="2"><p>数据长度</p></td>
+<td rowspan="2"><p>1</p></td>
+<td rowspan="2"><p>1</p></td>
+<td rowspan="2"><p>1</p></td>
+<td rowspan="2"><p>1</p></td>
+<td rowspan="2"><p>N</p></td>
+<td rowspan="2"><p>1</p></td>
+<td rowspan="2"><p>1</p></td>
 </tr>
-<tr class="row-odd"><td><p>Length</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>N</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
+<tr class="row-odd"></tr>
+<tr class="row-even"><td rowspan="3"><p>备注</p></td>
+<td rowspan="3"><p>固定值0xFF</p></td>
+<td rowspan="3"><p>数据发送的接收机器人</p>
+<p>参考硬件地址定义</p>
+</td>
+<td rowspan="3"><p>操作功能码</p></td>
+<td rowspan="3"><p>数据内容字段的长度</p></td>
+<td rowspan="3"><p>具体数据内容，</p>
+<p>N=数据长度</p>
+</td>
+<td colspan="2" rowspan="3"><p>计算方法附后</p></td>
 </tr>
-<tr class="row-even"><td><p>Notes</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-<td><p>1</p></td>
-</tr>
+<tr class="row-odd"></tr>
+<tr class="row-even"></tr>
 </tbody>
 </table>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{table}[]
-\begin{tabular}{ccccccc}
-\rowcolor[HTML]{A5A5A5}
-\begin{tabular}[c]{&#64;{}c&#64;{}}帧头\\ HEAD\end{tabular}  &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}目标地址\\ D\_ADDR\end{tabular}                                  &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}功能码\\ ID\end{tabular} &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}数据长度\\ LEN\end{tabular} &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}数据内容\\ DATA\end{tabular} &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}和校验\\ SC\end{tabular} &amp; \begin{tabular}[c]{&#64;{}c&#64;{}}附加校验\\ AC\end{tabular} \\
-1                                                  &amp; 1                                                                                       &amp; 1                                                &amp; 1                                                  &amp; N                                                   &amp; 1                                                &amp; 1                                                 \\
-\begin{tabular}[c]{&#64;{}c&#64;{}}0xFF\\ 固定值\end{tabular} &amp; \cellcolor[HTML]{A5A5A5}\begin{tabular}[c]{&#64;{}c&#64;{}}本帧数据发送的接收机器人\\ 参考硬件地址定义\end{tabular} &amp; \cellcolor[HTML]{A5A5A5}机器人实现的目标位置               &amp; \cellcolor[HTML]{A5A5A5}表示数据内容字段的长度                &amp; \cellcolor[HTML]{A5A5A5}具体数据内容，n=数据长度               &amp; \multicolumn{2}{c}{\cellcolor[HTML]{A5A5A5}计算方法附后}
-\end{tabular}
-\end{table}\end{split}\]</div>
-<p>DATA 数据内容中的数据，采用小端模式，低字节在前，高字节在后。
-为了提高数据传输的效率，当有浮点数类型数据需要传输时，根据数据类型的特点，适当截取小数点后固定几位,将浮点数转化成整数类型进行传输，可缩短数据长度，并且避免浮点数传输时发生异常，解析成非法浮点数。类似数据会在协议中标注，如 A*100，就代表将数据 A 只保留两位小数，乘以100进行传输，下位机使用时将收到的数据除以100即可。</p>
+<p>DATA 数据内容中的数据，采用小端模式，低字节在前，高字节在后。</p>
+<p>为了提高数据传输的效率，当有浮点数类型数据需要传输时，根据数据类型的特点，适当截取小数点后固定几位,将浮点数转化成整数类型进行传输，可缩短数据长度，并且避免浮点数传输时发生异常，解析成非法浮点数。类似数据会在协议中标注，如 A*100，就代表将数据 A 只保留两位小数，乘以100进行传输，下位机使用时将收到的数据除以100即可。</p>
 <ul class="simple">
-<li><p>和校验 SUM CHECK 计算方法：从帧头0xFF字节开始，一直到 DATA 区结束，对每一字节进行累加操作，只取低 8 位</p></li>
-<li><p>附加校验 ADD CHECK 计算方法： 计算和校验时，每进行一字节的加法运算，同时进行一次 SUM CHECK 的累加操作，只取低 8 位。</p></li>
-<li><p>校验计算示例： 假设数据帧缓存为 data_buf 数组，0xFF存放于数组起始位置，那么data_buf[3]存放的是数据长度，校验程序如下：</p></li>
+<li><p>和校验 <code class="docutils literal notranslate"><span class="pre">SUM_CHECK</span></code> 计算方法：从帧头0xFF字节开始，一直到 DATA 区结束，对每一字节进行累加操作，只取低8位。</p></li>
+<li><p>附加校验 <code class="docutils literal notranslate"><span class="pre">ADD_CHECK</span></code> 计算方法： 计算和校验时，每进行一字节的加法运算，同时进行一次 <code class="docutils literal notranslate"><span class="pre">SUM_CHECK</span></code> 的累加操作，只取低8位。</p></li>
+<li><p>校验计算示例： 假设数据帧缓存为 <code class="docutils literal notranslate"><span class="pre">data_buf</span></code> 数组，0xFF存放于数组起始位置，那么 <code class="docutils literal notranslate"><span class="pre">data_buf[3]</span></code> 存放的是数据长度，校验程序如下：</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">sumcheck_cal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="n">sumcheck</span> <span class="o">=</span> <span class="mi">0</span>
@@ -233,30 +272,849 @@ BCP提供对RMU机器人多种类型功能的操作，能够在不同架构下�
 </pre></div>
 </div>
 </section>
-<section id="id7">
-<h3>2.2 基本配置<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <section id="id8">
-<h4>2.2.1 快速开始<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
-<p>TODO</p>
-</section>
+<h3><a class="toc-backref" href="#id32">2.2 基本配置</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <section id="com">
-<h4>2.2.2 COM设置<a class="headerlink" href="#com" title="Permalink to this headline"></a></h4>
+<h4><a class="toc-backref" href="#id33">2.2.1 COM设置</a><a class="headerlink" href="#com" title="Permalink to this headline"></a></h4>
 <p>在Manifold2-G Ubuntu18.04条件下，UART0在系统内核中对应的设备是ttyS0，UART1对应的设备是ttyTHS2。Manifold2-G推荐使用UART1作为BCP配置的COM口。
 Jetson开发套件推荐使用40pin引脚的6、8口配置的ttyTHS0作为BCP配置的COM口</p>
 </section>
 <section id="id9">
-<h4>2.2.3 波特率配置<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
+<h4><a class="toc-backref" href="#id34">2.2.2 波特率配置</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
 <p>在使用BCP时，需要将波特率调整为与MCU配置相同，默认为961200，但推荐不应小于115200。</p>
 </section>
 </section>
 </section>
 <section id="id10">
-<h2>3 数据帧介绍<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id35">3 数据帧介绍</a><a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
 <section id="id11">
-<h3>3.1 心跳数据<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
-<p>为保证上位机与下位机正常通讯，在BCP开始工作时，会始终向下位机发送心跳数据。心跳数据默认每隔50ms发送，数据内容为0/1交替发送。
-当下位机一段时间无法收到心跳数据时，说明MCU与上位机连接以断开，应执行相应操作。</p>
+<h3><a class="toc-backref" href="#id36">3.1 心跳数据</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<p>为保证上位机与下位机正常通讯，在BCP开始工作时，会始终向下位机发送心跳数据。心跳数据默认每隔50ms发送，数据内容为0/1交替发送。</p>
+<p>当下位机一段时间无法收到心跳数据时，说明MCU与上位机连接以断开，应执行相应操作。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0xF0</p></td>
+<td><p>1</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>心跳数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">heartbeat</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>UINT8</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>交替发送0/1</p></td>
+</tr>
+</tbody>
+</table>
 </section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id37">3.2 底盘数据</a><a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<p>底盘数据提供了上位机与MCU需要控制的信息。</p>
+<section id="id13">
+<h4><a class="toc-backref" href="#id38">3.2.1 速度方式控制</a><a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
+<p>当上位机发送至MUC时，MUC应设置底盘x,y方向速度及底盘朝向。</p>
+<p>当MUC发送至上位机时，表示当前机器人x,y方向速度及底盘朝向。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x10</p></td>
+<td><p>6</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>速度方式控制数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_vx</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_vy</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_angle</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT32</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>底盘x轴速度</p></td>
+<td><p>底盘y轴速度</p></td>
+<td><p>底盘朝向位置，放大100倍发送，4长度</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id14">
+<h4><a class="toc-backref" href="#id39">3.2.2 里程计方式控制</a><a class="headerlink" href="#id14" title="Permalink to this headline"></a></h4>
+<p>当上位机发送至MUC时，MUC应设置底盘期望的x,y坐标及底盘朝向。</p>
+<p>当MUC发送至上位机时，表示当前机器人的x,y坐标及底盘朝向。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x11</p></td>
+<td><p>28</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>里程计方式控制数据，均放大10000倍，4长度，定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_position_x</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_position_y</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_position_z</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_orientation_x</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_orientation_y</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_orientation_z</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">odom_orientation_w</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>底盘x坐标</p></td>
+<td><p>底盘y坐标</p></td>
+<td><p>底盘z坐标</p></td>
+<td><p>底盘朝向四元数x</p></td>
+<td><p>底盘朝向四元数y</p></td>
+<td><p>底盘朝向四元数z</p></td>
+<td><p>底盘朝向四元数w</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id15">
+<h4><a class="toc-backref" href="#id40">3.2.3 角/线速度方式控制</a><a class="headerlink" href="#id15" title="Permalink to this headline"></a></h4>
+<p>当MUC发送至上位机时，表示当前机器人的x,y,z方向的线速度及x,y,z轴的角速度。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x12</p></td>
+<td><p>24</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>角/线速度方式控制数据，均放大10000倍，4长度，定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_linear_x</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_linear_y</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_linear_z</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_angular_x</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_angular_y</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">chassis_target_angular_z</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>底盘x方向线速度</p></td>
+<td><p>底盘y方向线速度</p></td>
+<td><p>底盘z方向线速度</p></td>
+<td><p>底盘x轴角速度</p></td>
+<td><p>底盘y轴角速度</p></td>
+<td><p>底盘z轴角速度</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id16">
+<h3><a class="toc-backref" href="#id41">3.3 云台数据</a><a class="headerlink" href="#id16" title="Permalink to this headline"></a></h3>
+<p>云台数据提供了上位机与MCU需要的云台控制信息。</p>
+<section id="rpy">
+<h4><a class="toc-backref" href="#id42">3.3.1 欧拉角rpy方式控制</a><a class="headerlink" href="#rpy" title="Permalink to this headline"></a></h4>
+<p>当上位机发送至MUC时，MUC应控制云台偏转到相应的角度。</p>
+<p>当MUC发送至上位机时，表示当前机器人云台朝向。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x20</p></td>
+<td><p>13</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>欧拉角rpy方式控制数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">gimbal_ctrl_mode</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">gimbal_yaw</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">gimbal_pitch</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">gimbal_roll</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT8</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+<td><p>INT32</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>控制方式</p></td>
+<td><p>云台yaw偏转角度</p></td>
+<td><p>云台pitch偏转角度</p></td>
+<td><p>云台roll偏转角度</p></td>
+</tr>
+<tr class="row-even"><td><p>备注</p></td>
+<td><p>0为绝对角度控制</p></td>
+<td><p>放大1000倍发送，4长度</p></td>
+<td><p>放大1000倍发送，4长度</p></td>
+<td><p>放大1000倍发送，4长度</p></td>
+</tr>
+<tr class="row-odd"><td></td>
+<td><p>1为相对角度控制</p></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id17">
+<h4><a class="toc-backref" href="#id43">3.3.2 四元数方式控制</a><a class="headerlink" href="#id17" title="Permalink to this headline"></a></h4>
+<p>TODO</p>
+</section>
+</section>
+<section id="id18">
+<h3><a class="toc-backref" href="#id44">3.4 裁判系统数据</a><a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
+<p>裁判系统数据主要由裁判系统发送至MUC，MUC通过BCP转发至上位机，裁判系统详细数据定义参考 <a class="reference external" href="https://rm-static.djicdn.com/tem/17348/RoboMaster%202021%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.0%EF%BC%8820210203%EF%BC%89.pdf">RoboMaster裁判系统串口协议</a>。</p>
+<section id="id19">
+<h4><a class="toc-backref" href="#id45">3.4.1 比赛类型数据</a><a class="headerlink" href="#id19" title="Permalink to this headline"></a></h4>
+<p>该数据帧为当前比赛状态数据。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x30</p></td>
+<td><p>9</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>比赛状态数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">game_type</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">game_progress</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">stage_remain_time</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT16</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>比赛类型</p></td>
+<td><p>当前比赛阶段</p></td>
+<td><p>当前阶段剩余时间</p></td>
+</tr>
+<tr class="row-even"><td><p>备注</p></td>
+<td></td>
+<td></td>
+<td><p>放大100倍发送，2长度</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id20">
+<h4><a class="toc-backref" href="#id46">3.4.2 机器人血量数据</a><a class="headerlink" href="#id20" title="Permalink to this headline"></a></h4>
+<p>该数据帧为当前比赛机器人血量数据。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x31</p></td>
+<td><p>36</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>血量数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_1_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_2_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_3_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_4_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_5_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_7_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_outpost_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red_base_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_1_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_2_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_3_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_4_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_5_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_7_robot_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_outpost_HP</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue_base_HP</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+<td><p>INT16</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>红1英雄机器人血量</p></td>
+<td><p>红2工程机器人血量</p></td>
+<td><p>红3步兵机器人血量</p></td>
+<td><p>红4步兵机器人血量</p></td>
+<td><p>红5步兵机器人血量</p></td>
+<td><p>红7哨兵机器人血量</p></td>
+<td><p>红方前哨战血量</p></td>
+<td><p>红方基地血量</p></td>
+<td><p>蓝1英雄机器人血量</p></td>
+<td><p>蓝2工程机器人血量</p></td>
+<td><p>蓝3步兵机器人血量</p></td>
+<td><p>蓝4步兵机器人血量</p></td>
+<td><p>蓝5步兵机器人血量</p></td>
+<td><p>蓝7哨兵机器人血量</p></td>
+<td><p>蓝方前哨站血量</p></td>
+<td><p>蓝方基地血量</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id21">
+<h4><a class="toc-backref" href="#id47">3.4.3 增益区数据</a><a class="headerlink" href="#id21" title="Permalink to this headline"></a></h4>
+<p>该数据帧为ICRA人工智能挑战赛加成与惩罚区状态。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x32</p></td>
+<td><p>16</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>增益区数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F1_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F1_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F2_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F2_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F3_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F3_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F4_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F4_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F5_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F5_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F6_zone_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">F6_zone_buff_debuff_status</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red1_bullet_left</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">red2_bullet_left</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue1_bullet_left</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">blue2_bullet_left</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+<td><p>INT8</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>F1激活状态</p></td>
+<td><p>F2激活状态</p></td>
+<td><p>F3激活状态</p></td>
+<td><p>F4激活状态</p></td>
+<td><p>F5激活状态</p></td>
+<td><p>F6激活状态</p></td>
+<td><p>F1状态信息</p></td>
+<td><p>F2状态信息</p></td>
+<td><p>F3状态信息</p></td>
+<td><p>F4状态信息</p></td>
+<td><p>F5状态信息</p></td>
+<td><p>F6状态信息</p></td>
+<td><p>红方1号剩余弹量</p></td>
+<td><p>红方2号剩余弹量</p></td>
+<td><p>蓝方1号剩余弹量</p></td>
+<td><p>蓝方2号剩余弹量</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id22">
+<h4><a class="toc-backref" href="#id48">3.4.4 机器人颜色数据</a><a class="headerlink" href="#id22" title="Permalink to this headline"></a></h4>
+<p>该数据帧为当前机器人的颜色信息。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x33</p></td>
+<td><p>1</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>机器人颜色数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">game_mode</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>INT8</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>当前机器人颜色信息，蓝色方为0，红色方为1，未定义为2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id23">
+<h3><a class="toc-backref" href="#id49">3.5 发射机构数据</a><a class="headerlink" href="#id23" title="Permalink to this headline"></a></h3>
+<p>该数据帧为当前发射机构数据。</p>
+<p>当上位机发送至MUC时，MCU应控制发射机构按照射速进行发射。</p>
+<p>当MCU发送至上位机时，表示当前机器人是否发射、发射的射速信息及剩余发弹量。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x40</p></td>
+<td><p>7</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>比赛状态数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">is_shoot</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">bullet_vel</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">remain_bullet</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>UINT8</p></td>
+<td><p>INT32</p></td>
+<td><p>INT16</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>发射机构是否发射</p></td>
+<td><p>弹丸发射速度</p></td>
+<td><p>剩余发弹量</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="id24">
+<h3><a class="toc-backref" href="#id50">3.6 模式控制</a><a class="headerlink" href="#id24" title="Permalink to this headline"></a></h3>
+<section id="id25">
+<h4><a class="toc-backref" href="#id51">3.6.1 控制模式</a><a class="headerlink" href="#id25" title="Permalink to this headline"></a></h4>
+<p>该数据帧为当前上位机执行的任务模式控制。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0x50</p></td>
+<td><p>1</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>控制模式数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">mode_ctrl</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>UINT8</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>当前控制模式，空任务为0，自瞄模式为1，能量机关模式为2</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="id26">
+<h3><a class="toc-backref" href="#id52">3.6 故障信息</a><a class="headerlink" href="#id26" title="Permalink to this headline"></a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>在后续的Bubble版本中，可能对机器人状态发布的BCP部分发生小范围的改动</p>
+</div>
+<p>该数据帧为当上位机模块发生异常时，应该向MUC发送的当前错误信息。</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>帧头</p></th>
+<th class="head"><p>目标地址</p></th>
+<th class="head"><p>功能码</p></th>
+<th class="head"><p>数据长度</p></th>
+<th class="head"><p>数据内容</p></th>
+<th class="head"><p>和校验</p></th>
+<th class="head"><p>附加校验</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0xFF</p></td>
+<td><p>机器人编号</p></td>
+<td><p>0xE0</p></td>
+<td><p>3</p></td>
+<td><p>格式如下</p></td>
+<td><p>程序计算</p></td>
+<td><p>程序计算</p></td>
+</tr>
+</tbody>
+</table>
+<p>故障信息数据定义如下：</p>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>数据域</p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">error_level</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">error_module</span></code></p></th>
+<th class="head"><p><code class="docutils literal notranslate"><span class="pre">error_code</span></code></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>数据类型</p></td>
+<td><p>UINT8</p></td>
+<td><p>UINT8</p></td>
+<td><p>UINT8</p></td>
+</tr>
+<tr class="row-odd"><td><p>数据内容</p></td>
+<td><p>故障等级</p></td>
+<td><p>故障模组</p></td>
+<td><p>故障码</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="i">
+<h2><a class="toc-backref" href="#id53">附录I 目标地址表</a><a class="headerlink" href="#i" title="Permalink to this headline"></a></h2>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>目标地址字段</p></th>
+<th class="head"><p>目标地址名称</p></th>
+<th class="head"><p>目标地址</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>broadcast</p></td>
+<td><p>广播</p></td>
+<td><p>0x00</p></td>
+</tr>
+<tr class="row-odd"><td><p>mainfold</p></td>
+<td><p>上位机</p></td>
+<td><p>0x01</p></td>
+</tr>
+<tr class="row-even"><td><p>sentry_up</p></td>
+<td><p>哨兵机器人上云台</p></td>
+<td><p>0x02</p></td>
+</tr>
+<tr class="row-odd"><td><p>sentry_down</p></td>
+<td><p>哨兵机器人下云台</p></td>
+<td><p>0x03</p></td>
+</tr>
+<tr class="row-even"><td><p>infantry</p></td>
+<td><p>步兵机器人</p></td>
+<td><p>0x04</p></td>
+</tr>
+<tr class="row-odd"><td><p>engineer</p></td>
+<td><p>工程机器人</p></td>
+<td><p>0x05</p></td>
+</tr>
+<tr class="row-even"><td><p>hero</p></td>
+<td><p>英雄机器人</p></td>
+<td><p>0x06</p></td>
+</tr>
+<tr class="row-odd"><td><p>air</p></td>
+<td><p>空中机器人</p></td>
+<td><p>0x07</p></td>
+</tr>
+<tr class="row-even"><td><p>radar</p></td>
+<td><p>雷达站</p></td>
+<td><p>0x08</p></td>
+</tr>
+<tr class="row-odd"><td><p>gather</p></td>
+<td><p>视觉采集台</p></td>
+<td><p>0x09</p></td>
+</tr>
+<tr class="row-even"><td><p>standard</p></td>
+<td><p>AI机器人/全自动步兵机器人</p></td>
+<td><p>0x10</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ii">
+<h2><a class="toc-backref" href="#id54">附录II 功能码表</a><a class="headerlink" href="#ii" title="Permalink to this headline"></a></h2>
+<table class="colwidths-auto docutils align-center">
+<thead>
+<tr class="row-odd"><th class="head"><p>功能码字段</p></th>
+<th class="head"><p>功能码名称</p></th>
+<th class="head"><p>功能码</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>chassis</p></td>
+<td><p>速度方式控制</p></td>
+<td><p>0x10</p></td>
+</tr>
+<tr class="row-odd"><td><p>chassis_odom</p></td>
+<td><p>里程计方式控制</p></td>
+<td><p>0x11</p></td>
+</tr>
+<tr class="row-even"><td><p>chassis_ctrl</p></td>
+<td><p>角/线速度方式控制</p></td>
+<td><p>0x12</p></td>
+</tr>
+<tr class="row-odd"><td><p>gimbal</p></td>
+<td><p>欧拉角rpy方式控制</p></td>
+<td><p>0x20</p></td>
+</tr>
+<tr class="row-even"><td><p>game_status</p></td>
+<td><p>比赛类型数据</p></td>
+<td><p>0x30</p></td>
+</tr>
+<tr class="row-odd"><td><p>robot_HP</p></td>
+<td><p>机器人血量数据</p></td>
+<td><p>0x31</p></td>
+</tr>
+<tr class="row-even"><td><p>ICRA_buff_debuff_zone</p></td>
+<td><p>增益区数据</p></td>
+<td><p>0x32</p></td>
+</tr>
+<tr class="row-odd"><td><p>game_mode</p></td>
+<td><p>机器人颜色数据</p></td>
+<td><p>0x33</p></td>
+</tr>
+<tr class="row-even"><td><p>barrel</p></td>
+<td><p>发射机构数据</p></td>
+<td><p>0x40</p></td>
+</tr>
+<tr class="row-odd"><td><p>manifold_ctrl</p></td>
+<td><p>控制模式</p></td>
+<td><p>0x50</p></td>
+</tr>
+<tr class="row-even"><td><p>mode</p></td>
+<td><p>模式控制</p></td>
+<td><p>0x60</p></td>
+</tr>
+<tr class="row-odd"><td><p>dev_error</p></td>
+<td><p>故障信息</p></td>
+<td><p>0xE0</p></td>
+</tr>
+<tr class="row-even"><td><p>heartbeat</p></td>
+<td><p>心跳数据</p></td>
+<td><p>0xF0</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 </section>
 

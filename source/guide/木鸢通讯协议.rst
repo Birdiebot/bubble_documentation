@@ -1,6 +1,11 @@
 木鸢通讯协议
 =============================
 
+.. contents:: 目录
+   :depth: 3
+   :local:
+
+
 修改日志
 -------------------
 .. csv-table::
@@ -11,6 +16,7 @@
     2021.3.15,V1.0,Ligcox,首次发布
     2021.11.7,V2.0,Ligcox,针对的BCP for ROS2进行修改
     2022.8.15,V2.1,Ligcox,移植木鸢通讯手册pdf文档至reStructuredText
+
 
 声明
 -----------------------
@@ -23,6 +29,7 @@
 BCP在确保通信高效、源码简单、可移植性高的基础上，实现数据正确性判断，有效避免数据传输过程中出现的错误数据的错误解析。
 BCP提供对RMU机器人多种类型功能的操作，能够在不同架构下稳定运行，实现RMU赛场的数据传输和解析需求。
 
+木鸢通讯协议在实现过程中参考了 `匿名通讯协议 <http://www.anotc.com/>`__ 和 `RoboMaster裁判系统串口协议 <https://rm-static.djicdn.com/tem/17348/RoboMaster%202021%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.0%EF%BC%8820210203%EF%BC%89.pdf>`__ 。
 通过木鸢上位机和其他拓展工具，能够快速查看机器人状态和交互信息，仅需编写相应的下位机程序接收BCP数据，即可实现对不同种类机器人的控制。
 
 2 通讯协议介绍
@@ -68,16 +75,12 @@ DATA 数据内容中的数据，采用小端模式，低字节在前，高字节
 
 2.2 基本配置
 ^^^^^^^^^^^^^^^^^^^^^^^
-2.2.1 快速开始
-~~~~~~~~~~~~~~~~~~~~~~~~
-TODO
-
-2.2.2 COM设置
+2.2.1 COM设置
 ~~~~~~~~~~~~~~~~~~~~~~~~
 在Manifold2-G Ubuntu18.04条件下，UART0在系统内核中对应的设备是ttyS0，UART1对应的设备是ttyTHS2。Manifold2-G推荐使用UART1作为BCP配置的COM口。
 Jetson开发套件推荐使用40pin引脚的6、8口配置的ttyTHS0作为BCP配置的COM口
 
-2.2.3 波特率配置
+2.2.2 波特率配置
 ~~~~~~~~~~~~~~~~~~~~~~~~
 在使用BCP时，需要将波特率调整为与MCU配置相同，默认为961200，但推荐不应小于115200。
 
@@ -86,36 +89,333 @@ Jetson开发套件推荐使用40pin引脚的6、8口配置的ttyTHS0作为BCP配
 3.1 心跳数据
 ^^^^^^^^^^^^^^^^^^^^^^^
 为保证上位机与下位机正常通讯，在BCP开始工作时，会始终向下位机发送心跳数据。心跳数据默认每隔50ms发送，数据内容为0/1交替发送。
+
 当下位机一段时间无法收到心跳数据时，说明MCU与上位机连接以断开，应执行相应操作。
 
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
 
-+----------+------+----------+
-|数据帧内容|简称  |备注      |
-+==========+======+==========+
-|帧头      |HEAD  |固定值0xFF|
-+----------+------+----------+
-|目标地址  |D_ADDR|          |
-+----------+------+----------+
-|功能码    |ID|          |
-+----------+------+----------+
-|数据长度  |LEN|          |
-+----------+------+----------+
-|数据内容  |DATA|          |
-+----------+------+----------+
-|和校验    |SC|          |
-+----------+------+----------+
-|附加校验  |AC|          |
-+----------+------+----------+
+    0xFF,机器人编号,0xF0,1,格式如下,程序计算,程序计算
+
+心跳数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``heartbeat``
+    :align: center
+    :widths: auto
+
+    数据类型,UINT8
+    数据内容,交替发送0/1
+
+3.2 底盘数据
+^^^^^^^^^^^^^^^^^^^^^^^
+底盘数据提供了上位机与MCU需要控制的信息。
+
+3.2.1 速度方式控制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+当上位机发送至MUC时，MUC应设置底盘x,y方向速度及底盘朝向。
+
+当MUC发送至上位机时，表示当前机器人x,y方向速度及底盘朝向。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x10,6,格式如下,程序计算,程序计算
+
+速度方式控制数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``chassis_vx``,  ``chassis_vy``,  ``chassis_angle``
+    :align: center
+    :widths: auto
+
+    数据类型,INT8,INT8,INT32
+    数据内容,底盘x轴速度,底盘y轴速度,底盘朝向位置，放大100倍发送，4长度
+
+3.2.2 里程计方式控制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+当上位机发送至MUC时，MUC应设置底盘期望的x,y坐标及底盘朝向。
+
+当MUC发送至上位机时，表示当前机器人的x,y坐标及底盘朝向。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x11,28,格式如下,程序计算,程序计算
+
+里程计方式控制数据，均放大10000倍，4长度，定义如下：
+
+.. csv-table::
+    :header: 数据域, ``odom_position_x``, ``odom_position_y``, ``odom_position_z``, ``odom_orientation_x``, ``odom_orientation_y``, ``odom_orientation_z``, ``odom_orientation_w``
+    :align: center
+    :widths: auto
+
+    数据类型,INT32,INT32,INT32,INT32,INT32,INT32,INT32
+    数据内容,底盘x坐标,底盘y坐标,底盘z坐标,底盘朝向四元数x,底盘朝向四元数y,底盘朝向四元数z,底盘朝向四元数w
+
+3.2.3 角/线速度方式控制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+当MUC发送至上位机时，表示当前机器人的x,y,z方向的线速度及x,y,z轴的角速度。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x12,24,格式如下,程序计算,程序计算
+
+角/线速度方式控制数据，均放大10000倍，4长度，定义如下：
+
+.. csv-table::
+    :header: 数据域, ``chassis_target_linear_x`` , ``chassis_target_linear_y`` , ``chassis_target_linear_z`` , ``chassis_target_angular_x`` , ``chassis_target_angular_y`` , ``chassis_target_angular_z``
+    :align: center
+    :widths: auto
+
+    数据类型,INT32,INT32,INT32,INT32,INT32,INT32
+    数据内容,底盘x方向线速度,底盘y方向线速度,底盘z方向线速度,底盘x轴角速度,底盘y轴角速度,底盘z轴角速度
+
+3.3 云台数据
+^^^^^^^^^^^^^^^^^^^^^^^
+云台数据提供了上位机与MCU需要的云台控制信息。
+
+3.3.1 欧拉角rpy方式控制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+当上位机发送至MUC时，MUC应控制云台偏转到相应的角度。
+
+当MUC发送至上位机时，表示当前机器人云台朝向。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x20,13,格式如下,程序计算,程序计算
+
+欧拉角rpy方式控制数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``gimbal_ctrl_mode`` , ``gimbal_yaw`` , ``gimbal_pitch`` , ``gimbal_roll``
+    :align: center
+    :widths: auto
+
+    数据类型,INT8,INT32,INT32,INT32
+    数据内容,控制方式,云台yaw偏转角度,云台pitch偏转角度,云台roll偏转角度
+    备注,0为绝对角度控制,放大1000倍发送，4长度,放大1000倍发送，4长度,放大1000倍发送，4长度
+    ,1为相对角度控制
+
+3.3.2 四元数方式控制
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TODO
+
+3.4 裁判系统数据
+^^^^^^^^^^^^^^^^^^^^^^^
+裁判系统数据主要由裁判系统发送至MUC，MUC通过BCP转发至上位机，裁判系统详细数据定义参考 `RoboMaster裁判系统串口协议 <https://rm-static.djicdn.com/tem/17348/RoboMaster%202021%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.0%EF%BC%8820210203%EF%BC%89.pdf>`__。
+
+3.4.1 比赛类型数据
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+该数据帧为当前比赛状态数据。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x30,9,格式如下,程序计算,程序计算
+
+比赛状态数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``game_type`` , ``game_progress`` , ``stage_remain_time``
+    :align: center
+    :widths: auto
+
+    数据类型,INT8,INT8,INT16
+    数据内容,比赛类型,当前比赛阶段,当前阶段剩余时间
+    备注,,,放大100倍发送，2长度
+
+3.4.2 机器人血量数据
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+该数据帧为当前比赛机器人血量数据。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x31,36,格式如下,程序计算,程序计算
+
+血量数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``red_1_robot_HP`` , ``red_2_robot_HP`` , ``red_3_robot_HP`` , ``red_4_robot_HP`` , ``red_5_robot_HP`` , ``red_7_robot_HP`` , ``red_outpost_HP`` , ``red_base_HP`` , ``blue_1_robot_HP`` , ``blue_2_robot_HP`` , ``blue_3_robot_HP`` , ``blue_4_robot_HP`` , ``blue_5_robot_HP`` , ``blue_7_robot_HP`` , ``blue_outpost_HP`` , ``blue_base_HP``
+    :align: center
+    :widths: auto
+
+    数据类型,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16,INT16
+    数据内容,红1英雄机器人血量,红2工程机器人血量,红3步兵机器人血量,红4步兵机器人血量,红5步兵机器人血量,红7哨兵机器人血量,红方前哨战血量,红方基地血量,蓝1英雄机器人血量,蓝2工程机器人血量,蓝3步兵机器人血量,蓝4步兵机器人血量,蓝5步兵机器人血量,蓝7哨兵机器人血量,蓝方前哨站血量,蓝方基地血量
 
 
-.. math::
+3.4.3 增益区数据
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+该数据帧为ICRA人工智能挑战赛加成与惩罚区状态。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x32,16,格式如下,程序计算,程序计算
 
 
-    \begin{table}[]
-    \begin{tabular}{ccccccc}
-    \rowcolor[HTML]{A5A5A5} 
-    \begin{tabular}[c]{@{}c@{}}帧头\\ HEAD\end{tabular}  & \begin{tabular}[c]{@{}c@{}}目标地址\\ D\_ADDR\end{tabular}                                  & \begin{tabular}[c]{@{}c@{}}功能码\\ ID\end{tabular} & \begin{tabular}[c]{@{}c@{}}数据长度\\ LEN\end{tabular} & \begin{tabular}[c]{@{}c@{}}数据内容\\ DATA\end{tabular} & \begin{tabular}[c]{@{}c@{}}和校验\\ SC\end{tabular} & \begin{tabular}[c]{@{}c@{}}附加校验\\ AC\end{tabular} \\
-    1                                                  & 1                                                                                       & 1                                                & 1                                                  & N                                                   & 1                                                & 1                                                 \\
-    \begin{tabular}[c]{@{}c@{}}0xFF\\ 固定值\end{tabular} & \cellcolor[HTML]{A5A5A5}\begin{tabular}[c]{@{}c@{}}本帧数据发送的接收机器人\\ 参考硬件地址定义\end{tabular} & \cellcolor[HTML]{A5A5A5}机器人实现的目标位置               & \cellcolor[HTML]{A5A5A5}表示数据内容字段的长度                & \cellcolor[HTML]{A5A5A5}具体数据内容，n=数据长度               & \multicolumn{2}{c}{\cellcolor[HTML]{A5A5A5}计算方法附后}                                                  
-    \end{tabular}
-    \end{table}
+增益区数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``F1_zone_status`` , ``F1_zone_buff_debuff_status`` , ``F2_zone_status`` , ``F2_zone_buff_debuff_status`` , ``F3_zone_status`` , ``F3_zone_buff_debuff_status`` , ``F4_zone_status`` , ``F4_zone_buff_debuff_status`` , ``F5_zone_status`` , ``F5_zone_buff_debuff_status`` , ``F6_zone_status`` , ``F6_zone_buff_debuff_status`` , ``red1_bullet_left`` , ``red2_bullet_left`` , ``blue1_bullet_left`` , ``blue2_bullet_left``
+    :align: center
+    :widths: auto
+
+    数据类型,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8,INT8
+    数据内容,F1激活状态,F2激活状态,F3激活状态,F4激活状态,F5激活状态,F6激活状态,F1状态信息,F2状态信息,F3状态信息,F4状态信息,F5状态信息,F6状态信息,红方1号剩余弹量,红方2号剩余弹量,蓝方1号剩余弹量,蓝方2号剩余弹量
+
+3.4.4 机器人颜色数据
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+该数据帧为当前机器人的颜色信息。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x33,1,格式如下,程序计算,程序计算
+
+
+机器人颜色数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``game_mode``
+    :align: center
+    :widths: auto
+
+    数据类型,INT8
+    数据内容,当前机器人颜色信息，蓝色方为0，红色方为1，未定义为2
+
+3.5 发射机构数据
+^^^^^^^^^^^^^^^^^^^^^^^
+
+该数据帧为当前发射机构数据。
+
+当上位机发送至MUC时，MCU应控制发射机构按照射速进行发射。
+
+当MCU发送至上位机时，表示当前机器人是否发射、发射的射速信息及剩余发弹量。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x40,7,格式如下,程序计算,程序计算
+
+比赛状态数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``is_shoot`` , ``bullet_vel`` , ``remain_bullet``
+    :align: center
+    :widths: auto
+
+    数据类型,UINT8,INT32,INT16
+    数据内容,发射机构是否发射,弹丸发射速度,剩余发弹量
+
+3.6 模式控制
+^^^^^^^^^^^^^^^^^^^^^^^
+
+3.6.1 控制模式
+~~~~~~~~~~~~~~~~~~
+
+该数据帧为当前上位机执行的任务模式控制。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0x50,1,格式如下,程序计算,程序计算
+
+控制模式数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``mode_ctrl``
+    :align: center
+    :widths: auto
+
+    数据类型,UINT8
+    数据内容,当前控制模式，空任务为0，自瞄模式为1，能量机关模式为2
+
+3.6 故障信息
+^^^^^^^^^^^^^^^^^^^^^^^
+
+.. attention:: 在后续的Bubble版本中，可能对机器人状态发布的BCP部分发生小范围的改动
+
+该数据帧为当上位机模块发生异常时，应该向MUC发送的当前错误信息。
+
+.. csv-table::
+    :header: 帧头,目标地址,功能码,数据长度,数据内容,和校验,附加校验
+    :align: center
+    :widths: auto
+
+    0xFF,机器人编号,0xE0,3,格式如下,程序计算,程序计算
+
+故障信息数据定义如下：
+
+.. csv-table::
+    :header: 数据域, ``error_level``, ``error_module`` , ``error_code``
+    :align: center
+    :widths: auto
+
+    数据类型,UINT8,UINT8,UINT8
+    数据内容,故障等级,故障模组,故障码
+
+附录I 目标地址表
+---------------------
+.. csv-table::
+    :header: 目标地址字段,目标地址名称,目标地址
+    :align: center
+    :widths: auto
+
+    broadcast,广播,0x00
+    mainfold,上位机,0x01
+    sentry_up,哨兵机器人上云台,0x02
+    sentry_down,哨兵机器人下云台,0x03
+    infantry,步兵机器人,0x04
+    engineer,工程机器人,0x05
+    hero,英雄机器人,0x06
+    air,空中机器人,0x07
+    radar,雷达站,0x08
+    gather,视觉采集台,0x09
+    standard,AI机器人/全自动步兵机器人,0x10
+
+附录II 功能码表
+---------------------
+.. csv-table::
+    :header: 功能码字段,功能码名称,功能码
+    :align: center
+    :widths: auto
+
+    chassis,速度方式控制,0x10
+    chassis_odom,里程计方式控制,0x11
+    chassis_ctrl,角/线速度方式控制,0x12
+    gimbal,欧拉角rpy方式控制,0x20
+    game_status,比赛类型数据,0x30
+    robot_HP,机器人血量数据,0x31
+    ICRA_buff_debuff_zone,增益区数据,0x32
+    game_mode,机器人颜色数据,0x33
+    barrel,发射机构数据,0x40
+    manifold_ctrl,控制模式,0x50
+    mode,模式控制,0x60
+    dev_error,故障信息,0xE0
+    heartbeat,心跳数据,0xF0
