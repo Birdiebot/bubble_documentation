@@ -434,17 +434,17 @@ TODO
     :align: center
     :widths: auto
 
-    broadcast,广播,0x00
-    mainfold,上位机,0x01
-    sentry_up,哨兵机器人上云台,0x02
-    sentry_down,哨兵机器人下云台,0x03
-    infantry,步兵机器人,0x04
-    engineer,工程机器人,0x05
-    hero,英雄机器人,0x06
-    air,空中机器人,0x07
-    radar,雷达站,0x08
-    gather,视觉采集台,0x09
-    standard,AI机器人/全自动步兵机器人,0x10
+    ``broadcast`` ,广播,0x00
+    ``mainfold`` ,上位机,0x01
+    ``sentry_up`` ,哨兵机器人上云台,0x02
+    ``sentry_down`` ,哨兵机器人下云台,0x03
+    ``infantry`` ,步兵机器人,0x04
+    ``engineer`` ,工程机器人,0x05
+    ``hero`` ,英雄机器人,0x06
+    ``air`` ,空中机器人,0x07
+    ``radar`` ,雷达站,0x08
+    ``gather`` ,视觉采集台,0x09
+    ``standard`` ,AI机器人/全自动步兵机器人,0x10
 
 附录II 功能码表
 ---------------------
@@ -453,16 +453,18 @@ TODO
     :align: center
     :widths: auto
 
-    chassis,速度方式控制,0x10
-    chassis_odom,里程计方式控制,0x11
-    chassis_ctrl,角/线速度方式控制,0x12
-    gimbal,欧拉角rpy方式控制,0x20
-    game_status,比赛类型数据,0x30
-    robot_HP,机器人血量数据,0x31
-    ICRA_buff_debuff_zone,增益区数据,0x32
-    game_mode,机器人颜色数据,0x33
-    barrel,发射机构数据,0x40
-    manifold_ctrl,控制模式,0x50
-    mode,模式控制,0x60
-    dev_error,故障信息,0xE0
-    heartbeat,心跳数据,0xF0
+    ``chassis``,速度方式控制,0x10
+    ``chassis_odom``,里程计方式控制,0x11
+    ``chassis_ctrl``,角/线速度方式控制,0x12
+    ``gimbal``,欧拉角rpy方式控制,0x20
+    ``game_status``,比赛类型数据,0x30
+    ``robot_HP``,机器人血量数据,0x31
+    ``ICRA_buff_debuff_zone``,增益区数据,0x32
+    ``game_mode``,机器人颜色数据,0x33
+    ``robot_command``,机器人位置信息,0x34
+    ``client_map_command``,雷达发送目标位置信息,0x35
+    ``barrel``,发射机构数据,0x40
+    ``manifold_ctrl``,控制模式,0x50
+    ``mode``,模式控制,0x60
+    ``dev_error``,故障信息,0xE0
+    ``heartbeat``,心跳数据,0xF0
