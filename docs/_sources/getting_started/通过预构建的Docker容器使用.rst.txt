@@ -48,7 +48,7 @@ Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime�
     - --runtime nvidia将在运行Bubble容器时使用NVIDIA容器运行时
     - -v是挂载目录，用于挂载主机的 X11 显示在容器文件系统中以渲染输出视频
     - --device是共享主机中的usb设备（主要是工业相机）和串口设备
-    - 1.0是bubble版本对应的镜像标签，l4t-r32.7.1是对应的
+    - 1.0是bubble版本对应的镜像标签，l4t-r32.7.1是对应的Linux for Tegra版本
 
 运行Bubble
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
