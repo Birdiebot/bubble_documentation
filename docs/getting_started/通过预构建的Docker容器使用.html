@@ -87,7 +87,7 @@
 <section id="id1">
 <h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>Bubble提供了一个预构建Docker容器，快速完成环境的搭建。
-您可以在容器中运行Bubble。Bubble的docker镜像托管在【添加链接】。</p>
+您可以在容器中运行Bubble。Bubble的docker镜像托管在 <a class="reference external" href="https://hub.docker.com/repository/docker/birdiebot/bubble-aarch64v8">docker hub</a> 中。</p>
 <p>Bubble的Docker镜像基于 <a class="reference external" href="https://github.com/dusty-nv/jetson-containers">dustynv的galactic-ros-base-l4t-r34.1.1</a> 构建。镜像提供了：</p>
 <ul class="simple">
 <li><p>Ros Galactic环境</p></li>
@@ -118,7 +118,7 @@
 <span class="go">    -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix \</span>
 <span class="go">    --device=/dev/bus/usb/ --device=/dev/ttyTHS0 \</span>
 <span class="go">    -v /home/nvidia/Desktop/bubble:/home/bubble \</span>
-<span class="go">    birdiebot/bubble-aarch64v8:1.0.1 /bin/bash</span>
+<span class="go">    birdiebot/bubble-aarch64v8:v1.0-l4t-r32.7.1 /bin/bash</span>
 </pre></div>
 </div>
 <ul>
@@ -130,7 +130,7 @@
 <li><p>–runtime nvidia将在运行Bubble容器时使用NVIDIA容器运行时</p></li>
 <li><p>-v是挂载目录，用于挂载主机的 X11 显示在容器文件系统中以渲染输出视频</p></li>
 <li><p>–device是共享主机中的usb设备（主要是工业相机）和串口设备</p></li>
-<li><p>1.0.1是bubble版本对应的镜像标签</p></li>
+<li><p>1.0是bubble版本对应的镜像标签，l4t-r32.7.1是对应的</p></li>
 </ul>
 </div></blockquote>
 </li>

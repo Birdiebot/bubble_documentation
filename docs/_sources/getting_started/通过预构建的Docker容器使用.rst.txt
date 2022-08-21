@@ -5,7 +5,7 @@
 概述
 ----------------
 Bubble提供了一个预构建Docker容器，快速完成环境的搭建。
-您可以在容器中运行Bubble。Bubble的docker镜像托管在【添加链接】。
+您可以在容器中运行Bubble。Bubble的docker镜像托管在 `docker hub <https://hub.docker.com/repository/docker/birdiebot/bubble-aarch64v8>`__ 中。
 
 Bubble的Docker镜像基于 `dustynv的galactic-ros-base-l4t-r34.1.1 <https://github.com/dusty-nv/jetson-containers>`__ 构建。镜像提供了：
 
@@ -39,7 +39,7 @@ Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime�
         -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix \
         --device=/dev/bus/usb/ --device=/dev/ttyTHS0 \
         -v /home/nvidia/Desktop/bubble:/home/bubble \
-        birdiebot/bubble-aarch64v8:1.0.1 /bin/bash
+        birdiebot/bubble-aarch64v8:v1.0-l4t-r32.7.1 /bin/bash
 
 - 参数说明：
 
@@ -48,7 +48,7 @@ Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime�
     - --runtime nvidia将在运行Bubble容器时使用NVIDIA容器运行时
     - -v是挂载目录，用于挂载主机的 X11 显示在容器文件系统中以渲染输出视频
     - --device是共享主机中的usb设备（主要是工业相机）和串口设备
-    - 1.0.1是bubble版本对应的镜像标签
+    - 1.0是bubble版本对应的镜像标签，l4t-r32.7.1是对应的
 
 运行Bubble
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
