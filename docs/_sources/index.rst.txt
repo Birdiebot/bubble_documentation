@@ -51,6 +51,7 @@ Bubble的前身是 `BTP_DM <https://github.com/Ligcox/BTP_DM>`__，随着RMU赛�
 * `开发者指南 <开发者指南.html>`__
    - Bubble编码和其他规范
    - 机器人坐标系定义
+   - 术语对照表
 
 API documentation
 ----------------------
@@ -64,13 +65,9 @@ Bubble项目
 * Roadmap
    - Bubble未来维护过程中的Roadmap
 
-* 关于我们
-   - 了解有关我们的信息
-
 Bubble资源
 ----------------------
 * 相关项目
-* 术语对照表
 * 开发Bubble的一些想法
 * Q&A
 
