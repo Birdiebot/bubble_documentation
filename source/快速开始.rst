@@ -8,8 +8,7 @@
    getting_started/通过预构建的Docker容器使用
    getting_started/通过源码构建
    getting_started/参数配置
-
-
+   getting_started/模块运行效果实例
 
 环境依赖
 -----------------------------
@@ -19,9 +18,9 @@
 ROS及系统依赖
 -----------------------------
 +---------------+------------------------------------------+
-|    ROS        |     Galactic Geochelone/Foxy Fitzroy     |
+|    ROS        |   Galactic Geochelone/Foxy Fitzroy  推荐 |
 +               +------------------------------------------+
-|               |     Eloquent Elusor                      |
+|               |   Eloquent Elusor 尽力维护               |
 +---------------+------------------------------------------+
 |    DDS        |     FAST RTPS                            |
 +---------------+------------------------------------------+

@@ -28,6 +28,7 @@ copyright = '{}, {}'.format(time.strftime('%Y'), 'Birdiebot R&D Department Shang
 
 extensions = [
     'sphinx_tabs.tabs',
+    'sphinx.ext.autodoc'
     # 'sphinx.ext.imgmath'
 ]
 

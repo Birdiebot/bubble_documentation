@@ -1,8 +1,3 @@
-.. bubble documentation master file, created by
-   sphinx-quickstart on Sat Aug  6 21:59:22 2022.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-  
 Bubble-基于ROS2的RoboMaster视觉软件栈
 =======================================
 
