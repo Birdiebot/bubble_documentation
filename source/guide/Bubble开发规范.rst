@@ -35,7 +35,108 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
 
 .. code-block:: js
 
-    // TODO
+    {
+        "fileheader.customMade": {
+            "custom_string_obkoro1": "Copyright (c) 2022 Birdiebot R&D Department\nShanghai University Of Engineering Science. All Rights Reserved",
+            "custom_string_obkoro2": "License: GNU General Public License v3.0.\nSee LICENSE file in root directory.",
+            "custom_string_obkoro3": "",
+            "Author": "your name your email",
+            "Date": "Do not edit",
+            "FilePath": "Do not edit",
+            "LastEditors": "your name your email",
+            "LastEditTime": "Do not edit",
+        },
+        "fileheader.cursorMode": {
+            "Parameters": "",
+            "------------": "\n",
+            "Returns": "",
+            "-----------": "",
+        },
+        "fileheader.configObj": {
+            "autoAdd": true,
+            "autoAddLine": 10000,
+            "autoAlready": true,
+            "supportAutoLanguage": [],
+            "prohibitAutoAdd": [
+                "json",
+                "md",
+                "yaml"
+            ],
+            "prohibitItemAutoAdd": [
+                "项目的全称禁止项目自动添加头部注释, 使用快捷键自行添加"
+            ],
+            "folderBlacklist": [
+                "launch"
+            ],
+            "wideSame": false,
+            "wideNum": 13,
+            "functionWideNum": 0,
+            "headInsertLine": {
+                "php": 2,
+                "py": 0,
+            },
+            "beforeAnnotation": {},
+            "afterAnnotation": {},
+            "specialOptions": {},
+            "switch": {
+                "newlineAddAnnotation": true
+            },
+            "moveCursor": true,
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+            "atSymbol": [
+                "@",
+                "@"
+            ],
+            "atSymbolObj": {},
+            "colon": [
+                ": ",
+                ""
+            ],
+            "colonObj": {},
+            "filePathColon": "/",
+            "showErrorMessage": true,
+            "writeLog": false,
+            "CheckFileChange": false,
+            "createHeader": false,
+            "useWorker": false,
+            "designAddHead": false,
+            "headDesignName": "random",
+            "headDesign": false,
+            "cursorModeInternalAll": {},your name
+            "openFunctionParamsCheck": true,
+            "functionParamsShape": "no type",
+            "functionBlankSpaceAll": {},
+            "functionTypeSymbol": "*",
+            "typeParamOrder": "type param",
+            "NoMatchParams": "no show param",
+            "functionParamAddStr": "\t",
+            "customHasHeadEnd": {},
+            "throttleTime": 60000,
+            "language": {
+                "h/hpp/cpp": {
+                    "head": "/*** ",
+                    "middle": " * @",
+                    "end": " */"
+                },
+                "py": {
+                    "head": "",
+                    "middle": "# ",
+                    "end": "",
+                    "functionSymbol": {
+                        "head": "'''",
+                        "middle": "",
+                        "end": "'''"
+                    },
+                },
+            }
+        },
+        "annotationStr": {
+            "head": "/*",
+            "middle": " * @",
+            "end": " */",
+            "use": false
+        },
+    }
 
 文件头模板为：
 
@@ -76,8 +177,12 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
 
         .. code-block:: python
 
-            '''
-            TODO
+            '''Dscription
+            Parameters
+            ------------
+
+            Returns
+            -----------
             '''
     .. group-tab:: C++
 
@@ -141,3 +246,21 @@ Bubble中的功能包以 ``bubble_`` 前缀命名，结构原则上使用 `ROS2�
 3.2 代码仓库
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 不同的功能包应当放置在相应的代码仓库下，当一个代码仓库仅有一个功能包时，它可以选择位于仓库的根目录中。
+
+4 文档及注释
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+考虑到代码的可读性和维护
+
+Bubble的文档使用sphinx进行书写，各功能模块应保留必要的注释，配置模板头后，直接使用koroFileHeader生成，并导出到文档中。
+
+Bubble的文档及注释做以下约定：
+
+.. csv-table::
+    :header: 内容，推荐类型，语言，备注
+    :align: center
+    :widths: auto
+
+    文档, ReStructuredText/rst, 中文, 为便于文档维护，文档主要使用中文进行维护
+    主项目自述文件, MarkDown/md, 英语、中文, 提供中文和英语的自述文件，在必要部分使用html语法调整格式
+    模块自述文件, MarkDown/md, 英语, 各模块自述文件仅使用英文书写，在必要部分使用html语法调整格式
+    代码注释, Python/C/C++, 英语, 代码中使用英文解释必要的函数、模块和功能逻辑

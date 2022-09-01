@@ -1,8 +1,11 @@
+
+
+API-documentation
+===================
 .. toctree::
    :hidden:
    :glob:
 
-API-documentation
-===================
+   API-docs/modules
 
 test

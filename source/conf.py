@@ -9,6 +9,10 @@ Copyright (c) 2022 Birdiebot R&D Department
 Shanghai University Of Engineering Science. All Rights Reserved
 '''
 import time
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath(r"/mnt/hgfs/bubble/src/bubble_core/bubble_protocol/bubble_protocol/.."))
 
 # Configuration file for the Sphinx documentation builder.
 #
