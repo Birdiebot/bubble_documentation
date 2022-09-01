@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/tabs.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -83,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>控制机器人并接收机器人数据<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<h1>控制机器人并接收机器人数据<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>该文档主要描述了Bubble内部的通讯接口实现，关于上下位通讯串口协议及配置，请参见 <code class="docutils literal notranslate"><span class="pre">木鸢通讯协议</span></code></p>
@@ -110,15 +111,15 @@
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id12">先决条件</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id12">先决条件</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <p>您具备了ROS的基本知识，掌握了如何编写一个 <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html">节点</a> ，已经成功运行了 <cite>bubble_protocol</cite> 模块，MCU能够通过BCP控制机器人运动。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id13">1 控制机器人运动</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id13">1 控制机器人运动</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <p>通过 <cite>bubble_protocol</cite> 模块定义的API，能够控制机器人运动。</p>
 <p>下面的例子展示了每隔0.5s使机器人云台相对于自身当前位置偏移0.01弧度。</p>
 <section id="id5">
-<h3><a class="toc-backref" href="#id14">1.1 编写代码</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id14">1.1 编写代码</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-UHl0aG9u" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-0-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="0">Python</button><button aria-controls="panel-0-Qysr" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-0-Qysr" name="Qysr" role="tab" tabindex="-1">C++</button></div><div aria-labelledby="tab-0-UHl0aG9u" class="sphinx-tabs-panel group-tab" id="panel-0-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
@@ -158,7 +159,7 @@
 </div></div>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id15">1.2 解释代码</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id15">1.2 解释代码</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <p>首先引入了云台控制信息对应的msg和ros依赖包：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
@@ -187,7 +188,7 @@
 </div>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id16">1.3 编译并运行代码</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id16">1.3 编译并运行代码</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <p>打开一个终端编译并运行当前节点</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">colcon build --packages-select YOUR_PKG</span>
 <span class="go">. install/setup.bash</span>
@@ -203,7 +204,7 @@
 </section>
 </section>
 <section id="id8">
-<h2><a class="toc-backref" href="#id17">2 接收来自机器人的状态信息</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id17">2 接收来自机器人的状态信息</a><a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
 <p>BCP中定义了有关机器人的状态信息，这些信息包括了：</p>
 <ul class="simple">
 <li><p>机器人当前机械结构的相对位置，类型在 <cite>rmctrl_msgs</cite> 功能包的中定义。如云台当前偏转角度等。</p></li>
@@ -211,7 +212,7 @@
 </ul>
 <p>下面的例子展示了接收机器人的云台偏移量，并在终端中打印。</p>
 <section id="id9">
-<h3><a class="toc-backref" href="#id18">1.1 编写代码</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id18">1.1 编写代码</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-UHl0aG9u" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-1-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="0">Python</button><button aria-controls="panel-1-Qysr" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-1-Qysr" name="Qysr" role="tab" tabindex="-1">C++</button></div><div aria-labelledby="tab-1-UHl0aG9u" class="sphinx-tabs-panel group-tab" id="panel-1-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="linenos"> 2</span><span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
@@ -259,7 +260,7 @@
 </div></div>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id19">2.2 解释代码</a><a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id19">2.2 解释代码</a><a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <p>首先引入了云台控制信息对应的msg和ros依赖包：</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">rclpy</span>
 <span class="kn">from</span> <span class="nn">rclpy.node</span> <span class="kn">import</span> <span class="n">Node</span>
@@ -300,7 +301,7 @@
 </div>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id20">2.3 编译并运行代码</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id20">2.3 编译并运行代码</a><a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
 <p>打开一个终端编译并运行当前节点</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">colcon build --packages-select YOUR_PKG</span>
 <span class="go">. install/setup.bash</span>

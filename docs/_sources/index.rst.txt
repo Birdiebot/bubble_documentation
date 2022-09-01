@@ -22,7 +22,7 @@ Bubble的前身是 `BTP_DM <https://github.com/Ligcox/BTP_DM>`__，随着RMU赛�
 
 该页面包含了Bubble的相关文档，你可以通过algorithm@birdiebot.top与我们联系。
 
-使用指南
+文档指南
 ----------------------
 * `快速开始 <快速开始.html>`__
    - 运行Bubble的环境
@@ -50,21 +50,20 @@ Bubble的前身是 `BTP_DM <https://github.com/Ligcox/BTP_DM>`__，随着RMU赛�
 
 API documentation
 ----------------------
-Bubble源码的API手册
+`Bubble源码的API手册 <API-documentation.html>`__
 
-Bubble项目
+`Bubble项目 <Bubble项目.html>`__
 ----------------------
 如果您对Bubble项目的推进感兴趣：
-* 项目治理
-* 发行说明
-* Roadmap
-   - Bubble未来维护过程中的Roadmap
 
-Bubble资源
+* `项目治理 <project/项目治理.html>`__
+* `发行说明 <project/项目发行.html>`__
+* `Roadmap <project/Roadmap.html>`__
+
+`Bubble资源 <Bubble资源.html>`__
 ----------------------
-* 相关项目
-* 开发Bubble的一些想法
-* Q&A
+* `相关项目 <resources/相关项目.html>`__
+* `Q&A <resources/Q&A.html>`__
 
 机甲大师高校系列赛
 -----------------------

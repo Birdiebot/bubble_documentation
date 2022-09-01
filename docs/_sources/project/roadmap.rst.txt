@@ -24,6 +24,11 @@ Bubble alpha2是Bubble预计于2023年9月5日发布的版本。
       - 较大
       - Birdiebot
       - TODO
+    * - 增加通过无线局域网在多个终端间的通讯
+      - bubble_core
+      - 中等
+      - Birdiebot
+      - TODO
     * - 添加Bubble的SLAM模块
       - bubble_navigation
       - 极大

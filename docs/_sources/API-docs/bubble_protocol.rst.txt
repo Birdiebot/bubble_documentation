@@ -1,13 +1,13 @@
 bubble\_protocol package
 ========================
+This module maintains the functions related to robot communication, and the sub-module relationship is shown in the figure below:
 
-Submodules
-----------
+.. image:: asset/protocol_packages.png
 
-bubble\_protocol.bcp\_core module
----------------------------------
+bubble\_protocol.protocol module
+--------------------------------
 
-.. automodule:: bubble_protocol.bcp_core
+.. automodule:: bubble_protocol.protocol
    :members:
    :undoc-members:
    :show-inheritance:
@@ -28,14 +28,6 @@ bubble\_protocol.hardware module
    :undoc-members:
    :show-inheritance:
 
-bubble\_protocol.protocol module
---------------------------------
-
-.. automodule:: bubble_protocol.protocol
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 bubble\_protocol.robot\_status module
 -------------------------------------
 
@@ -44,10 +36,10 @@ bubble\_protocol.robot\_status module
    :undoc-members:
    :show-inheritance:
 
-Module contents
----------------
+bubble\_protocol.bcp\_core module
+---------------------------------
 
-.. automodule:: bubble_protocol
+.. automodule:: bubble_protocol.bcp_core
    :members:
    :undoc-members:
    :show-inheritance:

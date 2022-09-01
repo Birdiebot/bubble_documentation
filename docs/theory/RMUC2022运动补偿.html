@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -82,7 +83,7 @@
            <div itemprop="articleBody">
              
   <section id="rmuc2022">
-<h1>RMUC2022运动补偿<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
+<h1>RMUC2022运动补偿<a class="headerlink" href="#rmuc2022" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Ligcox,
@@ -99,15 +100,15 @@ Li</p>
 </dd>
 </dl>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p>在RMU竞赛中，机器人自身的运动会对自瞄系统产生极大的偏差。该文档阐述了通过运动补偿模块，消除由于哨兵机器人自身底盘运动对自瞄系统产生的偏差。</p>
 </section>
 <section id="id2">
-<h2>流程<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>流程<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>【添加流程图】</p>
 </section>
 <section id="id3">
-<h2>坐标系定义<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2>坐标系定义<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>，但针对RMU进行了一定的简化，请参阅 <a class="reference external" href="guide/Bubble坐标系.html">Bubble坐标系</a></p>
@@ -117,7 +118,7 @@ Li</p>
 <p>【添加rviz坐标系定义】</p>
 </section>
 <section id="id4">
-<h2>数学推导<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2>数学推导<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <p>在<span class="math notranslate nohighlight">\(O_{chassis\_xyz}\)</span>中:</p>
 <p><span class="math notranslate nohighlight">\(O_{gimbal\_xyz}\)</span> 中空间目标点<span class="math notranslate nohighlight">\(P_0(x_0, y_0, z_0)\)</span>、<span class="math notranslate nohighlight">\(\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top\)</span>在变换矩阵 <span class="math notranslate nohighlight">\(^{chassis}_{gimbal}T\)</span> 作用下，
 变换为 <span class="math notranslate nohighlight">\(P{(p_x, p_y, p_z)}\)</span> 、<span class="math notranslate nohighlight">\(\vec{v} = [vx, vy, vz]^\top\)</span>，空间向量<span class="math notranslate nohighlight">\(\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top\)</span>。
@@ -146,7 +147,7 @@ Li</p>
 <p>由于云台 <span class="math notranslate nohighlight">\(yaw\)</span> 轴与 <span class="math notranslate nohighlight">\(pitch\)</span> 轴刚性连接到底盘，云台在底盘坐标系下偏转角度 <span class="math notranslate nohighlight">\(\alpha_{yaw}\)</span> 和 <span class="math notranslate nohighlight">\(\alpha_{pitch}\)</span> 即为云台相对于当前位置偏转角度。</p>
 </section>
 <section id="id5">
-<h2>功能实现<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<h2>功能实现<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>运动补偿的相关代码位于 <code class="docutils literal notranslate"><span class="pre">bubble_contrib/bubble_aming</span></code> 模块下</p>
@@ -174,7 +175,7 @@ PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下�
 <p>一般的， <span class="math notranslate nohighlight">\(\alpha_{yaw}\)</span> 和 <span class="math notranslate nohighlight">\(\alpha_{pitch}\)</span> 值域均为 <span class="math notranslate nohighlight">\([-\frac{\pi}{2}, \frac{\pi}{2}]\)</span> ，因此使用 <span class="math notranslate nohighlight">\(\arcsin\)</span> 求解。</p>
 </section>
 <section id="id6">
-<h2>结语<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<h2>结语<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <p>文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对向量 <span class="math notranslate nohighlight">\(\overrightarrow{O_{gimbal}P}\)</span> 的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。</p>
 </section>
 </section>

@@ -261,6 +261,7 @@ Bubble的文档及注释做以下约定：
     :widths: auto
 
     文档, ReStructuredText/rst, 中文, 为便于文档维护，文档主要使用中文进行维护
+    API文档, ReStructuredText/rst, 英语, API文档使用Sphinx生成，内容与源码保持一致
     主项目自述文件, MarkDown/md, 英语、中文, 提供中文和英语的自述文件，在必要部分使用html语法调整格式
     模块自述文件, MarkDown/md, 英语, 各模块自述文件仅使用英文书写，在必要部分使用html语法调整格式
     代码注释, Python/C/C++, 英语, 代码中使用英文解释必要的函数、模块和功能逻辑
