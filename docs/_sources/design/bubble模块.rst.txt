@@ -27,11 +27,11 @@ Bringup模块
 ------------------------------
 Bringup模块提供了Bubble系统最顶级的launch文件，通过该模块中的launch文件启动机器人需要的全部功能。
 
-该模块在 `bubbble_bringup <>`__  仓库中维护。
+该模块在 `bubble_bringup <https://github.com/Birdiebot/bubble_bringup>`__  仓库中维护。
 
 接口模块
 --------------------------
-包含了Bubble中通过RMW实现Node间的数据交互接口。在 `bubble_interface <>`__ 仓库中维护。
+包含了Bubble中通过RMW实现Node间的数据交互接口。在 `bubble_interface <https://github.com/Birdiebot/bubble_interface>`__ 仓库中维护。
 
 接口模块包含了以下三个功能包:
 
@@ -50,7 +50,7 @@ Bringup模块提供了Bubble系统最顶级的launch文件，通过该模块中�
 
 图像流输入模块
 --------------------------
-包含了Bubble中使用的图像传感器数据。在 `bubble_camera <>`__ 仓库中维护。
+包含了Bubble中使用的图像传感器数据。在 `bubble_camera <https://github.com/Birdiebot/bubble_camera>`__ 仓库中维护。
 
 * 视频流
     - 由 ``main`` 分支维护
@@ -66,7 +66,7 @@ Bringup模块提供了Bubble系统最顶级的launch文件，通过该模块中�
 
 MUC接口模块
 --------------------------
-包含了BCP相关功能实现。在 `bubble_core <>`__ 仓库中维护。该模块信息请参阅 `木鸢通讯协议 <../guide/木鸢通讯协议.html>`__。
+包含了BCP相关功能实现。在 `bubble_core <https://github.com/Birdiebot/bubble_core>`__ 仓库中维护。该模块信息请参阅 `木鸢通讯协议 <../guide/木鸢通讯协议.html>`__。
 
 * BCP的ROS封装
     - 由 ``bubble_protocol`` 功能包维护
@@ -78,7 +78,7 @@ MUC接口模块
 
 识别器模块
 --------------------------
-对图像数据进行目标检测任务，该任务单独分维护。在 `bubble_detector <>`__ 仓库中维护。
+对图像数据进行目标检测任务，该任务单独分维护。在 `bubble_detector <https://github.com/Birdiebot/bubble_detector>`__ 仓库中维护。
 
 * BTP_DM项目装甲板识别器
     - 由 ``bubble_visual`` 功能包维护
@@ -95,7 +95,7 @@ MUC接口模块
 
 功能模块
 ------------------------------
-功能模块实现了RMU赛场上的主要任务，在 `bubbble_contrib <>`__  仓库中维护。
+功能模块实现了RMU赛场上的主要任务，在 `bubble_contrib <https://github.com/Birdiebot/bubble_contrib>`__  仓库中维护。
 
 * 攻击模块
     - 由 ``bubble_aiming`` 功能包维护
@@ -109,11 +109,11 @@ MUC接口模块
 * 决策模块
     - 由 ``bubble_decision`` 功能包维护
     - 通过简单的FSM对机器人数据进行决策
-    - 该模块暂时放置在 ``bubbble_contrib`` 模块中，后续单独分仓库维护
+    - 该模块暂时放置在 ``bubble_contrib`` 模块中，后续单独分仓库维护
 
 导航模块
 ------------------------------
-导航模块实现了机器人SLAM的主要功能，在 `bubbble_navigation <>`__  仓库中维护。
+导航模块实现了机器人SLAM的主要功能，在 `bubble_navigation <https://github.com/Birdiebot/bubble_navigation>`__  仓库中维护。
 
 .. note:: 由于该模块大量功能未实际测试，该版本Bubble中删除了绝大部分该模块的内容，仅保留客机器人模型定义相关的部分。模块主体部分在后续版本中更新。
 

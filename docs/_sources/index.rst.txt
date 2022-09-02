@@ -53,7 +53,7 @@ API documentation
 `Bubble源码的API手册 <API-documentation.html>`__
 
 `Bubble项目 <Bubble项目.html>`__
-----------------------
+----------------------------------------------------
 如果您对Bubble项目的推进感兴趣：
 
 * `项目治理 <project/项目治理.html>`__
@@ -61,7 +61,7 @@ API documentation
 * `Roadmap <project/Roadmap.html>`__
 
 `Bubble资源 <Bubble资源.html>`__
-----------------------
+----------------------------------------------------------------------
 * `相关项目 <resources/相关项目.html>`__
 * `Q&A <resources/Q&A.html>`__
 

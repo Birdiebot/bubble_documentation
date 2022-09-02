@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bubble模块 &mdash; bubble v1.0 documentation</title>
+  <title>Bubble模块 &mdash; Bubble v1.0 documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
@@ -30,7 +30,7 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> bubble
+            <a href="../index.html" class="icon icon-home"> Bubble
             <img src="../_static/logo.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -63,7 +63,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">bubble</a>
+          <a href="../index.html">Bubble</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -106,13 +106,13 @@ HarryWen</p>
 <div class="contents local topic" id="id1">
 <p class="topic-title">目录</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#bringup" id="id15">Bringup模块</a></p></li>
-<li><p><a class="reference internal" href="#id2" id="id16">接口模块</a></p></li>
-<li><p><a class="reference internal" href="#id3" id="id17">图像流输入模块</a></p></li>
-<li><p><a class="reference internal" href="#muc" id="id18">MUC接口模块</a></p></li>
-<li><p><a class="reference internal" href="#id4" id="id19">识别器模块</a></p></li>
-<li><p><a class="reference internal" href="#id5" id="id20">功能模块</a></p></li>
-<li><p><a class="reference internal" href="#id6" id="id21">导航模块</a></p></li>
+<li><p><a class="reference internal" href="#bringup" id="id7">Bringup模块</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id8">接口模块</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id9">图像流输入模块</a></p></li>
+<li><p><a class="reference internal" href="#muc" id="id10">MUC接口模块</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">识别器模块</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">功能模块</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id13">导航模块</a></p></li>
 </ul>
 </div>
 <p>在Bubble中不同的任务和功能在不同仓库和功能包中维护，通过RMW实现机器人在RMU赛场中的不同功能。</p>
@@ -123,13 +123,13 @@ HarryWen</p>
 <p>随着功能包的维护，模块可能会发生小规模的变动。</p>
 </div>
 <section id="bringup">
-<h2><a class="toc-backref" href="#id15">Bringup模块</a><a class="headerlink" href="#bringup" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id7">Bringup模块</a><a class="headerlink" href="#bringup" title="Permalink to this heading"></a></h2>
 <p>Bringup模块提供了Bubble系统最顶级的launch文件，通过该模块中的launch文件启动机器人需要的全部功能。</p>
-<p>该模块在 <a href="#id7"><span class="problematic" id="id8">`bubbble_bringup &lt;&gt;`__</span></a>  仓库中维护。</p>
+<p>该模块在 <a class="reference external" href="https://github.com/Birdiebot/bubble_bringup">bubble_bringup</a>  仓库中维护。</p>
 </section>
 <section id="id2">
-<h2><a class="toc-backref" href="#id16">接口模块</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
-<p>包含了Bubble中通过RMW实现Node间的数据交互接口。在 <a href="#id7"><span class="problematic" id="id9">`bubble_interface &lt;&gt;`__</span></a> 仓库中维护。</p>
+<h2><a class="toc-backref" href="#id8">接口模块</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<p>包含了Bubble中通过RMW实现Node间的数据交互接口。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_interface">bubble_interface</a> 仓库中维护。</p>
 <p>接口模块包含了以下三个功能包:</p>
 <ul class="simple">
 <li><dl class="simple">
@@ -161,8 +161,8 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id17">图像流输入模块</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
-<p>包含了Bubble中使用的图像传感器数据。在 <a href="#id7"><span class="problematic" id="id10">`bubble_camera &lt;&gt;`__</span></a> 仓库中维护。</p>
+<h2><a class="toc-backref" href="#id9">图像流输入模块</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<p>包含了Bubble中使用的图像传感器数据。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_camera">bubble_camera</a> 仓库中维护。</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>视频流</dt><dd><ul>
@@ -192,8 +192,8 @@ HarryWen</p>
 </ul>
 </section>
 <section id="muc">
-<h2><a class="toc-backref" href="#id18">MUC接口模块</a><a class="headerlink" href="#muc" title="Permalink to this heading"></a></h2>
-<p>包含了BCP相关功能实现。在 <a href="#id7"><span class="problematic" id="id11">`bubble_core &lt;&gt;`__</span></a> 仓库中维护。该模块信息请参阅 <a class="reference external" href="../guide/木鸢通讯协议.html">木鸢通讯协议</a>。</p>
+<h2><a class="toc-backref" href="#id10">MUC接口模块</a><a class="headerlink" href="#muc" title="Permalink to this heading"></a></h2>
+<p>包含了BCP相关功能实现。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_core">bubble_core</a> 仓库中维护。该模块信息请参阅 <a class="reference external" href="../guide/木鸢通讯协议.html">木鸢通讯协议</a>。</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>BCP的ROS封装</dt><dd><ul>
@@ -214,8 +214,8 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id19">识别器模块</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
-<p>对图像数据进行目标检测任务，该任务单独分维护。在 <a href="#id7"><span class="problematic" id="id12">`bubble_detector &lt;&gt;`__</span></a> 仓库中维护。</p>
+<h2><a class="toc-backref" href="#id11">识别器模块</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<p>对图像数据进行目标检测任务，该任务单独分维护。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_detector">bubble_detector</a> 仓库中维护。</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>BTP_DM项目装甲板识别器</dt><dd><ul>
@@ -247,8 +247,8 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id20">功能模块</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
-<p>功能模块实现了RMU赛场上的主要任务，在 <a href="#id7"><span class="problematic" id="id13">`bubbble_contrib &lt;&gt;`__</span></a>  仓库中维护。</p>
+<h2><a class="toc-backref" href="#id12">功能模块</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<p>功能模块实现了RMU赛场上的主要任务，在 <a class="reference external" href="https://github.com/Birdiebot/bubble_contrib">bubble_contrib</a>  仓库中维护。</p>
 <ul class="simple">
 <li><dl class="simple">
 <dt>攻击模块</dt><dd><ul>
@@ -273,7 +273,7 @@ HarryWen</p>
 <dt>决策模块</dt><dd><ul>
 <li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_decision</span></code> 功能包维护</p></li>
 <li><p>通过简单的FSM对机器人数据进行决策</p></li>
-<li><p>该模块暂时放置在 <code class="docutils literal notranslate"><span class="pre">bubbble_contrib</span></code> 模块中，后续单独分仓库维护</p></li>
+<li><p>该模块暂时放置在 <code class="docutils literal notranslate"><span class="pre">bubble_contrib</span></code> 模块中，后续单独分仓库维护</p></li>
 </ul>
 </dd>
 </dl>
@@ -281,8 +281,8 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id21">导航模块</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
-<p>导航模块实现了机器人SLAM的主要功能，在 <a href="#id7"><span class="problematic" id="id14">`bubbble_navigation &lt;&gt;`__</span></a>  仓库中维护。</p>
+<h2><a class="toc-backref" href="#id13">导航模块</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<p>导航模块实现了机器人SLAM的主要功能，在 <a class="reference external" href="https://github.com/Birdiebot/bubble_navigation">bubble_navigation</a>  仓库中维护。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>由于该模块大量功能未实际测试，该版本Bubble中删除了绝大部分该模块的内容，仅保留客机器人模型定义相关的部分。模块主体部分在后续版本中更新。</p>
