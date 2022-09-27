@@ -1,0 +1,43 @@
+相关项目
+=======================
+
+
+在Bubble开发过程中，我们参考了一些开源项目，并将其中的一部分添加到了Bubble的源码中。
+
+在此向这些项目的开源作者和为RoboMasters生态建设的每一位开发者表示由衷的感谢。这些项目包含了：
+
+`Harry-hhj <https://github.com/Harry-hhj>`__ 的 `CVRM2021-sjtu <https://github.com/Harry-hhj/CVRM2021-sjtu>`__
+------------------------------------------------------------------------------------------------------------------------------
+在Bubble的识别器部分，使用了该项目的识别器 `四点模型 <https://github.com/Harry-hhj/CVRM2021-sjtu#%E5%9B%9B%E7%82%B9%E6%A8%A1%E5%9E%8B>`__ ，并进行了ROS封装。
+
+该项目使用了GNU General Public License v3.0许可证
+
+`Ar-Ray-code <https://github.com/Ar-Ray-code>`__ 的 `bbox_ex_msgs <https://github.com/Ar-Ray-code/bbox_ex_msgs>`__
+------------------------------------------------------------------------------------------------------------------------------
+在Bubble的消息接口模块的识别器接口，使用了该项目，并进行了修改。
+
+该项目使用了Apache 2.0许可证
+
+`Ar-Ray-code <https://github.com/Ar-Ray-code>`__ 的 `bbox_ex_msgs <https://github.com/Ar-Ray-code/YOLOX-ROS>`__
+------------------------------------------------------------------------------------------------------------------------------
+在Bubble的识别器ROS封装，参考了该项目，并进行了修改。
+
+该项目使用了Apache 2.0许可证
+
+`RoboMaster <https://github.com/RoboMaster>`__ 的 `RoboRTS <https://github.com/RoboMaster/RoboRTS>`__
+------------------------------------------------------------------------------------------------------------------------------
+BCP的设计，参考了该项目。
+
+该项目使用了GPL v3.0许可证
+
+`匿名科创 <http://www.anotc.com/>`__ 的 `匿名通讯协议 <http://www.anotc.com/>`__
+------------------------------------------------------------------------------------------------------------------------------
+BCP的数据帧格式定义，参考了该项目，并自行进行了实现。
+
+
+Bubble文档
+--------------------------------------------------------------------------
+在Bubble文档的编写过程中，主要参考了：
+
+* `ros2 <https://github.com/ros2>`__ 的 `ros2_documentation <https://github.com/ros2/ros2_documentation>`__ ，该项目使用了CC 4.0 International许可证
+* `RoboMaster OSS <https://github.com/robomaster-oss>`__ 的 `rmoss_tutorials <https://github.com/robomaster-oss/rmoss_tutorials>`__ ，该项目使用了MIT许可证

@@ -1,0 +1,8 @@
+RMUC2022旋转前哨站预测器
+=================================================
+:Authors:
+    HarryWen
+
+:Contact: 858601365@qq.com
+:Date: 2022/09/8
+:Copyright: This document has been placed in the public domain.

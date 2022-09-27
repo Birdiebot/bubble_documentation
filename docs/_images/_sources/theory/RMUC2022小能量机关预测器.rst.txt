@@ -1,0 +1,196 @@
+RMUC2022小能量机关预测器
+=================================================
+:Authors:
+    HarryWen
+
+:Contact: 858601365@qq.com
+:Date: 2022/09/8
+:Copyright: This document has been placed in the public domain.
+
+概述
+---------------------------------------------------------------------------------------------
+小能量机关的转动机制是匀速转动的相较于随机转动难度较低。去年的做法是计算当前转动的角速度然后将该值作为能量机关的实际角速度值来预测目标。今年简化做法，可以不通过角速度拟合，而是使用固定的角度预测值来预测目标的位置。
+
+.. note:: 能量机关预测器的相关代码位于 ``bubble_contrib/bubble_aiming/predictor/smallRunePredictor.py`` 模块下
+
+
+坐标系定义
+---------------------------
+坐标系定义原则上参考 `REP103 <https://www.ros.org/reps/rep-0103.html>`__， 但针对RMU进行了一定的简化。
+
+能量机关坐标系以能量机关R标作为极坐标系原点。不同于极坐标系， 此处从参考系x轴正方向逆时针旋转到x轴负方向所经过的角度范围为 :math:`\theta \varepsilon [0,180]`  顺时针旋转到x轴负方向所经过的角度范围为 :math:`\theta \varepsilon [0,-180]`。
+
+流程
+--------------------------------------------------
+【添加流程图】
+
+数据准备
+--------------------------------------------------
+
+需要计算能量机关当前旋转所在角度、旋转方向和角速度，以便后续计算。
+
+1. 旋转方向判断： 
+   使用数据间隔相减的方法，计算大于0的值占所有数据的比例。根据比例判断旋转方向。
+   
+    .. code-block:: python
+        
+        def judgeDirectionRotation(self, degree_list):
+            interpolation_num = 2
+            if len(degree_list) != 0:
+                data_array = np.array(degree_list)
+                data_array[data_array < 0] += 360
+                dup_degree_list = copy.deepcopy(data_array.tolist())
+                for i in range(interpolation_num):
+                    dup_degree_list.insert(0, 0)
+                dup_degree_array = np.array(dup_degree_list)
+                sub = np.subtract(data_array, dup_degree_array[:-interpolation_num])
+                ratio = np.count_nonzero(sub > 0) / len(degree_list)
+                if ratio < 0.5:
+                    self._wise = Wise.anticlockwise
+                elif ratio >= 0.5:
+                    self._wise = Wise.clockwise  
+            return self._wise
+
+根据需要数据相隔的个数在列表的第0位进行插值。
+
+    .. code-block:: python
+
+        for i in range(interpolation_num):
+            dup_degree_list.insert(0, 0)
+
+将列表变为数组， 将未插值的数组减去插值的数组。sub > 0 用于获得数组每个元素是否大于0的true/false 列表。count_nonzero用于统计true的个数。
+
+    .. code-block:: python
+
+        dup_degree_array = np.array(dup_degree_list)
+        sub = np.subtract(data_array, dup_degree_array[:-interpolation_num])
+        ratio = np.count_nonzero(sub > 0) / len(degree_list)
+
+根据sub中大于零的个数占所有数据的比例判断旋转方向。此处设定ratio分界线为0.5。
+
+    .. code-block:: python
+
+        if ratio < 0.5:
+            self._wise = Wise.anticlockwise
+        elif ratio >= 0.5:
+            self._wise = Wise.clockwise  
+    
+
+1. 角速度计算：对前后两帧数据计算角度差和时间差，通过角度差和时间差的比值。
+
+   calAngularVelocity()用于计算角速度。 calRadianGap函数用于计算弧度差， 由于坐标系定义的问题， 为避免在x轴交界处角度计算错误， 对弧度差计算进行处理 。 
+
+    .. code-block:: python
+
+        def calRadianGap(radian1, radian2):
+            if np.sign(radian1) != np.sign(radian2):
+                abs_radian1 = abs(radian1)
+                abs_radian2 = abs(radian2)
+                if abs(radian1) > 1.5708:
+                    gap = 6.28319 - (abs_radian1 + abs_radian2)
+                else:
+                    gap = abs_radian1 + abs_radian2
+            else:
+                gap = abs(radian1 - radian2)
+            return gap
+
+        def calAngularVelocity(last_rad: float, cur_rad: float, time_differ: float) -> float:
+            radian_differ = calRadianGap(cur_rad, last_rad)
+            AngleVelo = radian_differ / time_differ
+            return AngleVelo
+
+根据输入弧度的符号是否相同，判断弧度是否在x轴交界处。若符号不同则对弧度取绝对值，若符号相同则直接计算弧度差。
+
+    .. code-block:: python
+
+        if np.sign(radian1) != np.sign(radian2):
+            abs_radian1 = abs(radian1)
+            abs_radian2 = abs(radian2)
+
+此处分为两种情况，一种是两弧度位于x轴负半轴两侧，计算方法为 :math:`(\pi - abs\_radian1) + (\pi - abs\_radian2)`, 
+另一种是两弧度位于x轴正半轴两侧,计算方法为 :math:`abs\_radian1 +  abs\_radian2` 。
+
+    .. code-block:: python
+
+        if abs(radian1) > 1.5708:
+            gap = 6.28319 - (abs_radian1 + abs_radian2)
+        else:
+            gap = abs_radian1 + abs_radian2
+
+
+
+目标预测
+--------------------------------------------------
+
+由于预测的角度使用定值，故只需考虑计算如何根据角度定值获取预测目标框在图像中的位置。
+
+1. 计算预测矩形框的中心
+
+    calPredictedTarCenter() 用于计算预测矩形框的中心。rigidTransform()用于多边形在2D平面中的刚体变换。
+
+    .. code-block:: python
+
+        def rigidTransform(center: np.ndarray, theta: float, point_list: Union[np.ndarray, list]) -> np.ndarray:
+            new_point_list = []
+            center = list(map(int, center))
+            rotation_matrix = cv2.getRotationMatrix2D(center, theta, 1)
+            for point in point_list:
+                point = np.append(point, [1])
+                new_point = np.rint(np.dot(rotation_matrix, point))  # 四舍五入
+                new_point_list.append(new_point.tolist())
+            new_point_list = np.array(new_point_list)
+            return new_point_list
+    
+        def calPredictedTarCenter(self, circle_center, tar_center, predict_degree):
+            if self.wise == Wise.anticlockwise:
+                predict_degree = predict_degree
+            elif self.wise == Wise.clockwise:
+                predict_degree = -predict_degree
+            predicted_tar_center = rigidTransform(predict_degree, circle_center, [tar_center])[0]
+            return predicted_tar_center
+
+使用opencv内的getRotationMatrix2D获取仿射变换矩阵。由于没有进行放缩，故可以认为是刚体变换矩阵。
+
+    .. code-block:: python
+
+        rotation_matrix = cv2.getRotationMatrix2D(center, theta, 1)
+
+由于刚体变换矩阵是 :math:`3 * 3` 的矩阵，故将多边形的每个二维坐标点转换为齐次坐标（增加一个维度），然后与矩阵相乘完成变换。
+
+    .. code-block:: python
+
+        for point in point_list:
+            point = np.append(point, [1])
+            new_point = np.rint(np.dot(rotation_matrix, point))  # 四舍五入
+            new_point_list.append(new_point.tolist())
+
+2. 计算预测矩形框
+   
+    .. code-block:: python
+   
+       def calPredictedTarRect(rect_rotation_info, pred_center=None, pred_angle=None):
+            pred_tar_rect = []
+            enum_info = RotationInfo
+            if isinstance(rect_rotation_info, list):
+                ori_width, ori_height = rect_rotation_info[enum_info.size]
+                if pred_center is None:
+                    pred_center = rect_rotation_info[enum_info.center]
+                if pred_angle is None:
+                    pred_angle = rect_rotation_info[enum_info.angle]
+                pred_tar_rect = (pred_center, (ori_width, ori_height), pred_angle)
+            return pred_tar_rect
+
+该函数的形参pred_center和pred_angle默认值为None。若为None则，默认采用旋转矩形框原始信息。
+
+    .. code-block:: python
+
+        if pred_center is None:
+            pred_center = rect_rotation_info[enum_info.center]
+        if pred_angle is None:
+            pred_angle = rect_rotation_info[enum_info.angle]
+
+此处使用旋转矩形来描述矩形框状态。通过计算可知，装甲板绕圆心转动的角度数等于装甲板绕自身中心转过的角度。故此处直接使用能量机关转过的角度。
+
+    .. code-block:: python
+
+        pred_tar_rect = (pred_center, (ori_width, ori_height), pred_angle)

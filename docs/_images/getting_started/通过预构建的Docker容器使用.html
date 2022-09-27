@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>通过预构建的Docker容器使用 &mdash; Bubble v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="通过源码构建" href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html" />
+    <link rel="prev" title="快速开始" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Bubble
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">通过预构建的Docker容器使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html">通过源码构建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE.html">参数配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E6%A8%A1%E5%9D%97%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B.html">模块运行效果实例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bubble</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a> &raquo;</li>
+      <li>通过预构建的Docker容器使用</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/getting_started/通过预构建的Docker容器使用.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="docker">
+<h1>通过预构建的Docker容器使用<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h1>
+<section id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>Bubble提供了一个预构建Docker容器，快速完成环境的搭建。
+您可以在容器中运行Bubble。Bubble的docker镜像托管在 <a class="reference external" href="https://hub.docker.com/repository/docker/birdiebot/bubble-aarch64v8">docker hub</a> 中。</p>
+<p>Bubble的Docker镜像基于 <a class="reference external" href="https://github.com/dusty-nv/jetson-containers">dustynv的galactic-ros-base-l4t-r34.1.1</a> 构建。镜像提供了：</p>
+<ul class="simple">
+<li><p>Ros Galactic环境</p></li>
+<li><p>l4t rootfs 的包子集（Multimedia、Gstreamer、Camera、Core、3D Core、Vulkan、Weston）</p></li>
+<li><p>CUDA、CuDNN和TensorRT</p></li>
+<li><p>hikrobot工业相机驱动</p></li>
+<li><p>Bubble运行时所需要的环境依赖</p></li>
+</ul>
+</section>
+<section id="bubble">
+<h2>运行Bubble的容器<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
+<section id="id2">
+<h3>先决条件<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<p>Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime已经安装。</p>
+</section>
+<section id="id3">
+<h3>运行容器<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>允许外部应用程序连接到主机的显示器：</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">xhost +</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>使用 docker 命令运行 docker 容器</p></li>
+</ul>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --rm --net=host --runtime nvidia \</span>
+<span class="go">    -e DISPLAY=$DISPLAY -v /tmp/.X11-unix/:/tmp/.X11-unix \</span>
+<span class="go">    --device=/dev/bus/usb/ --device=/dev/ttyTHS0 \</span>
+<span class="go">    -v /home/nvidia/Desktop/bubble:/home/bubble \</span>
+<span class="go">    birdiebot/bubble-aarch64v8:v1.1-l4t-r32.7.1 /bin/bash</span>
+</pre></div>
+</div>
+<ul>
+<li><p>参数说明：</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>-it表示以交互模式运行</p></li>
+<li><p>–rm完成后将删除容器</p></li>
+<li><p>–runtime nvidia将在运行Bubble容器时使用NVIDIA容器运行时</p></li>
+<li><p>-v是挂载目录，用于挂载主机的 X11 显示在容器文件系统中以渲染输出视频</p></li>
+<li><p>–device是共享主机中的usb设备（主要是工业相机）和串口设备</p></li>
+<li><p>1.1是bubble版本对应的镜像标签(可根据需求更改镜像标签)，l4t-r32.7.1是对应的Linux for Tegra版本</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h3>运行Bubble<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p>根据之前设置的源码路径，运行Bubble。</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch bubble_bringup sentry_launch.py</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html" class="btn btn-neutral float-left" title="快速开始" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E9%80%9A%E8%BF%87%E6%BA%90%E7%A0%81%E6%9E%84%E5%BB%BA.html" class="btn btn-neutral float-right" title="通过源码构建" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Birdiebot R&amp;D Department Shanghai University Of Engineering Science.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

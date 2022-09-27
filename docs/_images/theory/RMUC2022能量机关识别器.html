@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RMUC2022能量机关识别器 &mdash; Bubble v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="RMUC2022自动瞄准预测器" href="RMUC2022%E8%87%AA%E5%8A%A8%E7%9E%84%E5%87%86%E9%A2%84%E6%B5%8B%E5%99%A8.html" />
+    <link rel="prev" title="RMUC2022旋转前哨站预测器" href="RMUC2022%E6%97%8B%E8%BD%AC%E5%89%8D%E5%93%A8%E7%AB%99%E9%A2%84%E6%B5%8B%E5%99%A8.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Bubble
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%A4%A7%E8%83%BD%E9%87%8F%E6%9C%BA%E5%85%B3%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022大能量机关预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%B0%8F%E8%83%BD%E9%87%8F%E6%9C%BA%E5%85%B3%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022小能量机关预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%BC%B9%E9%81%93%E8%A1%A5%E5%81%BF.html">RMUC2022弹道补偿</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E6%97%8B%E8%BD%AC%E5%89%8D%E5%93%A8%E7%AB%99%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022旋转前哨站预测器</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">RMUC2022能量机关识别器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E8%87%AA%E5%8A%A8%E7%9E%84%E5%87%86%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022自动瞄准预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E8%A3%85%E7%94%B2%E6%9D%BF%E8%AF%86%E5%88%AB%E5%99%A8.html">RMUC2022装甲板识别器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E8%BF%90%E5%8A%A8%E8%A1%A5%E5%81%BF.html">RMUC2022运动补偿</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bubble</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a> &raquo;</li>
+      <li>RMUC2022能量机关识别器</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/theory/RMUC2022能量机关识别器.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="rmuc2022">
+<h1>RMUC2022能量机关识别器<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>HarryWen</p>
+</dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:858601365&#37;&#52;&#48;qq&#46;com">858601365<span>&#64;</span>qq<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-odd">Date</dt>
+<dd class="field-odd"><p>2022/09/10</p>
+</dd>
+<dt class="field-even">Copyright</dt>
+<dd class="field-even"><p>This document has been placed in the public domain.</p>
+</dd>
+</dl>
+<section id="id1">
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<p>在RMU竞赛中， 能够准确预测和击打能量机关是极为重要的。而预测的基础是识别器能够准确识别中心R标和区分出未被激活的能量机关。
+不同于装甲板灯条的识别，能量机关目标形状不规则，不能简单的使用外接矩形去完成识别任务。该文档将阐述如何使用传统视觉对不规则形状的目标进行识别。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>能量机关识别器的相关代码位于 <code class="docutils literal notranslate"><span class="pre">bubble_detector/bubble_rune</span></code> 模块下</p>
+</div>
+</section>
+<section id="id2">
+<h2>流程<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>【添加流程图】</p>
+</section>
+<section id="id3">
+<h2>图像预处理<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<ol class="arabic simple">
+<li><p>图像二值化处理：分离图像的BGR通道。将其中的B和R两通道相减，并对相减的结果进行阈值分割，得到需要击打颜色的二值化图像</p></li>
+<li><p>灯条轮廓增强：对二值化图像进行多次图像形态学上的闭运算，使灯条轮廓变得完整。（此处需避免多次闭运算导致不同扇叶灯条黏连）</p></li>
+</ol>
+<section id="id4">
+<h3>功能实现<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p>均使用OpenCV内的函数实现</p>
+<div class="line-block">
+<div class="line">cv::split() 将图像从多通道分离为多个单通道图像。</div>
+<div class="line">cv::threshold(type = cv::THRESH_BINARY) 筛选出图像中需要的灰度部分，并转化为二值化的图像。</div>
+<div class="line">cv::morphologyEx(op = cv.MORPH_CLOSE) 形态学闭操作, 闭合轮廓。内部形参定义请参见 <a class="reference external" href="https://docs.opencv.org/4.x/d4/d86/group__imgproc__filter.html#ga67493776e3ad1a3df63883829375201f">morphologyEx</a></div>
+</div>
+</section>
+<section id="id5">
+<h3>核心代码实现<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<p>获取指定颜色的二值化图像</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="w"> </span><span class="nf">GrayFilter</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="w"> </span><span class="o">&amp;</span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">mode</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">grayThres</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="w"> </span><span class="n">grayImg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">3</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">cv</span><span class="o">::</span><span class="n">split</span><span class="p">(</span><span class="n">image</span><span class="p">,</span><span class="w"> </span><span class="n">channels</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mode</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">grayImg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">else</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">grayImg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">channels</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="n">cv</span><span class="o">::</span><span class="n">threshold</span><span class="p">(</span><span class="n">grayImg</span><span class="p">,</span><span class="w"> </span><span class="n">grayImg</span><span class="p">,</span><span class="w"> </span><span class="n">grayThres</span><span class="p">,</span><span class="w"> </span><span class="mi">255</span><span class="p">,</span><span class="w"> </span><span class="n">cv</span><span class="o">::</span><span class="n">THRESH_BINARY</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">grayImg</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h2>识别未被激活的能量机关<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<p>能量机关包含两种形态，一种为未被激活的锤子形和激活成功的宝剑形。</p>
+<p>由于两者的面积不同，通过设置合适的面积上下限，筛选出二值化图像中的锤子形轮廓。</p>
+<p>根据轮廓的层级关系，提取锤子型轮廓的子轮廓，即目标轮廓。</p>
+<section id="id7">
+<h3>功能实现<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<div class="line-block">
+<div class="line">filterArea() 筛选出符合面积要求的轮廓</div>
+<div class="line">cv::contourArea() 轮廓面积计算</div>
+<div class="line">cv::findContours(mode = cv::CV_RETR_TREE) 检测所有轮廓，便于提取父级轮廓的内部子轮廓。内部详细定义请参见</div>
+</div>
+</section>
+<section id="id8">
+<h3>核心代码实现<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<p>筛选轮廓的面积</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">filterArea</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">contours</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">minArea</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">maxArea</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="w"> </span><span class="n">hierarchyIdList</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">matchContoursList</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">contours_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">contours_id</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">contours</span><span class="p">.</span><span class="n">size</span><span class="p">();</span><span class="w"> </span><span class="n">contours_id</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">cv</span><span class="o">::</span><span class="n">Point</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="n">contour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">contours</span><span class="p">[</span><span class="n">contours_id</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="kt">double</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cv</span><span class="o">::</span><span class="n">contourArea</span><span class="p">(</span><span class="n">cv</span><span class="o">::</span><span class="n">Mat</span><span class="p">(</span><span class="n">contour</span><span class="p">));</span><span class="w"></span>
+
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">minArea</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">area</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">maxArea</span><span class="p">)</span><span class="w"></span>
+<span class="w">        </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="n">matchContoursList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">contours</span><span class="p">[</span><span class="n">contours_id</span><span class="p">]);</span><span class="w"></span>
+<span class="w">            </span><span class="n">hierarchyIdList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">contours_id</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">matchContoursList</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="r">
+<h2>识别能量机关的中心R标<a class="headerlink" href="#r" title="Permalink to this headline"></a></h2>
+<p>中心R标相较于能量机关的扇叶面积较小，故直接采用面积法，筛选较小面积即可完成中心R标的轮廓提取</p>
+<section id="id9">
+<h3>功能实现<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<p>与识别未被激活的能量机关部分相同</p>
+</section>
+</section>
+<section id="id10">
+<h2>相关内容<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
+<p>在识别之后需要对能量机关轨迹进行预测，具体详见能量机关预测器</p>
+</section>
+<section id="id11">
+<h2>结语<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h2>
+<p>文档阐述了当前版本Bubble中能量机关识别器实现的过程。使用面积法筛选未被激活能量机关的轮廓。然后使用轮廓层级关系获取轮廓子层级即需要击打的目标，从而完成能量机关的识别任务。</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="RMUC2022%E6%97%8B%E8%BD%AC%E5%89%8D%E5%93%A8%E7%AB%99%E9%A2%84%E6%B5%8B%E5%99%A8.html" class="btn btn-neutral float-left" title="RMUC2022旋转前哨站预测器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="RMUC2022%E8%87%AA%E5%8A%A8%E7%9E%84%E5%87%86%E9%A2%84%E6%B5%8B%E5%99%A8.html" class="btn btn-neutral float-right" title="RMUC2022自动瞄准预测器" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Birdiebot R&amp;D Department Shanghai University Of Engineering Science.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
