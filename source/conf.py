@@ -1,15 +1,3 @@
-
-# Copyright (c) 2022 Birdiebot R&D Department
-# Shanghai University Of Engineering Science. All Rights Reserved
-# License: GNU General Public License v3.0.
-# See LICENSE file in root directory.
-# 
-# Author: ligcox ligcox@birdiebot.top
-# Date: 2022-09-02 00:41:53
-# FilePath: /bubble/src/bubble_documentation/source/conf.py
-# LastEditors: ligcox ligcox@birdiebot.top
-# LastEditTime: 2022-09-02 14:45:04
-
 import time
 import os
 import sys
@@ -49,7 +37,7 @@ html_theme = 'sphinx_rtd_theme'
 html_static_path = ['_static']
 html_favicon = 'favicon.ico'
 html_logo = 'logo.png'
-
+imgmath_image_format = 'png'
 
 latex_engine = 'xelatex'
 latex_elements = {

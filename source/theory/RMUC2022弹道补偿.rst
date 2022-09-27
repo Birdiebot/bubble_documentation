@@ -1,0 +1,120 @@
+RMUC2022弹道补偿
+=================================================
+:Authors:
+    HarryWen
+
+:Contact: 858601365@qq.com
+:Date: 2022/09/8
+:Copyright: This document has been placed in the public domain.
+
+概述
+----------------------------
+在RMU竞赛中，由于弹丸受重力影响，对于远距离打击如果不进行弹道补偿，弹丸会打到目标偏下的位置，而影响自瞄系统击打的准确率。
+
+为消除弹丸下坠的影响，引入了弹道补偿模块。该文档将阐述弹道补偿模块中两种模型，理想抛物线模型和单方向空气阻力模型。
+
+
+坐标系定义
+---------------------------
+.. note:: 坐标系定义原则上参考 `REP103 <https://www.ros.org/reps/rep-0103.html>`__，但针对RMU进行了一定的简化，请参阅 `Bubble坐标系 <guide/Bubble坐标系.html>`__
+
+云台坐标系通过\ :math:`yaw`\ 轴与\ :math:`pitch`\ 轴连接在底盘上，初始坐标系\ :math:`O_{gimbal\_xyz}`\。
+其中前方为\ :math:`{x}`\ 正方向，左方为\ :math:`{y}`\ 正方向，上侧为\ :math:`{z}`\ 正方向。重力加速度 :math:`g` 方向为 :math:`z` 轴负方向。
+
+相机坐标系通过\ :math:`yaw`\ 轴与\ :math:`pitch`\ 轴连接在于云台上，初始坐标系\ :math:`O_{camara_optical\_xyz}`\。
+
+
+模型符号说明
+--------------------------
+
+.. list-table::
+    :widths: 5 25 25
+    :header-rows: 1
+
+    * - 符号
+      - 符号说明
+      - 备注
+    * - :math:`t`
+      - 弹丸从枪管飞出到击打到装甲板的飞行时间
+      - 即下坠时间
+
+    * - :math:`s`
+      - 弹丸从枪管飞出到击打到装甲板的飞行距离
+      - /
+    * - :math:`\delta_h`
+      - 弹丸沿枪管朝向射出的目标点位置和实际命中点的高度差，即下落高度
+      - /
+    * - :math:`||\vec{v}||`
+      - 弹丸初速度
+      - 通过裁判系统获得，一般地 :math:`||\vec{v}|| = ||\vec{v}_0|| = 30m/s`\
+
+    * - :math:`gimbal_{yaw}`、:math:`gimbal_{pitch}`
+      - 在底盘坐标系下云台相对底盘中心偏转角度
+      - /
+
+    * - :math:`target_{yaw}`、:math:`target_{pitch}`
+      - 在相机坐标系下目标相对相机光心的偏转角度
+      - /
+
+    * - :math:`comp_{yaw}`、:math:`comp_{pitch}`
+      - 在底盘坐标系下云台用于补偿弹丸下落的偏转角度
+      - 由于 :math:`comp_{yaw}` 不参与弹道补偿的计算故默认为零
+
+理想抛物线模型
+---------------------------
+
+模型假设
+***********************
+1. 弹丸不受空气阻力影响
+2. 弹丸从枪管飞出的速度为裁判系统获取到的速度
+
+数学推导
+***********************
+.. math::
+  
+  s_hor = s * Sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})
+
+  s_ver = s * Cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})
+
+  t = s / \vec{v} 
+
+  \delta_h = 1/2 g t^2 
+
+  error_value = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})
+
+  iter_radian = math.atan((Y+error_value)/ori_Z)
+
+
+功能实现
+***********************
+采用反推模型的方法
+
+运动补偿的相关代码位于 ``bubble_contrib/bubble_aming`` 模块下
+
+目标点 :math:`P_0(x_0, y_0, z_0)` 信息通过识别器经由 `PnP解算 <https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html>`__ 获得。
+PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下：
+
+设置最终目标点targetPoint
+设临时目标点tempPoint=targetPoint
+循环迭代10次:
+
+    计算仰角angle=枪管指向tempPoint的角度
+
+    利用抛物线模型，计算实际命中点realPoint.
+
+    得到误差，即下落高度deltaH=targetPoint-realPoint
+
+    更新tempPoint=tempPoint+deltaH
+
+输出仰角angle，与误差deltaH
+
+
+单方向空气阻力模型
+---------------------------
+
+数学推导
+***********************
+
+流程
+***********************
+

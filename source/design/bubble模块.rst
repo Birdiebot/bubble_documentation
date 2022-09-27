@@ -7,7 +7,7 @@ Bubble模块
     HarryWen
 :Contact: 
     ligcox@birdiebot.top,
-    HarryWen@birdiebot.top
+    858601365@qq.com
 :Last edit date: 2022/08/25
 :Copyright: This document has been placed in the public domain.
 

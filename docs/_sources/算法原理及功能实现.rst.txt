@@ -17,7 +17,7 @@
    - RMUC2022旋转前哨站预测器
 
 * 补偿模块
-   - RMUC2022弹道补偿
+   - `RMUC2022弹道补偿 <theory/RMUC2022弹道补偿.html>`__
    - `RMUC2022运动补偿 <theory/RMUC2022运动补偿.html>`__
 
 * 决策模块

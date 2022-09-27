@@ -4,7 +4,7 @@
    :hidden:
    :glob:
 
-   theory/RMUC2022运动补偿
+   theory/*
 
    
 
@@ -15,9 +15,10 @@
 * 预测器模块
    - RMUC2022自动瞄准预测器
    - RMUC2022旋转前哨站预测器
+   - RMUC2022能量机关预测器
 
 * 补偿模块
-   - RMUC2022弹道补偿
+   - `RMUC2022弹道补偿 <theory/RMUC2022弹道补偿.html>`__
    - `RMUC2022运动补偿 <theory/RMUC2022运动补偿.html>`__
 
 * 决策模块
