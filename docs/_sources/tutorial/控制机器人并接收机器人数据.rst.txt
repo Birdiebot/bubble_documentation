@@ -263,4 +263,4 @@ BCP中定义了有关机器人的状态信息，这些信息包括了：
    [INFO] [minimal_subscriber]: Publishing: recived gimbal data, yaw: 0.0, pitch: 0.0, roll: 0.0
    ...
 
-.. note:: 打印的频率取决于MUC发送数据的频率，数值的大小取决于机器人坐标系的定义。一般地，在Bubble中定义的数值可以参阅 `机器人坐标系定义【添加链接】`。
+.. note:: 打印的频率取决于MUC发送数据的频率，数值的大小取决于机器人坐标系的定义。一般地，在Bubble中定义的数值可以参阅 `机器人坐标系定义 <guide/Bubble坐标系.html>`__ 。

@@ -9,5 +9,5 @@ Bubble资源
    resources/Q&A
 
 该文档列出了Bubble项目相关的资源：
-    * 相关项目
-    * Q&A
+    * `相关项目 <recources/相关项目.html>`__
+    * `Q&A <recources/Q&A.html>`__

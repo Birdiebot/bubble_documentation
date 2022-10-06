@@ -5,8 +5,8 @@
    :hidden:
    :glob:
 
-   getting_started/通过预构建的Docker容器使用
    getting_started/通过源码构建
+   getting_started/通过预构建的Docker容器使用
    getting_started/参数配置
    getting_started/模块运行效果实例
 

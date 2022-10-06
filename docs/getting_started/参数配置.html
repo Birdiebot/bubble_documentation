@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -85,7 +84,127 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>参数配置<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<h1>参数配置<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<section id="id2">
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>所有兵种的视觉算法模块均是通过 <em>ROS</em> 的 <em>launch文件</em> 进行启动,对于机器人的初始运行参数均可以在 <em>bubble_bringup</em> 文件夹中进行配置。</p>
+<p>在 <em>bubble_bringup</em> 功能包的 <em>launch</em> 文件夹下包含每种机器人的功能模块启动文件。每种机器人内部通过DeclareLaunchArgument生成的参数都是依据bubble_launch和visual_launch文件中的参数进行重新赋值生成的。
+故此处主要介绍这两个文件内参数的意义和如何使用。</p>
+</section>
+<section id="id3">
+<h2>参数介绍<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<p>此处以步兵机器人为例进行参数介绍。</p>
+<section id="bubble-launch">
+<h3>bubble_launch文件内参数<a class="headerlink" href="#bubble-launch" title="Permalink to this headline"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 17%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数名称</p></th>
+<th class="head"><p>描述</p></th>
+<th class="head"><p>配置</p></th>
+<th class="head"><p>备注</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>namespace</p></td>
+<td><p>TODO</p></td>
+<td></td>
+<td><p>/</p></td>
+</tr>
+<tr class="row-odd"><td><p>use_namespace</p></td>
+<td><p>TODO</p></td>
+<td></td>
+<td><p>/</p></td>
+</tr>
+<tr class="row-even"><td><p>use_sim_time</p></td>
+<td><p>TODO</p></td>
+<td></td>
+<td><p>/</p></td>
+</tr>
+<tr class="row-odd"><td><p>use_regular_send</p></td>
+<td><p>是否节点会使用固定频率向话题发送消息</p></td>
+<td><p>True</p></td>
+<td><p>用于保证云台自瞄效果的一致性</p></td>
+</tr>
+<tr class="row-even"><td><p>use_synchronize</p></td>
+<td><p>是否将云台和目标消息进行时间戳同步</p></td>
+<td><p>False</p></td>
+<td><p>/</p></td>
+</tr>
+<tr class="row-odd"><td><p>use_rune_infer</p></td>
+<td><p>是否启用能量机关检测</p></td>
+<td><p>True</p></td>
+<td><p>由于只有步兵机器人有能量机关击打任务，故此参数仅针对步兵机器人</p></td>
+</tr>
+<tr class="row-even"><td><p>params_file</p></td>
+<td><p>调试参数文件的路径</p></td>
+<td><p>‘bringup_dir/config/infantry_params.yaml’</p></td>
+<td><p>/</p></td>
+</tr>
+<tr class="row-odd"><td><p>robot_type</p></td>
+<td><p>当前机器人类型</p></td>
+<td><p>‘infantry’</p></td>
+<td><p>根据上位机部署的机器人进行选择，若选择错误的机器人类型会导致与下位机的通讯异常</p></td>
+</tr>
+<tr class="row-even"><td><p>serial_port</p></td>
+<td><p>用于进行数据通讯的板载串口名称</p></td>
+<td><p>“/dev/ttyTHS0”</p></td>
+<td><p>Jetson开发套件使用40pin引脚的6、8口配置的ttyTHS0作为BCP配置的COM口</p></td>
+</tr>
+<tr class="row-odd"><td><p>urdf_file_path</p></td>
+<td><p>描述机器人 urdf 模型的绝对路径</p></td>
+<td><p>“state_publisher_dir/infantry_description_mesh.urdf”</p></td>
+<td><p>/</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="visual-launch">
+<h3>visual_launch文件内参数<a class="headerlink" href="#visual-launch" title="Permalink to this headline"></a></h3>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>参数名称</p></th>
+<th class="head"><p>描述</p></th>
+<th class="head"><p>配置</p></th>
+<th class="head"><p>备注</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>visual_params_file</p></td>
+<td><p>aiming节点相机内参矩阵文件路径</p></td>
+<td><p>bringup_dir/config/visual_aiming_params.yaml</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>camera_params_file</p></td>
+<td><p>相机节点参数文件路径</p></td>
+<td><p>bringup_dir/config/camera_params.yaml</p></td>
+<td><p>包含曝光时间，自动增益等参数</p></td>
+</tr>
+<tr class="row-even"><td><p>debug_mode</p></td>
+<td><p>是否启用调试模式</p></td>
+<td><p>False</p></td>
+<td><p>启用调试模式后会将识别效果进行可视化操作。</p></td>
+</tr>
+<tr class="row-odd"><td><p>model_path</p></td>
+<td><p>yolox onnx 神经网络模型路径</p></td>
+<td><p>“bubble_resources/model/autoaming_SJTU2021_base.onnx”</p></td>
+<td><p>/</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
 </section>
 
 

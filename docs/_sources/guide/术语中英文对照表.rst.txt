@@ -33,8 +33,8 @@
     底盘,chassis,\-
     云台,gimbal,\-
     装甲板,armour,在部分较早的代码中可能使用armor
-    弹丸,projectile,\-
-    弹道,trajectory,\-
+    弹丸,bullet,\-
+    弹道,ballistic,\-
 
 RMU游戏机制
 -------------------------
@@ -43,7 +43,7 @@ RMU游戏机制
     :align: center
     :widths: 1,2,2,5
 
-    （大/小）能量机关,（大、小）符,power_rune,符是RMUC2019及更早出现的概念，之后会使用符替代能量机关
+    （大/小）能量机关,（大、小）符,(large/small) rune,符是RMUC2019及更早出现的概念，之后会使用符替代能量机关
     哨兵轨道,\-,TODO,\-
     暴击,TODO,TODO,RMUA相关概念
     潜伏,TODO,TODO,RMUA相关概念

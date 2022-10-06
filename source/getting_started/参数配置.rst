@@ -53,19 +53,19 @@ bubble_launch文件内参数
       - 由于只有步兵机器人有能量机关击打任务，故此参数仅针对步兵机器人
     * - params_file
       - 调试参数文件的路径
-      - 'bringup_dir/config/infantry_params.yaml'
+      - \"bringup_dir/config/infantry_params.yaml\"
       - /
     * - robot_type 
       - 当前机器人类型
-      - 'infantry'
+      - \"infantry\"
       - 根据上位机部署的机器人进行选择，若选择错误的机器人类型会导致与下位机的通讯异常
     * - serial_port
       - 用于进行数据通讯的板载串口名称
-      - "/dev/ttyTHS0"
+      - \"/dev/ttyTHS0\"
       - Jetson开发套件使用40pin引脚的6、8口配置的ttyTHS0作为BCP配置的COM口
     * - urdf_file_path
       - 描述机器人 urdf 模型的绝对路径
-      - "state_publisher_dir/infantry_description_mesh.urdf"
+      - \"state_publisher_dir/infantry_description_mesh.urdf\"
       - /
 
   
@@ -94,7 +94,7 @@ visual_launch文件内参数
       - 启用调试模式后会将识别效果进行可视化操作。
     * - model_path
       - yolox onnx 神经网络模型路径
-      - "bubble_resources/model/autoaming_SJTU2021_base.onnx"
+      - \"bubble_resources/model/autoaming_SJTU2021_base.onnx\"
       - /
 
 

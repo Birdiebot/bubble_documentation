@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -76,8 +75,235 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>编写攻击模块<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
-<p>自瞄、能量机关、反小陀螺均属于攻击模块，尝试在该文档中理清开发流程设计的功能包</p>
+<h1>编写攻击模块<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>该文档主要描述了Bubble内部的攻击模块的实现。</p>
+</div>
+<p><strong>Goal:</strong> 通过Bubble控制机器人的攻击模式</p>
+<div class="contents local topic" id="id2">
+<p class="topic-title">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#id3" id="id13">先决条件</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id14">流程</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id5" id="id15">1 编写代码</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id16">1.1 编写数据解析器</a></p></li>
+<li><p><a class="reference internal" href="#id7" id="id17">1.2 目标决策器</a></p></li>
+<li><p><a class="reference internal" href="#id8" id="id18">1.3 模式判别器</a></p></li>
+<li><p><a class="reference internal" href="#id9" id="id19">1.4 对应功能模块</a></p></li>
+<li><p><a class="reference internal" href="#id10" id="id20">1.5 数据发送器</a></p></li>
+<li><p><a class="reference internal" href="#id11" id="id21">1.6 自定义数据结构</a></p></li>
+<li><p><a class="reference internal" href="#id12" id="id22">2 编译并运行代码</a></p></li>
+</ul>
+</li>
+</ul>
+</div>
+<section id="id3">
+<h2><a class="toc-backref" href="#id13">先决条件</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<p>您具备了ROS的基本知识，掌握了如何编写一个 <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html">节点</a> 。</p>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id14">流程</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<p>【添加流程图】</p>
+<section id="id5">
+<h3><a class="toc-backref" href="#id15">1 编写代码</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<p>通过 <cite>bubble_aiming</cite> 模块定义的API，实现机器人的自瞄任务。下面的例子以自瞄装甲板模块为例。</p>
+</section>
+<section id="id6">
+<h3><a class="toc-backref" href="#id16">1.1 编写数据解析器</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<p>数据解析器用于将msg数据转换为对应模块所需的数据结构。</p>
+<p>编写数据解析器需首先创建订阅者订阅节点数据，通过create_subscription创建订阅者用于订阅需要的数据。
+此处订阅主题为 <code class="docutils literal notranslate"><span class="pre">/cv/armour</span></code> ，消息的类型为自定义BoundingPolygonBoxes2D消息。具体如何编写消息请参考 <a class="reference external" href="添加自定义数据控制机器人.html">添加自定义数据控制机器人</a>  。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">armour_sub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_subscription</span><span class="p">(</span><span class="n">BoundingPolygonBoxes2D</span><span class="p">,</span> <span class="s1">&#39;/cv/armour&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">armour_callback</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>自定义BoundingPolygonBoxes2D消息内包含：</p>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std_msgs</span><span class="o">/</span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="w"></span>
+<span class="n">std_msgs</span><span class="o">/</span><span class="n">Header</span><span class="w"> </span><span class="n">image_header</span><span class="w"></span>
+<span class="n">BoundingPolygonBox2D</span><span class="p">[]</span><span class="w"> </span><span class="n">bounding_boxes</span><span class="w"></span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>其中的BoundingPolygonBox2D消息内包含：</p>
+<blockquote>
+<div><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">string</span><span class="w"> </span><span class="n">class_id</span><span class="w"></span>
+<span class="n">geometry_msgs</span><span class="o">/</span><span class="n">Polygon</span><span class="w"> </span><span class="n">pose</span><span class="w"></span>
+<span class="n">uint16</span><span class="w"> </span><span class="n">img_width</span><span class="w"></span>
+<span class="n">uint16</span><span class="w"> </span><span class="n">img_height</span><span class="w"></span>
+<span class="n">int32</span><span class="w"> </span><span class="n">center_dist</span><span class="w"></span>
+<span class="n">string</span><span class="w"> </span><span class="n">type</span><span class="w"></span>
+<span class="n">string</span><span class="w"> </span><span class="n">id</span><span class="w"></span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>在aimingNode.py中添加parse函数来对msg进行解析。此处可以参考parse_armour函数，仅对装甲板所需的数据image_header、pose和type进行解析。
+ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。具体如何编写自定义数据结构请参考 1.6节自定义数据结构TODO。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">parse_armour</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">BoundingPolygonBoxes2D</span><span class="p">):</span>
+     <span class="n">armour_list</span> <span class="o">=</span> <span class="p">[]</span>
+     <span class="n">strip_list</span> <span class="o">=</span> <span class="p">[]</span>
+
+     <span class="n">target_time_stamp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">image_header</span><span class="o">.</span><span class="n">stamp</span><span class="o">.</span><span class="n">sec</span> <span class="o">+</span> \
+         <span class="n">data</span><span class="o">.</span><span class="n">image_header</span><span class="o">.</span><span class="n">stamp</span><span class="o">.</span><span class="n">nanosec</span> <span class="o">*</span> <span class="mf">1e-9</span>
+     <span class="k">for</span> <span class="n">target</span> <span class="ow">in</span> <span class="n">data</span><span class="o">.</span><span class="n">bounding_boxes</span><span class="p">:</span>
+         <span class="k">if</span> <span class="n">target</span><span class="o">.</span><span class="n">class_id</span> <span class="o">==</span> <span class="s2">&quot;Armour&quot;</span><span class="p">:</span>
+             <span class="n">armour</span> <span class="o">=</span> <span class="n">ArmourInfo</span><span class="p">()</span>
+             <span class="n">armour</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">target_time_stamp</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">pose</span><span class="o">.</span><span class="n">points</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">type</span><span class="p">)</span>
+             <span class="n">armour_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">armour</span><span class="p">)</span>
+
+         <span class="k">elif</span> <span class="n">target</span><span class="o">.</span><span class="n">class_id</span> <span class="o">==</span> <span class="s2">&quot;Strip&quot;</span><span class="p">:</span>
+             <span class="k">pass</span>
+     <span class="k">return</span> <span class="n">armour_list</span><span class="p">,</span> <span class="n">strip_list</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>用于对时间戳进行解析，将sec和nanosec合并成浮点数类型的时间戳。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">target_time_stamp</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">image_header</span><span class="o">.</span><span class="n">stamp</span><span class="o">.</span><span class="n">sec</span> <span class="o">+</span> \
+   <span class="n">data</span><span class="o">.</span><span class="n">image_header</span><span class="o">.</span><span class="n">stamp</span><span class="o">.</span><span class="n">nanosec</span> <span class="o">*</span> <span class="mf">1e-9</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id7">
+<h3><a class="toc-backref" href="#id17">1.2 目标决策器</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<p>目标决策器用于对多目标进行决策，可添加不同的决策器来满足不同的战术需求。目标决策器的需保证此刻仅有一个结果。</p>
+<p>编写决策器首先需分析战术需求，例如此处为保证快速锁敌优先瞄准更加靠近图像中心的目标。
+在明确战术需求后， 开始进行逻辑块的编写。逻辑块代码位于decision.py文件下，根据分析的需求进行compareTargetCenter的编写。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">compareTargetCenter</span><span class="p">(</span><span class="n">target_center_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">img_size</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+   <span class="n">img_width</span><span class="p">,</span> <span class="n">img_height</span> <span class="o">=</span> <span class="n">img_size</span>
+   <span class="n">rect_center_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">target_center_list</span><span class="p">)</span>
+   <span class="n">x_gap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">rect_center_array</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">img_width</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+   <span class="n">y_gap</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">rect_center_array</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="p">(</span><span class="n">img_height</span><span class="o">/</span><span class="mi">2</span><span class="p">))</span>
+   <span class="n">tar_index</span> <span class="o">=</span> <span class="n">x_gap</span><span class="o">.</span><span class="n">argmin</span><span class="p">()</span>
+   <span class="k">return</span> <span class="n">tar_index</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>最后将逻辑块进行组合实现不同的自瞄逻辑。在aimingProcess.py文件中的decideMulTar函数中编写各个逻辑块之间的关系。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decideMulTar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">armour_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ArmourInfo</span><span class="p">:</span>
+   <span class="n">rect_center_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">armour</span><span class="o">.</span><span class="n">get_rect_rotation</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">armour</span> <span class="ow">in</span> <span class="n">armour_list</span><span class="p">]</span>
+   <span class="n">target_index</span> <span class="o">=</span> <span class="n">compareTargetCenter</span><span class="p">(</span><span class="n">rect_center_list</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">image_size</span><span class="p">)</span>
+   <span class="k">return</span> <span class="n">armour_list</span><span class="p">[</span><span class="n">target_index</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id8">
+<h3><a class="toc-backref" href="#id18">1.3 模式判别器</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<p>模式判别器用于判断机器人自身攻击模式，以满足场上出现的各类任务。模式切换有两种方法，手动切换模式和自动识别模式，此处的模式判别指的是自动识别模式这种方法。</p>
+<p>编写模式判别器首先分析识别该模式的逻辑。例如小陀螺识别会对多帧数据计算装甲板高度差和宽度差，来判断是否进入小陀螺模式。
+根据确定的逻辑在armourDecision.py文件内编写judgeMode函数。
+最后对逻辑进行组合形成完整的模式判别器</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">updateMode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">alter_armour</span> <span class="o">=</span> <span class="kc">False</span>
+   <span class="n">mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">armourDecision</span><span class="o">.</span><span class="n">judgeMode</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">origin_armour_list</span><span class="p">)</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">alter_armour</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">armourDecision</span><span class="o">.</span><span class="n">judgeArmourAlteration</span><span class="p">()</span>
+   <span class="k">return</span> <span class="n">mode</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id9">
+<h3><a class="toc-backref" href="#id19">1.4 对应功能模块</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>预测 ArmourPredictor
+补偿 adjustBallistics
+请参考</p>
+</div></blockquote>
+</section>
+<section id="id10">
+<h3><a class="toc-backref" href="#id20">1.5 数据发送器</a><a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<p>数据发送器用于将模块内的数据结构转换为msg数据。</p>
+<p>编写数据发送器需首先创建发布者发布节点数据，通过create_publisher创建订阅者创建发布者，发布对应的主题。
+此处订阅主题为 <code class="docutils literal notranslate"><span class="pre">/decision/gimbal_api</span></code> ，消息的类型为自定义Gimbal消息。具体如何编写消息请参考 <a class="reference external" href="添加自定义数据控制机器人.html">添加自定义数据控制机器人</a>  。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="bp">self</span><span class="o">.</span><span class="n">gimbal_pub</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_publisher</span><span class="p">(</span><span class="n">Gimbal</span><span class="p">,</span> <span class="s1">&#39;/decision/gimbal_api&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl>
+<dt>自定义Gimbal消息内包含：</dt><dd><div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">std_msgs</span><span class="o">/</span><span class="n">Header</span><span class="w"> </span><span class="n">header</span><span class="w"></span>
+<span class="n">int8</span><span class="w"> </span><span class="n">mode</span><span class="w"></span>
+<span class="n">float64</span><span class="w"> </span><span class="n">yaw</span><span class="w"></span>
+<span class="n">float64</span><span class="w"> </span><span class="n">pitch</span><span class="w"></span>
+<span class="n">float64</span><span class="w"> </span><span class="n">roll</span><span class="w"></span>
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>在aimingNode.py中添加pub函数来生成msg消息。此处可以参考pub_gimbal_data函数，实例化Gimbal数据，然后对Gimbal的属性进行赋值。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pub_gimbal_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">armour</span><span class="p">):</span>
+   <span class="n">gimbal_msg</span> <span class="o">=</span> <span class="n">Gimbal</span><span class="p">()</span>
+   <span class="n">gimbal_msg</span><span class="o">.</span><span class="n">mode</span> <span class="o">=</span> <span class="mi">1</span>
+   <span class="n">gimbal_msg</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_clock</span><span class="p">()</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">to_msg</span><span class="p">()</span>
+   <span class="n">gimbal_msg</span><span class="o">.</span><span class="n">yaw</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">armour</span><span class="o">.</span><span class="n">yaw_angle</span><span class="p">)</span>
+   <span class="n">gimbal_msg</span><span class="o">.</span><span class="n">pitch</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">armour</span><span class="o">.</span><span class="n">pitch_angle</span><span class="p">)</span>
+   <span class="n">gimbal_msg</span><span class="o">.</span><span class="n">roll</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">armour</span><span class="o">.</span><span class="n">roll_angle</span><span class="p">)</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">gimbal_pub</span><span class="o">.</span><span class="n">publish</span><span class="p">(</span><span class="n">gimbal_msg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id11">
+<h3><a class="toc-backref" href="#id21">1.6 自定义数据结构</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
+<p>为了便于对数据进行管理，将所需的数据统一放进类中。需要使用该数据时，通过引用对象中的属性即可。</p>
+<p>首先分析所需数据是否存在相关性，若数据具有相关性可以将这些数据封装到类中。</p>
+<p>对类中包含的属性建立接口，用于对类属性的值进行设定与获取。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ArmourInfo</span><span class="p">(</span><span class="n">TargetInfo</span><span class="p">):</span>
+   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="s2">&quot;Armour&quot;</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">stamp</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">box_points</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">bbox_rect_rotation</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">target_type</span> <span class="o">=</span> <span class="kc">None</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pose</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+   <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+      <span class="k">return</span> <span class="nb">str</span><span class="p">([</span><span class="s2">&quot;pose&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">])</span>
+
+   <span class="k">def</span> <span class="nf">get_rotation_rpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+      <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]]</span>
+
+   <span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>设计接口:分别设计’set’设定数据接口和’get’获取数据接口。在set接口对数据进行处理，以生成类属性需要的数据。</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_rotation_rpy</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+   <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]]</span>
+
+<span class="k">def</span> <span class="nf">set_position</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">rvec</span><span class="p">,</span> <span class="n">tvec</span><span class="p">):</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+   <span class="bp">self</span><span class="o">.</span><span class="n">pose</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">tvec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="id12">
+<h3><a class="toc-backref" href="#id22">2 编译并运行代码</a><a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<p>打开一个终端编译并运行当前节点</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">colcon build --packages-select YOUR_PKG</span>
+<span class="go">. install/setup.bash</span>
+<span class="go">ros2 run YOUR_PKG YOUR_EXEC</span>
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 
 

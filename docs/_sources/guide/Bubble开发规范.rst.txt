@@ -30,6 +30,7 @@ Bubble代码风格原则上使用 `ROS2的代码风格和语言版本 <https://d
 1.2 文件注释模板
 ^^^^^^^^^^^^^^^^^^^
 Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/items?itemName=OBKoro1.korofileheader>`__ 自动生成代码文件模板。
+配置字段具体功能介绍可参考 `配置文档 <https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE>`__
 
 代码模板配置为：
 
@@ -37,26 +38,46 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
 
     {
         "fileheader.customMade": {
-            "custom_string_obkoro1": "Copyright (c) 2022 Birdiebot R&D Department\nShanghai University Of Engineering Science. All Rights Reserved",
-            "custom_string_obkoro2": "License: GNU General Public License v3.0.\nSee LICENSE file in root directory.",
-            "custom_string_obkoro3": "",
-            "Author": "your name your email",
-            "Date": "Do not edit",
-            "FilePath": "Do not edit",
-            "LastEditors": "your name your email",
-            "LastEditTime": "Do not edit",
+        "custom_string_obkoro1": "Copyright (c) 2022 Birdiebot R&D Department\nShanghai University Of Engineering Science. All Rights Reserved",
+        "custom_string_obkoro2": "License: GNU General Public License v3.0.\nSee LICENSE file in root directory.",
+        "custom_string_obkoro3": "",
+        "Author": "your name your email",
+        "Date": "Do not edit",
+        "FilePath": "Do not edit",
+        "LastEditors": "your name your email",
+        "LastEditTime": "Do not edit",
         },
         "fileheader.cursorMode": {
+            "Description": "\n\t",
+
             "Parameters": "",
-            "------------": "\n",
+            "------------": "",
+            "param": "",
+            "":"",
+
             "Returns": "",
             "-----------": "",
+
         },
         "fileheader.configObj": {
             "autoAdd": true,
-            "autoAddLine": 10000,
+            "wideSame": false,
+            "writeLog": false,
+            "useWorker": false,
+            "moveCursor": true,
+            "headDesign": false,
             "autoAlready": true,
-            "supportAutoLanguage": [],
+            "createHeader": false,
+            "designAddHead": false,
+            "CheckFileChange": false,
+            "showErrorMessage": true,
+            "openFunctionParamsCheck": true,
+
+            "wideNum": 13,
+            "functionWideNum": 0,
+            "autoAddLine": 10000,
+            "throttleTime": 60000,
+
             "prohibitAutoAdd": [
                 "json",
                 "md",
@@ -68,50 +89,41 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
             "folderBlacklist": [
                 "launch"
             ],
-            "wideSame": false,
-            "wideNum": 13,
-            "functionWideNum": 0,
             "headInsertLine": {
                 "php": 2,
                 "py": 0,
             },
-            "beforeAnnotation": {},
-            "afterAnnotation": {},
-            "specialOptions": {},
+
             "switch": {
                 "newlineAddAnnotation": true
             },
-            "moveCursor": true,
-            "dateFormat": "YYYY-MM-DD HH:mm:ss",
             "atSymbol": [
                 "@",
                 "@"
             ],
-            "atSymbolObj": {},
+
             "colon": [
                 ": ",
                 ""
             ],
-            "colonObj": {},
+
             "filePathColon": "/",
-            "showErrorMessage": true,
-            "writeLog": false,
-            "CheckFileChange": false,
-            "createHeader": false,
-            "useWorker": false,
-            "designAddHead": false,
-            "headDesignName": "random",
-            "headDesign": false,
-            "cursorModeInternalAll": {},your name
-            "openFunctionParamsCheck": true,
-            "functionParamsShape": "no type",
-            "functionBlankSpaceAll": {},
             "functionTypeSymbol": "*",
-            "typeParamOrder": "type param",
+            "typeParamOrder": "param",
+            "headDesignName": "random",
+            "functionParamAddStr": ": ",
             "NoMatchParams": "no show param",
-            "functionParamAddStr": "\t",
+            "dateFormat": "YYYY-MM-DD HH:mm:ss",
+
+            "colonObj": {},
+            "atSymbolObj": {},
+            "afterAnnotation": {},
             "customHasHeadEnd": {},
-            "throttleTime": 60000,
+            "beforeAnnotation": {},
+            "functionBlankSpaceAll": {"python":4},
+            "cursorModeInternalAll": {"python":true,"c11":true},
+            "supportAutoLanguage": [],
+            "functionParamsShape": ["",": "],
             "language": {
                 "h/hpp/cpp": {
                     "head": "/*** ",
@@ -119,14 +131,10 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
                     "end": " */"
                 },
                 "py": {
-                    "head": "",
-                    "middle": "# ",
-                    "end": "",
-                    "functionSymbol": {
-                        "head": "'''",
-                        "middle": "",
-                        "end": "'''"
-                    },
+                    "head": "\"\"\"",
+                    "middle": "",
+                    "end": "\"\"\"",
+
                 },
             }
         },
@@ -177,13 +185,16 @@ Bubble项目中使用的 `koroFileHeader <https://marketplace.visualstudio.com/i
 
         .. code-block:: python
 
-            '''Dscription
+            """
+            Description
+
             Parameters
             ------------
 
             Returns
             -----------
-            '''
+            """
+
     .. group-tab:: C++
 
         .. code-block:: C++

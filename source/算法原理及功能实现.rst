@@ -13,7 +13,7 @@
 * 预测器模块
    - `RMUC2022 小能量机关预测器 <theory/RMUC2022小能量机关预测器.html>`__
    - `RMUC2022 大能量机关预测器 <theory/RMUC2022弹道补偿.html> `__
-   - `RMUC2022旋转前哨站预测器  <theory/RMUC2022弹道补偿.html>`__
+   - `RMUC2022 旋转前哨站预测器  <theory/RMUC2022旋转前哨站预测器.html>`__
 
 
 * 补偿模块

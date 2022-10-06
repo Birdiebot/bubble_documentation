@@ -16,13 +16,12 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="设计" href="../%E8%AE%BE%E8%AE%A1.html" />
-    <link rel="prev" title="算法原理及功能实现" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" /> 
+    <link rel="prev" title="RMUC2022装甲板识别器" href="RMUC2022%E8%A3%85%E7%94%B2%E6%9D%BF%E8%AF%86%E5%88%AB%E5%99%A8.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -45,6 +44,12 @@
 <li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%A4%A7%E8%83%BD%E9%87%8F%E6%9C%BA%E5%85%B3%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022大能量机关预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%B0%8F%E8%83%BD%E9%87%8F%E6%9C%BA%E5%85%B3%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022小能量机关预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E5%BC%B9%E9%81%93%E8%A1%A5%E5%81%BF.html">RMUC2022弹道补偿</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E6%97%8B%E8%BD%AC%E5%89%8D%E5%93%A8%E7%AB%99%E9%A2%84%E6%B5%8B%E5%99%A8.html">RMUC2022旋转前哨站预测器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E8%83%BD%E9%87%8F%E6%9C%BA%E5%85%B3%E8%AF%86%E5%88%AB%E5%99%A8.html">RMUC2022能量机关识别器</a></li>
+<li class="toctree-l2"><a class="reference internal" href="RMUC2022%E8%A3%85%E7%94%B2%E6%9D%BF%E8%AF%86%E5%88%AB%E5%99%A8.html">RMUC2022装甲板识别器</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">RMUC2022运动补偿</a></li>
 </ul>
 </li>
@@ -82,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="rmuc2022">
-<h1>RMUC2022运动补偿<a class="headerlink" href="#rmuc2022" title="Permalink to this heading"></a></h1>
+<h1>RMUC2022运动补偿<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Ligcox,
@@ -99,15 +104,14 @@ Li</p>
 </dd>
 </dl>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>在RMU竞赛中，机器人自身的运动会对自瞄系统产生极大的偏差。该文档阐述了通过运动补偿模块，消除由于哨兵机器人自身底盘运动对自瞄系统产生的偏差。</p>
 </section>
 <section id="id2">
-<h2>流程<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
-<p>【添加流程图】</p>
+<h2>流程<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 </section>
 <section id="id3">
-<h2>坐标系定义<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<h2>坐标系定义<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>，但针对RMU进行了一定的简化，请参阅 <a class="reference external" href="guide/Bubble坐标系.html">Bubble坐标系</a></p>
@@ -117,7 +121,7 @@ Li</p>
 <p>【添加rviz坐标系定义】</p>
 </section>
 <section id="id4">
-<h2>数学推导<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<h2>数学推导<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
 <p>在<img class="math" src="../_images/math/f1cb682f0d26fdc3bf349c4f87a5781488c38e24.png" alt="O_{chassis\_xyz}"/>中:</p>
 <p><img class="math" src="../_images/math/40e0fb537d4d0bdf51a219d2987598aebe6cb064.png" alt="O_{gimbal\_xyz}"/> 中空间目标点<img class="math" src="../_images/math/709d735ee7307a8b6a16d53d39ed78986b961e5c.png" alt="P_0(x_0, y_0, z_0)"/>、<img class="math" src="../_images/math/260912329a89f065b7c720094bb1fa3a038add1b.png" alt="\vec{v}_0 = [v_{x_0}, v_{y_0}, v_{z_0}]^\top"/>在变换矩阵 <img class="math" src="../_images/math/fe6cd518b91514541224c83c755bd2247c96909d.png" alt="^{chassis}_{gimbal}T"/> 作用下，
 变换为 <img class="math" src="../_images/math/c66bc5950931908a709e4b11b5904cfffec1d36a.png" alt="P{(p_x, p_y, p_z)}"/> 、<img class="math" src="../_images/math/8bc095d999b4bd806110594956bcc05e0f678477.png" alt="\vec{v} = [vx, vy, vz]^\top"/>，空间向量<img class="math" src="../_images/math/13063c63779bb4ee3018e3c739307e971e68ef8a.png" alt="\overrightarrow{O_{gimbal}P}=[p_x, p_y, p_z]^\top"/>。
@@ -148,7 +152,7 @@ Li</p>
 </div><p>由于云台 <img class="math" src="../_images/math/9043a099b0fe5efb9806f3b60edbb02493a3f1d5.png" alt="yaw"/> 轴与 <img class="math" src="../_images/math/7ee04942a071e0e8f0ae0232a4d970f0094d3eec.png" alt="pitch"/> 轴刚性连接到底盘，云台在底盘坐标系下偏转角度 <img class="math" src="../_images/math/f2097c7f19691dd4888e1cbbf480cd0a2b4734c0.png" alt="\alpha_{yaw}"/> 和 <img class="math" src="../_images/math/ee207c4acb46f3b0896154b9ab409c77cc4b26b3.png" alt="\alpha_{pitch}"/> 即为云台相对于当前位置偏转角度。</p>
 </section>
 <section id="id5">
-<h2>功能实现<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<h2>功能实现<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>运动补偿的相关代码位于 <code class="docutils literal notranslate"><span class="pre">bubble_contrib/bubble_aming</span></code> 模块下</p>
@@ -176,7 +180,7 @@ PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下�
 <p>一般的， <img class="math" src="../_images/math/f2097c7f19691dd4888e1cbbf480cd0a2b4734c0.png" alt="\alpha_{yaw}"/> 和 <img class="math" src="../_images/math/ee207c4acb46f3b0896154b9ab409c77cc4b26b3.png" alt="\alpha_{pitch}"/> 值域均为 <img class="math" src="../_images/math/06a3c9ec2e9a4182e301bc653c243e576632be68.png" alt="[-\frac{\pi}{2}, \frac{\pi}{2}]"/> ，因此使用 <img class="math" src="../_images/math/67a6129ea7add6debc9588d80cb3a9957733b174.png" alt="\arcsin"/> 求解。</p>
 </section>
 <section id="id6">
-<h2>结语<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<h2>结语<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
 <p>文档阐述了当前版本Bubble中运动补偿模块实现的过程，通过对向量 <img class="math" src="../_images/math/b5141cd58dc4532d1e7b697dec13649cb86cceba.png" alt="\overrightarrow{O_{gimbal}P}"/> 的修改，还能够消除云台运动、空气阻力等对弹丸飞行造成的影响。</p>
 </section>
 </section>
@@ -185,7 +189,7 @@ PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下�
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html" class="btn btn-neutral float-left" title="算法原理及功能实现" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="RMUC2022%E8%A3%85%E7%94%B2%E6%9D%BF%E8%AF%86%E5%88%AB%E5%99%A8.html" class="btn btn-neutral float-left" title="RMUC2022装甲板识别器" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../%E8%AE%BE%E8%AE%A1.html" class="btn btn-neutral float-right" title="设计" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
