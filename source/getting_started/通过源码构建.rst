@@ -2,24 +2,159 @@
 通过源码构建
 =================================================
 :Authors:
-    HarryWen
-
+    HarryWen,
+    Zhr
 :Contact: 858601365@qq.com
 :Date: 2022/09/1
 :Copyright: This document has been placed in the public domain.
 
 概述
-----------------
-该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。
+--------------------------
+该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。环境配置包括：
+
+* Ros Galactic环境
+* hikrobot和Daheng工业相机驱动
+* Bubble运行时所需要的环境依赖
 
 环境配置
 --------------------------
 
-python库安装
+git安装与ssh配置
 ################################################
 
-ros环境配置
-################################################
+git配置请参考参考gitlab官网中的 `Installing Git <https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html>`__。
 
-相机配置
+ssh配置请参考参考gitlab官网中的 `Use SSH keys to communicate with GitLab <https://docs.gitlab.com/ee/user/ssh.html>`__  ,
+完成其中的以下步骤 *Generate an SSH key pair* 、*Add an SSH key to your GitLab account* 、*Verify that you can connect* 共三个步骤。
+
+
+第三方库安装与配置
 ################################################
+*注意:
+在Jetson平台上使用numpy1.19以上版本实际测试会出现异常,请在安装完opencv-python及scipy后手动对NumPy降级*
+
+.. code-block:: bash
+
+    sudo apt update
+    sudo apt install python3-pip
+    pip3 install pyserial=3.5
+    pip3 install opencv_python==4.5.1.48
+    pip3 install numpy==1.18.5
+    sudo apt-get install python3-scipy
+
+
+ROS2安装与配置
+################################################
+对于ROS2的构建这里采用官方的构建方法。在它其中会详细阐述在不同操作系统下的操作。具体请参考 `构建ROS2 <https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#>`__  完成与构建 。
+
+如果不希望每次打开新 shell 时都进行source环境变量的操作,在终端中输入指令:
+
+.. code-block:: bash
+
+    echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
+
+工业相机驱动安装与配置
+################################################
+在RMU赛事中我们主要使用hikrobot和Daheng的工业相机， 需要分别进行驱动的安装。
+
+配置前需要先下载 TODO相应的软件包,参见链接。
+
+<链接>
+
+.. tabs::
+    
+    .. tab:: 大恒工业相机
+
+        .. tabs::
+
+            .. code-tab:: console
+                :caption: X86/X64
+
+                sudo tar -xzvf  Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz 
+                cd Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071/
+                ./Galaxy_camera.run
+
+            .. code-tab:: console
+                :caption: arrch64
+
+                sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz 
+                cd Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071/
+                ./Galaxy_camera.run
+
+    .. tab:: 海康工业相机相机
+
+        .. tabs::
+
+            .. code-tab:: console
+                :caption: X86/X64
+
+                sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb
+
+            .. code-tab:: console
+                :caption: arrch64
+
+                 sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb
+
+VScode安装与使用
+-------------------------------------------------
+*注意:
+若在Jetson平台上使用 `JetPack SDK <https://developer.nvidia.com/embedded/jetpack.html>`__ 5.0.x 版本作为开发环境，
+实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。安装包详见#TODO。*
+
+vscode安装
+################################################
+请根据架构选择对应的安装包
+
+.. tabs::
+
+    .. code-tab:: console
+        :caption: X86/X64
+
+            wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb
+            sudo dpkg -i code_1.65.2_arm64.deb
+    
+    .. code-tab:: console
+        :caption: arrch64
+
+            wget https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable -O code_1.65.2_x64.deb
+            sudo dpkg -i code_1.65.2_x64.deb
+
+安装完成后在终端内输入 
+
+.. code:: console
+    
+    code --verbose
+
+若出现对应版本号则安装成功。
+
+扩展安装
+################################################
+请在vscode的扩展内搜索以下扩展名进行安装。
+
+* IntelliCode
+* python
+* C/C++
+* C/C++ Extension Pack
+* CMake
+* CMake Language Support
+* CMake Tools
+* ROS
+
+构建Bubble
+--------------------------
+
+* 注意：在进行该步前请确保以上步骤均已完成！
+
+.. code-block:: bash
+
+    git clone git@birdiebot.top:btp_pl/bubble.git
+
+    # Install vcs tools
+    sudo apt-get install python3-vcstool
+    mkdir src
+
+    # Load source code
+    vcs import src < bubble.repos
+
+    # Build source code
+    colcon build --symlink-install

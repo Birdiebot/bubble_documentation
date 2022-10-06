@@ -11,7 +11,7 @@ RMUC2022弹道补偿
 ----------------------------
 在RMU竞赛中，由于弹丸受重力影响，对于远距离打击如果不进行弹道补偿，弹丸会打到目标偏下的位置，而影响自瞄系统击打的准确率。
 
-为消除弹丸下坠的影响，引入了弹道补偿模块。该文档将阐述弹道补偿模块中两种模型，理想抛物线模型和单方向空气阻力模型。
+为消除弹丸下坠的影响，引入了弹道补偿模块。该文档将阐述弹道补偿模块中的理想抛物线模型。
 
 
 坐标系定义
@@ -72,9 +72,9 @@ RMUC2022弹道补偿
 ***********************
 .. math::
   
-  s_hor = s * Sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})
+  s_hor = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})
 
-  s_ver = s * Cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})
+  s_ver = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})
 
   t = s / \vec{v} 
 
@@ -83,6 +83,8 @@ RMUC2022弹道补偿
   error_value = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})
 
   iter_radian = math.atan((Y+error_value)/ori_Z)
+
+  iter_dis = \frac{ori_Z}{iter_radian}
 
 
 功能实现
@@ -107,14 +109,3 @@ PnP解算将世界坐标系下目标的位姿信息转换为相机坐标系下�
     更新tempPoint=tempPoint+deltaH
 
 输出仰角angle，与误差deltaH
-
-
-单方向空气阻力模型
----------------------------
-
-数学推导
-***********************
-
-流程
-***********************
-

@@ -17,8 +17,8 @@ RMUC2022能量机关识别器
 
 流程
 ------------------------------------------------
-【添加流程图】
 
+.. image:: asset/能量机关识别.png
 
 图像预处理
 ------------------------------------------------
@@ -120,56 +120,4 @@ RMUC2022能量机关识别器
 ------------------------------------------------
 文档阐述了当前版本Bubble中能量机关识别器实现的过程。使用面积法筛选未被激活能量机关的轮廓。然后使用轮廓层级关系获取轮廓子层级即需要击打的目标，从而完成能量机关的识别任务。
 
-.. 代码实现
-.. ------------------------------------------------
-.. 能量机关识别器的相关代码位于 ``bubble_detector/bubble_rune`` 模块下
-
-.. 颜色筛选
-.. ############################
-
-.. .. code-block:: c++
-
-..     cv::Mat GrayFilter(cv::Mat &image, bool mode, int grayThres)
-..     {
-..         cv::Mat grayImg;
-..         cv::Mat channels[3];
-..         cv::split(image, channels);
-..         if (mode)
-..         {
-..             grayImg = channels[2] - channels[0];
-..         }
-..         else
-..         {
-..             grayImg = channels[0] - channels[2];
-..         }
-..         cv::threshold(grayImg, grayImg, grayThres, 255, cv::THRESH_BINARY);
-..         return grayImg;
-..     }
-
-.. 面积筛选
-.. ############################
-
-.. .. code-block:: c++
-
-..     std::vector<std::vector<cv::Point>> filterArea(std::vector<std::vector<cv::Point>> contours, int minArea, int maxArea, bool temp)
-..     {
-..         std::vector<int> hierarchyIdList;
-..         std::vector<std::vector<cv::Point>> matchContoursList;
-
-..         for (int contours_id = 0; contours_id < contours.size(); contours_id += 1)
-..         {
-
-..             const std::vector<cv::Point> &contour = contours[contours_id];
-..             double area = cv::contourArea(cv::Mat(contour));
-
-..             if (minArea < area && area < maxArea)
-..             {
-..                     matchContoursList.push_back(contours[contours_id]);
-..                     hierarchyIdList.push_back(contours_id);
-..             }
-..             // std::cout << minArea << " " << area << " " << maxArea << " " << hierarchyIdList.size() << std::endl; // 查看面积
-..         }
-
-..         return matchContoursList;
-..     }
 

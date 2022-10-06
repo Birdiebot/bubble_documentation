@@ -9,10 +9,20 @@ RMUC2022小能量机关预测器
 
 概述
 -----------------------------------------------------------------
-小能量机关的转动机制是匀速转动的相较于随机转动难度较低。去年的做法是计算当前转动的角速度然后将该值作为能量机关的实际角速度值来预测目标。今年简化做法，可以不通过角速度拟合，而是使用固定的角度预测值来预测目标的位置。
+在RMU竞赛中，小能量机关是仅此与大能量机关的极为重要的视觉任务，需要确保场上击打响应快速且准确。由于小能量机关在2021赛季就能完成击打任务，该文档将阐述今年是如何减少系统响应时间实现更加快速的击打的。
 
 .. note:: 能量机关预测器的相关代码位于 ``bubble_contrib/bubble_aiming/predictor/smallRunePredictor.py`` 模块下
 
+问题分析
+--------------------------
+
+小能量机关旋转机制
+################################################
+
+    小能量机关的旋转方向随机，转速固定为 10RPM。
+
+在2021赛季的做法是计算当前转动的角速度对该值进行滤波处理，从而获得平均角速度用于预测。而进行滤波处理就需要有一定的数据，从而增加了系统响应时间。
+今年为减少响应时间采用固定的角度预测值从而减少了滤波处理的步骤，达到缩短响应时间的目的。两个方法有各自的利弊，前者有跟高的鲁棒性，后者响应跟快速，具体怎么选择根据需求进行选择。
 
 坐标系定义
 ---------------------------
@@ -22,15 +32,18 @@ RMUC2022小能量机关预测器
 
 流程
 --------------------------------------------------
-【添加流程图】
+
+.. image:: asset/小能量机关预测器.png
 
 数据准备
 --------------------------------------------------
 
-需要计算能量机关当前旋转所在角度、旋转方向和角速度，以便后续计算。
+在目标预测部分需要使用能量机关当前旋转所在角度、旋转方向和角速度，故此处先进行数据准备。
 
-1. 旋转方向判断： 
-   使用数据间隔相减的方法，计算大于0的值占所有数据的比例。根据比例判断旋转方向。
+旋转方向判断
+################################################
+
+此处使用数据间隔相减的方法。对原始数组进行插值，然后计算列表中大于0的值占列表中所有数据的比例。最后根据计算出的比例来判断旋转方向。
    
     .. code-block:: python
         
@@ -51,14 +64,16 @@ RMUC2022小能量机关预测器
                     self._wise = Wise.clockwise  
             return self._wise
 
-根据需要数据相隔的个数在列表的第0位进行插值。
+对原始列表进行深拷贝，此处不能直接赋值的原因详见 `深拷贝 <https://www.ros.org/reps/rep-0103.html>`__ 。然后根据需要数据相隔的个数，在深拷贝的列表第0位进行多次插值。
 
     .. code-block:: python
 
+        dup_degree_list = copy.deepcopy(data_array.tolist())
         for i in range(interpolation_num):
             dup_degree_list.insert(0, 0)
 
-将列表变为数组， 将未插值的数组减去插值的数组。sub > 0 用于获得数组每个元素是否大于0的true/false 列表。count_nonzero用于统计true的个数。
+
+由于列表不能进行数组的差值计算故将列表转换为数组。 将未插值的原始数组减去插值的数组获得差值数组。:code:`sub>0` 是对差值数组中的每个元素是否大于零进行判断， 获得真值数组(存放True/False的数组)。count_nonzero用于统计真值数组中非零元素的个数，即统计true的个数。
 
     .. code-block:: python
 
@@ -66,7 +81,7 @@ RMUC2022小能量机关预测器
         sub = np.subtract(data_array, dup_degree_array[:-interpolation_num])
         ratio = np.count_nonzero(sub > 0) / len(degree_list)
 
-根据sub中大于零的个数占所有数据的比例判断旋转方向。此处设定ratio分界线为0.5。
+根据差值数组中大于零的个数占所有数据的比例判断旋转方向。此处设定ratio分界线为0.5。
 
     .. code-block:: python
 
@@ -76,9 +91,12 @@ RMUC2022小能量机关预测器
             self._wise = Wise.clockwise  
     
 
-1. 角速度计算：对前后两帧数据计算角度差和时间差，通过角度差和时间差的比值。
+角速度计算
+################################################
 
-   calAngularVelocity()用于计算角速度。 calRadianGap函数用于计算弧度差， 由于坐标系定义的问题， 为避免在x轴交界处角度计算错误， 对弧度差计算进行处理 。 
+此处角速度计算是对对前后两帧数据计算角度差和时间差，然后计算两者的比值获得角速度。
+
+   calAngularVelocity()用于计算角速度。 calRadianGap()用于计算弧度差， 由于坐标系定义的问题， 为避免在x轴交界处角度计算错误， 对弧度差计算进行处理 。 
 
     .. code-block:: python
 
@@ -122,11 +140,12 @@ RMUC2022小能量机关预测器
 目标预测
 --------------------------------------------------
 
-由于预测的角度使用定值，故只需考虑计算如何根据角度定值获取预测目标框在图像中的位置。
+由于预测的角度使用定值，故只需考虑计算如何根据角度获取预测目标框在图像中的位置。
 
-1. 计算预测矩形框的中心
+计算预测矩形框的中心
+################################################
 
-    calPredictedTarCenter() 用于计算预测矩形框的中心。rigidTransform()用于多边形在2D平面中的刚体变换。
+    calPredTarCenter() 用于计算预测矩形框的中心。rigidTransform()用于多边形在2D平面中的刚体变换。
 
     .. code-block:: python
         
@@ -136,16 +155,12 @@ RMUC2022小能量机关预测器
             rotation_matrix = cv2.getRotationMatrix2D(center, theta, 1)
             for point in point_list:
                 point = np.append(point, [1])
-                new_point = np.rint(np.dot(rotation_matrix, point))  # 四舍五入
+                new_point = np.rint(np.dot(rotation_matrix, point))
                 new_point_list.append(new_point.tolist())
             new_point_list = np.array(new_point_list)
             return new_point_list
     
-        def calPredictedTarCenter(self, circle_center, tar_center, predict_degree):
-            if self.wise == Wise.anticlockwise:
-                predict_degree = predict_degree
-            elif self.wise == Wise.clockwise:
-                predict_degree = -predict_degree
+        def calPredTarCenter(self, circle_center, tar_center, predict_degree):
             predicted_tar_center = rigidTransform(predict_degree, circle_center, [tar_center])[0]
             return predicted_tar_center
 
@@ -155,20 +170,21 @@ RMUC2022小能量机关预测器
 
         rotation_matrix = cv2.getRotationMatrix2D(center, theta, 1)
 
-由于刚体变换矩阵是 :math:`3 * 3` 的矩阵，故将多边形的每个二维坐标点转换为齐次坐标（增加一个维度），然后与矩阵相乘完成变换。
+由于刚体变换矩阵是 :math:`3 * 3` 的矩阵，故将多边形的每个二维坐标点转换为齐次坐标（增加一个维度），然后与矩阵相乘完成变换。由于矩阵计算结果可能会出现小数点，此处使用rint进行四舍五入。
 
     .. code-block:: python
 
         for point in point_list:
             point = np.append(point, [1])
-            new_point = np.rint(np.dot(rotation_matrix, point))  # 四舍五入
+            new_point = np.rint(np.dot(rotation_matrix, point)) 
             new_point_list.append(new_point.tolist())
 
-2. 计算预测矩形框
-   
+计算预测矩形框
+################################################
+
     .. code-block:: python
    
-       def calPredictedTarRect(rect_rotation_info, pred_center=None, pred_angle=None):
+       def calPredTarRect(rect_rotation_info, pred_center=None, pred_angle=None):
             pred_tar_rect = []
             enum_info = RotationInfo
             if isinstance(rect_rotation_info, list):

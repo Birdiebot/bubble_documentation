@@ -1,3 +1,15 @@
+"""
+Copyright (c) 2022 Birdiebot R&D Department
+Shanghai University Of Engineering Science. All Rights Reserved
+License: GNU General Public License v3.0.
+See LICENSE file in root directory.
+
+Author: Ligcox
+Date: 2022-09-02 19:33:27
+FilePath: /bubble_documentation/source/conf.py
+LastEditors: HarryWen
+LastEditTime: 2022-10-02 01:18:29
+"""
 import time
 import os
 import sys
@@ -24,9 +36,11 @@ extensions = [
     'sphinx_tabs.tabs',
     'sphinx.ext.autodoc',
     'sphinx.ext.imgmath',
-    "sphinx.ext.mathjax"
+    "sphinx.ext.mathjax",
+    
+    
 ]
-
+sphinx_tabs_valid_builders = ['linkcheck']
 templates_path = ['_templates']
 exclude_patterns = []
 
