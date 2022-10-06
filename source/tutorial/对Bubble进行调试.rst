@@ -101,18 +101,13 @@ attach调试不同于launch调试，它是在程序运行阶段附加到进程�
 
 5. 进行断点调试。
 
-在rqt调试
+在rqt中调试
 --------------------------------------------
-主要使用rqt中的 image view、Node Graph、Topic Monitor和Dynamic Reconfigure。
+RQt 是一个图形用户界面框架，以插件的形式实现了各种工具和界面。 可以在 RQt 中将所有现有的 GUI 工具作为可停靠窗口进行运行。 
+一般使用rqt中的 Image View、Node Graph、Topic Monitor和Dynamic Reconfigure插件。
 
-image view用于显示图像信息， 一般用于查看相机发送的图像是否正常。
-   .. image:: asset/image view.png
-
-Node Graph 用于查看node节点的关系图， 一般用于检查节点与节点是否正常建立联系。
-Topic Monitor 用于查看发布的主题内的数据，一般用于查看主题内的数据是否正常。
-Dynamic Reconfigure 用于调试使用，一般用于对各个参数的值进行修改。
-
-运行rqt
+rqt使用
+################################################
 在终端内输入
 
     .. code-block:: bash
@@ -121,5 +116,36 @@ Dynamic Reconfigure 用于调试使用，一般用于对各个参数的值进行
 
 在首次运行rqt后，窗口将为空白。需从顶部的菜单栏中选择Plugins > Introspection > Node Graph用以查看node节点关系图。
 
-   .. image:: asset/rqt.png
+.. note:: 可能需要一些时间 rqt 来定位所有插件本身。 如果单击 Plugins ，但没有看到 Node Graph 或任何其他选项，则应关闭 rqt ，输入命令 rqt --force-discover在您的终端中。 
+
+.. image:: asset/rqt.png
+    
+插件介绍
+################################################
+
+Image View
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+用于显示图像信息， 一般用于查看相机发送的图像是否正常。
+   .. image:: asset/Image_View.png
+
+Node Graph 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+用于查看node节点的关系图， 一般用于检查节点与节点是否正常建立联系。
+   .. image:: asset/Node_Graph.png
+
+Topic Monitor 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+用于查看发布的主题内的数据，一般用于查看主题内的数据是否正常。
+   .. image:: asset/Topic_Monitor.png
+
+   .. image:: asset/Topic_Monitor2.png
+
+Dynamic Reconfigure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+用于调试使用，一般用于对各个参数的值进行修改。
+
+   .. image:: asset/Dynamic_Reconfigure.png
+
+
+
 
