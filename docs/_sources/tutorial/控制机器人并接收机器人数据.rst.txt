@@ -138,7 +138,7 @@ BCP中定义了有关机器人的状态信息，这些信息包括了：
    .. group-tab:: Python
 
       .. code-block:: python
-         :linenos:
+         
 
          import rclpy
          from rclpy.node import Node
