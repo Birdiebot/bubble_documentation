@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>通过源码构建 &mdash; Bubble v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/tabs.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="通过预构建的Docker容器使用" href="%E9%80%9A%E8%BF%87%E9%A2%84%E6%9E%84%E5%BB%BA%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8.html" />
+    <link rel="prev" title="快速开始" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Bubble
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">通过源码构建</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E9%80%9A%E8%BF%87%E9%A2%84%E6%9E%84%E5%BB%BA%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8.html">通过预构建的Docker容器使用</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE.html">参数配置</a></li>
+<li class="toctree-l2"><a class="reference internal" href="%E6%A8%A1%E5%9D%97%E8%BF%90%E8%A1%8C%E6%95%88%E6%9E%9C%E5%AE%9E%E4%BE%8B.html">模块运行效果实例</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bubble</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a> &raquo;</li>
+      <li>通过源码构建</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/getting_started/通过源码构建.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>通过源码构建<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>HarryWen,
+Zhr</p>
+</dd>
+<dt class="field-even">Contact</dt>
+<dd class="field-even"><p><a class="reference external" href="mailto:858601365&#37;&#52;&#48;qq&#46;com">858601365<span>&#64;</span>qq<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-odd">Date</dt>
+<dd class="field-odd"><p>2022/09/1</p>
+</dd>
+<dt class="field-even">Copyright</dt>
+<dd class="field-even"><p>This document has been placed in the public domain.</p>
+</dd>
+</dl>
+<section id="id2">
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。环境配置包括：</p>
+<ul class="simple">
+<li><p>Ros Galactic环境</p></li>
+<li><p>hikrobot和Daheng工业相机驱动</p></li>
+<li><p>Bubble运行时所需要的环境依赖</p></li>
+</ul>
+</section>
+<section id="id3">
+<h2>环境配置<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<section id="gitssh">
+<h3>git安装与ssh配置<a class="headerlink" href="#gitssh" title="Permalink to this headline"></a></h3>
+<p>git配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html">Installing Git</a>。</p>
+<p>ssh配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH keys to communicate with GitLab</a>  ,
+完成其中的以下步骤 <em>Generate an SSH key pair</em> 、<em>Add an SSH key to your GitLab account</em> 、<em>Verify that you can connect</em> 共三个步骤。</p>
+</section>
+<section id="id4">
+<h3>第三方库安装与配置<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<p><em>注意:在Jetson平台上使用numpy1.19以上版本实际测试会出现异常,请在安装完opencv-python及scipy后手动对NumPy降级</em></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt update
+sudo apt install python3-pip
+pip3 install <span class="nv">pyserial</span><span class="o">=</span><span class="m">3</span>.5
+pip3 install <span class="nv">opencv_python</span><span class="o">==</span><span class="m">4</span>.5.1.48
+pip3 install <span class="nv">numpy</span><span class="o">==</span><span class="m">1</span>.18.5
+sudo apt-get install python3-scipy
+</pre></div>
+</div>
+</section>
+<section id="ros2">
+<h3>ROS2安装与配置<a class="headerlink" href="#ros2" title="Permalink to this headline"></a></h3>
+<p>对于ROS2的构建这里采用官方的构建方法。在它其中会详细阐述在不同操作系统下的操作。具体请参考 <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#">构建ROS2</a>  完成与构建 。</p>
+<p>如果不希望每次打开新 shell 时都进行source环境变量的操作,在终端中输入指令:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;source /opt/ros/galactic/setup.bash&quot;</span> &gt;&gt; ~/.bashrc
+</pre></div>
+</div>
+</section>
+<section id="id5">
+<h3>工业相机驱动安装与配置<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<p>在RMU赛事中我们主要使用hikrobot和Daheng的工业相机， 需要分别进行驱动的安装。</p>
+<p>配置前需要先下载相应的软件包,参见链接。</p>
+<p>&lt;链接&gt;</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">大恒工业相机</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">海康工业相机相机</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-1-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-1-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id8">
+<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo tar -xzvf  Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz</span>
+<span class="go">cd Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071/</span>
+<span class="go">./Galaxy_camera.run</span>
+</pre></div>
+</div>
+</div>
+</div><div aria-labelledby="tab-1-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id9">
+<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz</span>
+<span class="go">cd Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071/</span>
+<span class="go">./Galaxy_camera.run</span>
+</pre></div>
+</div>
+</div>
+</div></div>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-2-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-2-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id10">
+<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb</span>
+</pre></div>
+</div>
+</div>
+</div><div aria-labelledby="tab-2-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id11">
+<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go"> sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb</span>
+</pre></div>
+</div>
+</div>
+</div></div>
+</div></div>
+</section>
+</section>
+<section id="vscode">
+<h2>VScode安装与使用<a class="headerlink" href="#vscode" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>若在Jetson平台上使用 <a class="reference external" href="https://developer.nvidia.com/embedded/jetpack.html">JetPack SDK</a> 5.0.x 版本作为开发环境，实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。安装包详见#TODO。*</p>
+</div>
+<section id="id6">
+<h3>vscode安装<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<p>请根据架构选择对应的安装包</p>
+<div class="sphinx-tabs docutils container">
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-3-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-3-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id12">
+<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id12" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">    wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb</span>
+<span class="go">    sudo dpkg -i code_1.65.2_arm64.deb</span>
+</pre></div>
+</div>
+</div>
+</div><div aria-labelledby="tab-3-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id13">
+<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id13" title="Permalink to this code"></a></div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">    wget https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable -O code_1.65.2_x64.deb</span>
+<span class="go">    sudo dpkg -i code_1.65.2_x64.deb</span>
+</pre></div>
+</div>
+</div>
+</div></div>
+<p>安装完成后在终端内输入</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">code --verbose</span>
+</pre></div>
+</div>
+<p>若出现对应版本号则安装成功。</p>
+</section>
+<section id="id7">
+<h3>扩展安装<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<p>请在vscode的扩展内搜索以下扩展名进行安装。</p>
+<ul class="simple">
+<li><p>IntelliCode</p></li>
+<li><p>python</p></li>
+<li><p>C/C++</p></li>
+<li><p>C/C++ Extension Pack</p></li>
+<li><p>CMake</p></li>
+<li><p>CMake Language Support</p></li>
+<li><p>CMake Tools</p></li>
+<li><p>ROS</p></li>
+</ul>
+</section>
+</section>
+<section id="bubble">
+<h2>构建Bubble<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>注意：在进行该步前请确保以上步骤均已完成！</p></li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@birdiebot.top:btp_pl/bubble.git
+
+<span class="c1"># Install vcs tools</span>
+sudo apt-get install python3-vcstool
+mkdir src
+
+<span class="c1"># Load source code</span>
+vcs import src &lt; bubble.repos
+
+<span class="c1"># Build source code</span>
+colcon build --symlink-install
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html" class="btn btn-neutral float-left" title="快速开始" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="%E9%80%9A%E8%BF%87%E9%A2%84%E6%9E%84%E5%BB%BA%E7%9A%84Docker%E5%AE%B9%E5%99%A8%E4%BD%BF%E7%94%A8.html" class="btn btn-neutral float-right" title="通过预构建的Docker容器使用" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Birdiebot R&amp;D Department Shanghai University Of Engineering Science.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
