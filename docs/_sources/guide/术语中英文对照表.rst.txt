@@ -17,11 +17,11 @@
     哨兵,sentry,7,仅单云台哨兵可用
     哨兵上云台,sentry_up,7,仅双云台哨兵且云台分别控制可用
     哨兵下云台,sentry_down,7,仅双云台哨兵且云台分别控制可用
-    雷达,radar,TODO,\-
+    雷达,radar,9,\-
     AI机器人,standard,345,RMUC全自动步兵、RMUA AI机器人
     基地,base,8,\-
-    前哨站,outpost,TODO,仅RMUC可用
-    哨岗,outpost,TODO,仅RMUA可用
+    前哨站,outpost,10,仅RMUC可用
+    哨岗,outpost,11,仅RMUA可用
 
 机器人结构术语
 -------------------------
@@ -44,9 +44,9 @@ RMU游戏机制
     :widths: 1,2,2,5
 
     （大/小）能量机关,（大、小）符,(large/small) rune,符是RMUC2019及更早出现的概念，之后会使用符替代能量机关
-    哨兵轨道,\-,TODO,\-
-    暴击,TODO,TODO,RMUA相关概念
-    潜伏,TODO,TODO,RMUA相关概念
+    哨兵轨道,\-,Sentry Rail,\-
+    暴击,\-,Critical Damage,RMUA相关概念
+    潜伏,\-,Lurking,RMUA相关概念
 
 杂项
 --------------------------
@@ -58,5 +58,5 @@ RMU游戏机制
     上位机,on_board,机器人上配备的高级运算平台，如Jetson，NUC等
     下位机,up_board/MCU,机器人控制核心，文档中出现的MCU、C板一般均指下位机，但严格意义上这些概念不完全等效
     C板,RoboMaster Development Board Type C, `ROBOMASTER开发板C型 <https://www.robomaster.com/zh-CN/products/components/general/development-board-type-c/info>`__
-    木鸢通讯协议,BCP,TODO
-    通讯系统核心,BCP core,TODO
+    木鸢通讯协议,BCP,\-
+    通讯系统核心,BCP core,\-
