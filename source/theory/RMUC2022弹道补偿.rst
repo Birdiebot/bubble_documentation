@@ -29,8 +29,9 @@ RMUC2022弹道补偿
 ################################################
 
 .. list-table::
-    :widths: 5 25 25
+    :widths: 20 25 25
     :header-rows: 1
+    
 
     * - 符号
       - 符号说明
@@ -43,23 +44,30 @@ RMUC2022弹道补偿
       - 弹丸从枪管飞出到击打到装甲板的飞行距离
       - /
     * - :math:`\delta_h`
-      - 弹丸沿枪管朝向射出的目标点位置和实际命中点的高度差，即下落高度
+      - | 弹丸沿枪管朝向射出的目标点位置和实际
+        | 命中点的高度差，即下落高度
       - /
     * - :math:`||\vec{v}||`
       - 弹丸初速度
-      - 通过裁判系统获得，一般地 :math:`||\vec{v}|| = ||\vec{v}_0|| = 30m/s`\
+      - 通过裁判系统获得
 
-    * - :math:`gimbal_{yaw}`、:math:`gimbal_{pitch}`
+    * - :math:`gimbal_{yaw}` 
+     
+        :math:`gimbal_{pitch}`
       - 在底盘坐标系下云台相对底盘中心偏转角度
       - /
 
-    * - :math:`target_{yaw}`、:math:`target_{pitch}`
+    * - :math:`target_{yaw}` 
+     
+        :math:`target_{pitch}`
       - 在相机坐标系下目标相对相机光心的偏转角度
       - /
 
-    * - :math:`comp_{yaw}`、:math:`comp_{pitch}`
+    * - :math:`comp_{yaw}` 
+
+        :math:`comp_{pitch}`
       - 在底盘坐标系下云台用于补偿弹丸下落的偏转角度
-      - 由于 :math:`comp_{yaw}` 不参与弹道补偿的计算故默认为零
+      - :math:`comp_{yaw}` 默认为零
 
 
 1.3 模型假设
@@ -69,24 +77,17 @@ RMUC2022弹道补偿
 
 2. 模型数学推导
 ################################################
-.. math::
   
-  s_hor = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})
-
-  s_ver = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})
-
-  t = s / \vec{v} 
-
-  \delta_h = 1/2 g t^2 
-
-  error_value = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})
-
-  iter_radian = math.atan((Y+error_value)/ori_Z)
-
-  iter_dis = \frac{ori_Z}{iter_radian}
+  | :math:`s_{hor} = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})`
+  | :math:`s_{ver} = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})`
+  | :math:`t = s / \vec{v}`
+  | :math:`\delta_h = 1/2 g t^2`
+  | :math:`error_{value} = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})`
+  | :math:`iter_{radian} = math.atan(\frac{(Y+error_{value})}{ori_Z})`
+  | :math:`iter_{dis} = \frac{ori_Z}{iter_radian}`
 
 
-3. 功能实现
+1. 功能实现
 ################################################
 采用反推模型的方法
 

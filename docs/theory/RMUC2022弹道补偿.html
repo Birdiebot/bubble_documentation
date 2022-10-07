@@ -123,9 +123,9 @@
 <h3>1.2 模型符号定义<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
-<col style="width: 9%" />
-<col style="width: 45%" />
-<col style="width: 45%" />
+<col style="width: 29%" />
+<col style="width: 36%" />
+<col style="width: 36%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>符号</p></th>
@@ -143,24 +143,34 @@
 <td><p>/</p></td>
 </tr>
 <tr class="row-even"><td><p><img class="math" src="../_images/math/0e4c7fe45a4aa57ff07fcd90cc3e144dad9bb183.png" alt="\delta_h"/></p></td>
-<td><p>弹丸沿枪管朝向射出的目标点位置和实际命中点的高度差，即下落高度</p></td>
+<td><div class="line-block">
+<div class="line">弹丸沿枪管朝向射出的目标点位置和实际</div>
+<div class="line">命中点的高度差，即下落高度</div>
+</div>
+</td>
 <td><p>/</p></td>
 </tr>
 <tr class="row-odd"><td><p><img class="math" src="../_images/math/cd1bc65f4b019143325ef08af1f9a80fdd403d67.png" alt="||\vec{v}||"/></p></td>
 <td><p>弹丸初速度</p></td>
-<td><p>通过裁判系统获得，一般地 <img class="math" src="../_images/math/bc55ef037a4302bc0189c43c5a0cb504669ca94c.png" alt="||\vec{v}|| = ||\vec{v}_0|| = 30m/s"/></p></td>
+<td><p>通过裁判系统获得</p></td>
 </tr>
-<tr class="row-even"><td><p><img class="math" src="../_images/math/ccfc370d6d5548b312a004df6e16aa34ad76610a.png" alt="gimbal_{yaw}"/>、<img class="math" src="../_images/math/0d6ae354ee3f3278f2df1289b857dd6317b53a34.png" alt="gimbal_{pitch}"/></p></td>
+<tr class="row-even"><td><p><img class="math" src="../_images/math/ccfc370d6d5548b312a004df6e16aa34ad76610a.png" alt="gimbal_{yaw}"/></p>
+<p><img class="math" src="../_images/math/0d6ae354ee3f3278f2df1289b857dd6317b53a34.png" alt="gimbal_{pitch}"/></p>
+</td>
 <td><p>在底盘坐标系下云台相对底盘中心偏转角度</p></td>
 <td><p>/</p></td>
 </tr>
-<tr class="row-odd"><td><p><img class="math" src="../_images/math/2852430c2462fc8b933759fc2fe37ebbd1844490.png" alt="target_{yaw}"/>、<img class="math" src="../_images/math/08ff50a04cf2c7a68fdce77bcf14804e23e5baff.png" alt="target_{pitch}"/></p></td>
+<tr class="row-odd"><td><p><img class="math" src="../_images/math/2852430c2462fc8b933759fc2fe37ebbd1844490.png" alt="target_{yaw}"/></p>
+<p><img class="math" src="../_images/math/08ff50a04cf2c7a68fdce77bcf14804e23e5baff.png" alt="target_{pitch}"/></p>
+</td>
 <td><p>在相机坐标系下目标相对相机光心的偏转角度</p></td>
 <td><p>/</p></td>
 </tr>
-<tr class="row-even"><td><p><img class="math" src="../_images/math/5d781c9580827002fbd9fa391feb8a158f0c914a.png" alt="comp_{yaw}"/>、<img class="math" src="../_images/math/fd2ee87109b5321fa4d29ede5809dc6a133f5297.png" alt="comp_{pitch}"/></p></td>
+<tr class="row-even"><td><p><img class="math" src="../_images/math/5d781c9580827002fbd9fa391feb8a158f0c914a.png" alt="comp_{yaw}"/></p>
+<p><img class="math" src="../_images/math/fd2ee87109b5321fa4d29ede5809dc6a133f5297.png" alt="comp_{pitch}"/></p>
+</td>
 <td><p>在底盘坐标系下云台用于补偿弹丸下落的偏转角度</p></td>
-<td><p>由于 <img class="math" src="../_images/math/5d781c9580827002fbd9fa391feb8a158f0c914a.png" alt="comp_{yaw}"/> 不参与弹道补偿的计算故默认为零</p></td>
+<td><p><img class="math" src="../_images/math/5d781c9580827002fbd9fa391feb8a158f0c914a.png" alt="comp_{yaw}"/> 默认为零</p></td>
 </tr>
 </tbody>
 </table>
@@ -175,17 +185,19 @@
 <section id="id6">
 <h3>2. 模型数学推导<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <blockquote>
-<div><p><img class="math" src="../_images/math/43ccd1b31ab32262a57dfb36683166c53869af0f.png" alt="s_hor = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})"/></p>
-<p><img class="math" src="../_images/math/90a7f06117ab4c1cd68f45bbb1442f67155a41c1.png" alt="s_ver = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})"/></p>
-<p><img class="math" src="../_images/math/f32d76da50654aaed1c32cb7dcf00a4c5826e0d2.png" alt="t = s / \vec{v}"/></p>
-<p><img class="math" src="../_images/math/b45e595dec482704cd297f07376f1df31b880173.png" alt="\delta_h = 1/2 g t^2"/></p>
-<p><img class="math" src="../_images/math/062110f6912d7f0e545c830c4023e50119987a5e.png" alt="error_value = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})"/></p>
-<p><img class="math" src="../_images/math/1aa585d2745cf1dcb8bca77c6fe2c6383416697a.png" alt="iter_radian = math.atan((Y+error_value)/ori_Z)"/></p>
-<p><img class="math" src="../_images/math/12fc1b2f6f32dd8c06541276c7d96f5ab884724a.png" alt="iter_dis = \frac{ori_Z}{iter_radian}"/></p>
+<div><div class="line-block">
+<div class="line"><img class="math" src="../_images/math/b077076a7ab5addc3e1947e8e848691ac1b7a99f.png" alt="s_{hor} = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})"/></div>
+<div class="line"><img class="math" src="../_images/math/2dcfcc13be7bc6c588a52253f1116e42b7de0923.png" alt="s_{ver} = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})"/></div>
+<div class="line"><img class="math" src="../_images/math/f32d76da50654aaed1c32cb7dcf00a4c5826e0d2.png" alt="t = s / \vec{v}"/></div>
+<div class="line"><img class="math" src="../_images/math/b45e595dec482704cd297f07376f1df31b880173.png" alt="\delta_h = 1/2 g t^2"/></div>
+<div class="line"><img class="math" src="../_images/math/57aea6b78417face58485317c81c07eb9e81bb03.png" alt="error_{value} = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})"/></div>
+<div class="line"><img class="math" src="../_images/math/7ba74aee5e8505ee2e53464507349b86e1feab14.png" alt="iter_{radian} = math.atan(\frac{(Y+error_{value})}{ori_Z})"/></div>
+<div class="line"><img class="math" src="../_images/math/5cac3e58b648d0d20ac5002dc14ed9a44119d098.png" alt="iter_{dis} = \frac{ori_Z}{iter_radian}"/></div>
+</div>
 </div></blockquote>
 </section>
 <section id="id7">
-<h3>3. 功能实现<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<h3>1. 功能实现<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <p>采用反推模型的方法</p>
 <p>运动补偿的相关代码位于 <code class="docutils literal notranslate"><span class="pre">bubble_contrib/bubble_aming</span></code> 模块下</p>
 <p>目标点 <img class="math" src="../_images/math/709d735ee7307a8b6a16d53d39ed78986b961e5c.png" alt="P_0(x_0, y_0, z_0)"/> 信息通过识别器经由 <a class="reference external" href="https://docs.opencv.org/4.x/d5/d1f/calib3d_solvePnP.html">PnP解算</a> 获得。

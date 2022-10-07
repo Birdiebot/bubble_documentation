@@ -114,9 +114,9 @@
 <h2>1. 问题分析<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <section id="id3">
 <h3>大能量机关旋转机制<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
-<p>能量机关转速按照三角函数呈周期性变化。速度目标函数为：<img class="math" src="../_images/math/ab825c9249aea74791cd868b06835811db111a50.png" alt="a*\sin(\omega * t) + b"/>,其中 spd 的单位为
-rad/s,t 的单位为 s,a 的取值范围为 0.780~1.045,ω的取值范围为 1.884~2.000,b 始终满足 b=2.090-
-a。每次大能量机关进入可激活状态时,所有参数重置,其中 t 重置为 0,a和ω重置为取值范围内任意值。</p>
+<p>能量机关转速按照三角函数呈周期性变化。速度目标函数为：<img class="math" src="../_images/math/ab825c9249aea74791cd868b06835811db111a50.png" alt="a*\sin(\omega * t) + b"/> ,其中 <img class="math" src="../_images/math/3eb8b97d96e2e06a30803ec72f88870c09da7e3d.png" alt="spd"/> 的单位为
+<img class="math" src="../_images/math/f9f5cc84488b1dc007a58fc9ded8922d18e5c1bb.png" alt="rad/s"/> , <img class="math" src="../_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> 的单位为 <img class="math" src="../_images/math/106b04b320e75010b1d8029e59244f234f75e6f9.png" alt="s"/>, <img class="math" src="../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> 的取值范围为 <img class="math" src="../_images/math/77f7569a1615d178600c6fdb2845f8948342e4e2.png" alt="[0.780,1.045]"/> , <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> 的取值范围为 <img class="math" src="../_images/math/404824c8cd041dce1ae56c99369199987069e8d1.png" alt="[1.884,2.000]"/> , <img class="math" src="../_images/math/68c7c8c65602677ab56cf7fd88002023f0edc575.png" alt="b"/> 始终满足 <img class="math" src="../_images/math/50fbd38c4e0108e5e2b24af84c50ae26549ea4eb.png" alt="b=2.090-a"/> 。
+每次大能量机关进入可激活状态时,所有参数重置,其中 <img class="math" src="../_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> 重置为 <img class="math" src="../_images/math/31fdf41b39df23c95e52c5aef07f59d9adf82f3c.png" alt="0"/> , <img class="math" src="../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> 和 <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> 重置为取值范围内任意值。</p>
 <p>大能量机关的转速呈三角函数周期性变化,不同于2021赛季的大能量机关,今年函数内a和ω的随机取值,而这两者都与波峰和波谷有关。故思考是否可以利用三角函数的特性即波峰和波谷信息来获得能量机关可激活状态的目标函数。</p>
 </section>
 </section>
