@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubble模块 &mdash; Bubble v1.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/tabs.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="开发者指南" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html" />
+    <link rel="prev" title="Bubble设计模式" href="bubble%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Bubble
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BF%AB%E9%80%9F%E5%BC%80%E5%A7%8B.html">快速开始</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E6%95%99%E7%A8%8B.html">教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E7%AE%97%E6%B3%95%E5%8E%9F%E7%90%86%E5%8F%8A%E5%8A%9F%E8%83%BD%E5%AE%9E%E7%8E%B0.html">算法原理及功能实现</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../%E8%AE%BE%E8%AE%A1.html">设计</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bubble%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html">Bubble设计模式</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Bubble模块</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html">开发者指南</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API-documentation.html">API-documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E9%A1%B9%E7%9B%AE.html">Bubble项目</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Bubble%E8%B5%84%E6%BA%90.html">Bubble资源</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../%E5%85%B3%E4%BA%8E%E6%88%91%E4%BB%AC.html">关于我们</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Bubble</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../%E8%AE%BE%E8%AE%A1.html">设计</a> &raquo;</li>
+      <li>Bubble模块</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/design/bubble模块.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="bubble">
+<h1>Bubble模块<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h1>
+<dl class="field-list simple">
+<dt class="field-odd">Authors</dt>
+<dd class="field-odd"><p>Ligcox</p>
+</dd>
+<dt class="field-even">Maintainers</dt>
+<dd class="field-even"><p>Ligcox,
+HarryWen</p>
+</dd>
+<dt class="field-odd">Contact</dt>
+<dd class="field-odd"><p><a class="reference external" href="mailto:ligcox&#37;&#52;&#48;birdiebot&#46;top">ligcox<span>&#64;</span>birdiebot<span>&#46;</span>top</a>,
+<a class="reference external" href="mailto:858601365&#37;&#52;&#48;qq&#46;com">858601365<span>&#64;</span>qq<span>&#46;</span>com</a></p>
+</dd>
+<dt class="field-even">Last edit date</dt>
+<dd class="field-even"><p>2022/08/25</p>
+</dd>
+<dt class="field-odd">Copyright</dt>
+<dd class="field-odd"><p>This document has been placed in the public domain.</p>
+</dd>
+</dl>
+<div class="contents local topic" id="id1">
+<p class="topic-title">目录</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#bringup" id="id7">Bringup模块</a></p></li>
+<li><p><a class="reference internal" href="#id2" id="id8">接口模块</a></p></li>
+<li><p><a class="reference internal" href="#id3" id="id9">图像流输入模块</a></p></li>
+<li><p><a class="reference internal" href="#muc" id="id10">MUC接口模块</a></p></li>
+<li><p><a class="reference internal" href="#id4" id="id11">识别器模块</a></p></li>
+<li><p><a class="reference internal" href="#id5" id="id12">功能模块</a></p></li>
+<li><p><a class="reference internal" href="#id6" id="id13">导航模块</a></p></li>
+</ul>
+</div>
+<p>在Bubble中不同的任务和功能在不同仓库和功能包中维护，通过RMW实现机器人在RMU赛场中的不同功能。</p>
+<p>通过改变特定模块中的内容，能够最大程度不改变其他模块和系统框架的前提下，添加或实现新的功能。</p>
+<p>在该文档中，列出了不同任务模块所维护的内容，并简要介绍功能包实现的任务，对于功能包详细实现可以参阅 API doc。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>随着功能包的维护，模块可能会发生小规模的变动。</p>
+</div>
+<section id="bringup">
+<h2><a class="toc-backref" href="#id7">Bringup模块</a><a class="headerlink" href="#bringup" title="Permalink to this headline"></a></h2>
+<p>Bringup模块提供了Bubble系统最顶级的launch文件，通过该模块中的launch文件启动机器人需要的全部功能。</p>
+<p>该模块在 <a class="reference external" href="https://github.com/Birdiebot/bubble_bringup">bubble_bringup</a>  仓库中维护。</p>
+</section>
+<section id="id2">
+<h2><a class="toc-backref" href="#id8">接口模块</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<p>包含了Bubble中通过RMW实现Node间的数据交互接口。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_interface">bubble_interface</a> 仓库中维护。</p>
+<p>接口模块包含了以下三个功能包:</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>比赛裁判系统数据</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_interface/game_msgs</span></code> 功能包实现</p></li>
+<li><p>定义上位机需要使用裁判系统的ROS数据类型</p></li>
+<li><p>原则上变量命名与 <a class="reference external" href="https://rm-static.djicdn.com/tem/17348/RoboMaster%202021%20%E8%A3%81%E5%88%A4%E7%B3%BB%E7%BB%9F%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E9%99%84%E5%BD%95%20V1.0%EF%BC%8820210203%EF%BC%89.pdf">RoboMaster裁判系统串口协议</a> 相同</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>控制数据</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_interface/rmctrl_msgs</span></code> 功能包实现</p></li>
+<li><p>定义了下位机执行控制指令的ROS数据类型</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>目标识别数据</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_interface/bboxes_ex_msgs</span></code> 功能包实现</p></li>
+<li><p>定义了目标识别器识别对象的ROS数据类型</p></li>
+<li><p>关于 <code class="docutils literal notranslate"><span class="pre">bboxes_ex_msgs</span></code> 功能包的更多信息，您可以参阅 <code class="docutils literal notranslate"><span class="pre">相关项目</span></code> 和 <code class="docutils literal notranslate"><span class="pre">bboxes_ex_msgs的REAMDE文件</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id3">
+<h2><a class="toc-backref" href="#id9">图像流输入模块</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<p>包含了Bubble中使用的图像传感器数据。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_camera">bubble_camera</a> 仓库中维护。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>视频流</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">main</span></code> 分支维护</p></li>
+<li><p>通过预先录制的视频，在测试环境中实现功能开发</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>海康工业相机</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">hikrobot_camera</span></code> 分支维护</p></li>
+<li><p>提供了海康机器人工业相机的ROS功能包</p></li>
+<li><p>通过ROS的参数对相机参数进行调整</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>大恒图像工业相机</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">gxusb_camera</span></code> 分支维护</p></li>
+<li><p>提供了海康机器人工业相机的ROS功能包</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="muc">
+<h2><a class="toc-backref" href="#id10">MUC接口模块</a><a class="headerlink" href="#muc" title="Permalink to this headline"></a></h2>
+<p>包含了BCP相关功能实现。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_core">bubble_core</a> 仓库中维护。该模块信息请参阅 <a class="reference external" href="../guide/木鸢通讯协议.html">木鸢通讯协议</a>。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>BCP的ROS封装</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_protocol</span></code> 功能包维护</p></li>
+<li><p>BCP的ROS封装</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>BCP的python封装</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_protocol_py</span></code> 维护</p></li>
+<li><p>提供了BCP的绝大部分功能，不在依赖ROS环境，可嵌入至其他程序中使用</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id4">
+<h2><a class="toc-backref" href="#id11">识别器模块</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<p>对图像数据进行目标检测任务，该任务单独分维护。在 <a class="reference external" href="https://github.com/Birdiebot/bubble_detector">bubble_detector</a> 仓库中维护。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>BTP_DM项目装甲板识别器</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_visual</span></code> 功能包维护</p></li>
+<li><p>通过传统视觉方式对装甲板识别</p></li>
+<li><p>对BTP_DM的cpp实现，并进行了ROS封装</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>CVRM装甲板识别器</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_visual_SJTU</span></code> 功能包维护</p></li>
+<li><p>通过神经网络的方式对装甲板识别</p></li>
+<li><p>对2021年上海交通大学哨兵机器人开源项目 <a class="reference external" href="https://github.com/Harry-hhj/CVRM2021-sjtu">CVRM</a> 进行的ROS封装</p></li>
+<li><p>需要TensorRT环境依赖</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>RMUC2019-2022能量机关识别器</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_rune</span></code> 功能包维护</p></li>
+<li><p>通过传统视觉的方式对RMUC2019-2022能量机关进行识别</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id5">
+<h2><a class="toc-backref" href="#id12">功能模块</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<p>功能模块实现了RMU赛场上的主要任务，在 <a class="reference external" href="https://github.com/Birdiebot/bubble_contrib">bubble_contrib</a>  仓库中维护。</p>
+<ul class="simple">
+<li><dl class="simple">
+<dt>攻击模块</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_aiming</span></code> 功能包维护</p></li>
+<li><p>对RoboMaster机器人的发射机构自动控制</p></li>
+<li><p>机器人装甲板自动瞄准及预测</p></li>
+<li><p>机器人反小陀螺</p></li>
+<li><p>英雄机器人击打旋转装甲板</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>调试模块</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_debuger</span></code> 功能包维护</p></li>
+<li><p>通过rqt和rviz对调试信息进行可视化展示</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>决策模块</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_decision</span></code> 功能包维护</p></li>
+<li><p>通过简单的FSM对机器人数据进行决策</p></li>
+<li><p>该模块暂时放置在 <code class="docutils literal notranslate"><span class="pre">bubble_contrib</span></code> 模块中，后续单独分仓库维护</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="id6">
+<h2><a class="toc-backref" href="#id13">导航模块</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<p>导航模块实现了机器人SLAM的主要功能，在 <a class="reference external" href="https://github.com/Birdiebot/bubble_navigation">bubble_navigation</a>  仓库中维护。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>由于该模块大量功能未实际测试，该版本Bubble中删除了绝大部分该模块的内容，仅保留客机器人模型定义相关的部分。模块主体部分在后续版本中更新。</p>
+</div>
+<ul class="simple">
+<li><dl class="simple">
+<dt>机器人状态发布</dt><dd><ul>
+<li><p>由 <code class="docutils literal notranslate"><span class="pre">bubble_state_publisher</span></code> 功能包维护</p></li>
+<li><p>提供机器人模型urdf定义</p></li>
+<li><p>提供由BCP到TF Tree的转换</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="bubble%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html" class="btn btn-neutral float-left" title="Bubble设计模式" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../%E5%BC%80%E5%8F%91%E8%80%85%E6%8C%87%E5%8D%97.html" class="btn btn-neutral float-right" title="开发者指南" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, Birdiebot R&amp;D Department Shanghai University Of Engineering Science.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
