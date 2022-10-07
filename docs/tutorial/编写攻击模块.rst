@@ -1,0 +1,220 @@
+编写攻击模块
+=============================
+
+.. note:: 该文档主要描述了Bubble内部的攻击模块的实现。
+
+**Goal:** 通过Bubble控制机器人的攻击模式
+
+.. contents:: 目录
+   :depth: 2
+   :local:
+
+先决条件
+------------------------------
+您具备了ROS的基本知识，掌握了如何编写一个 `节点 <https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html>`__ 。
+
+
+1 编写代码
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+通过 `bubble_aiming` 模块定义的API，实现机器人的自瞄任务。下面的例子以自瞄装甲板模块为例。
+
+
+1.1 编写数据解析器
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+数据解析器用于将msg数据转换为对应模块所需的数据结构。
+
+编写数据解析器需首先创建订阅者订阅节点数据，通过create_subscription创建订阅者用于订阅需要的数据。
+此处订阅主题为 ``/cv/armour`` ，消息的类型为自定义BoundingPolygonBoxes2D消息。具体如何编写消息请参考 `添加自定义数据控制机器人 <添加自定义数据控制机器人.html>`__  。
+
+   .. code-block:: python
+
+      self.armour_sub = self.create_subscription(BoundingPolygonBoxes2D, '/cv/armour', self.armour_callback, 1)
+
+自定义BoundingPolygonBoxes2D消息内包含：
+
+   .. code-block:: c++
+         
+         std_msgs/Header header
+         std_msgs/Header image_header
+         BoundingPolygonBox2D[] bounding_boxes
+
+其中的BoundingPolygonBox2D消息内包含：
+
+   .. code-block:: c++
+
+         string class_id
+         geometry_msgs/Polygon pose
+         uint16 img_width
+         uint16 img_height
+         int32 center_dist
+         string type
+         string id
+
+在aimingNode.py中添加parse函数来对msg进行解析。此处可以参考parse_armour函数，仅对装甲板所需的数据image_header、pose和type进行解析。
+ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。具体如何编写自定义数据结构请参考 1.6节自定义数据结构TODO。
+
+   .. code-block:: python
+
+      def parse_armour(self, data: BoundingPolygonBoxes2D):
+           armour_list = []
+           strip_list = []
+
+           target_time_stamp = data.image_header.stamp.sec + \
+               data.image_header.stamp.nanosec * 1e-9
+           for target in data.bounding_boxes:
+               if target.class_id == "Armour":
+                   armour = ArmourInfo()
+                   armour.set_data(target_time_stamp, target.pose.points, target.type)
+                   armour_list.append(armour)
+
+               elif target.class_id == "Strip":
+                   pass
+           return armour_list, strip_list
+
+用于对时间戳进行解析，将sec和nanosec合并成浮点数类型的时间戳。
+
+   .. code-block:: python
+
+         target_time_stamp = data.image_header.stamp.sec + \
+            data.image_header.stamp.nanosec * 1e-9
+
+1.2 目标决策器
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+目标决策器用于对多目标进行决策，可添加不同的决策器来满足不同的战术需求。目标决策器的需保证此刻仅有一个结果。
+
+编写决策器首先需分析战术需求，例如此处为保证快速锁敌优先瞄准更加靠近图像中心的目标。
+在明确战术需求后， 开始进行逻辑块的编写。逻辑块代码位于decision.py文件下，根据分析的需求进行compareTargetCenter的编写。
+
+   .. code-block:: python
+   
+      def compareTargetCenter(target_center_list: list, img_size: tuple) -> int:
+         img_width, img_height = img_size
+         rect_center_array = np.array(target_center_list)
+         x_gap = abs(rect_center_array[:, 0]-(img_width/2))
+         y_gap = abs(rect_center_array[:, 1]-(img_height/2))
+         tar_index = x_gap.argmin()
+         return tar_index
+
+最后将逻辑块进行组合实现不同的自瞄逻辑。在aimingProcess.py文件中的decideMulTar函数中编写各个逻辑块之间的关系。
+
+   .. code-block:: python
+
+      def decideMulTar(self, armour_list: list) -> ArmourInfo:
+         rect_center_list = [armour.get_rect_rotation()[0] for armour in armour_list]
+         target_index = compareTargetCenter(rect_center_list, self.image_size)
+         return armour_list[target_index]
+   
+
+1.3 模式判别器
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+模式判别器用于判断机器人自身攻击模式，以满足场上出现的各类任务。模式切换有两种方法，手动切换模式和自动识别模式，此处的模式判别指的是自动识别模式这种方法。
+
+编写模式判别器首先分析识别该模式的逻辑。例如小陀螺识别会对多帧数据计算装甲板高度差和宽度差，来判断是否进入小陀螺模式。
+根据确定的逻辑在armourDecision.py文件内编写judgeMode函数。
+最后对逻辑进行组合形成完整的模式判别器
+
+   .. code-block:: python
+
+      def updateMode(self) -> str:
+         self.alter_armour = False
+         mode = self.armourDecision.judgeMode(self.origin_armour_list)
+         self.alter_armour = self.armourDecision.judgeArmourAlteration()
+         return mode
+
+1.4 对应功能模块
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+   预测 ArmourPredictor
+   补偿 adjustBallistics
+   
+
+1.5 数据发送器
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+数据发送器用于将模块内的数据结构转换为msg数据。
+
+编写数据发送器需首先创建发布者发布节点数据，通过create_publisher创建订阅者创建发布者，发布对应的主题。
+此处订阅主题为 ``/decision/gimbal_api`` ，消息的类型为自定义Gimbal消息。具体如何编写消息请参考 `添加自定义数据控制机器人 <添加自定义数据控制机器人.html>`__  。
+
+   .. code-block:: python
+   
+      self.gimbal_pub = self.create_publisher(Gimbal, '/decision/gimbal_api', 10)
+   
+自定义Gimbal消息内包含：
+   .. code-block:: c++
+
+      std_msgs/Header header
+      int8 mode
+      float64 yaw
+      float64 pitch
+      float64 roll
+
+
+在aimingNode.py中添加pub函数来生成msg消息。此处可以参考pub_gimbal_data函数，实例化Gimbal数据，然后对Gimbal的属性进行赋值。
+
+   .. code-block:: python
+
+      def pub_gimbal_data(self, armour):
+         gimbal_msg = Gimbal()
+         gimbal_msg.mode = 1
+         gimbal_msg.header.stamp = self.get_clock().now().to_msg()
+         gimbal_msg.yaw = float(armour.yaw_angle)
+         gimbal_msg.pitch = float(armour.pitch_angle)
+         gimbal_msg.roll = float(armour.roll_angle)
+         self.gimbal_pub.publish(gimbal_msg)
+
+1.6 自定义数据结构
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+为了便于对数据进行管理，将所需的数据统一放进类中。需要使用该数据时，通过引用对象中的属性即可。
+
+首先分析所需数据是否存在相关性，若数据具有相关性可以将这些数据封装到类中。
+
+对类中包含的属性建立接口，用于对类属性的值进行设定与获取。
+
+   .. code-block:: python
+            
+      class ArmourInfo(TargetInfo):
+         def __init__(self) -> None:
+            super().__init__("Armour")
+            self.stamp = None
+            self.box_points = None
+            self.bbox_rect_rotation = None
+            self.target_type = None
+            self.pose = {"x": 0, "y": 0, "z": 0}
+
+         def __str__(self) -> str:
+            return str(["pose", self.pose])
+         
+         def get_rotation_rpy(self):
+            return [self.pose['x'], self.pose['y'], self.pose['z']]
+
+         def set_position(self, rvec, tvec):
+            self.pose['x'] = tvec[0]
+            self.pose['y'] = tvec[1]
+            self.pose['z'] = tvec[2]
+
+设计接口:分别设计'set'设定数据接口和'get'获取数据接口。在set接口对数据进行处理，以生成类属性需要的数据。
+
+   .. code-block:: python
+
+      def get_rotation_rpy(self):
+         return [self.pose['x'], self.pose['y'], self.pose['z']]
+
+      def set_position(self, rvec, tvec):
+         self.pose['x'] = tvec[0]
+         self.pose['y'] = tvec[1]
+         self.pose['z'] = tvec[2]
+
+2 编译并运行代码
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+打开一个终端编译并运行当前节点
+
+.. code-block:: console
+
+   colcon build --packages-select YOUR_PKG
+   . install/setup.bash
+   ros2 run YOUR_PKG YOUR_EXEC
+
