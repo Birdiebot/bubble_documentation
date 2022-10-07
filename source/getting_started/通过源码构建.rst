@@ -96,7 +96,7 @@ ROS2安装与配置
 
 VScode安装与使用
 -------------------------------------------------
-.. note:: 若在Jetson平台上使用 `JetPack SDK <https://developer.nvidia.com/embedded/jetpack.html>`__ 5.0.x 版本作为开发环境，实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。安装包详见#TODO。*
+.. note:: 若在Jetson平台上使用 `JetPack SDK <https://developer.nvidia.com/embedded/jetpack.html>`__ 5.0.x 版本作为开发环境，实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。
 
 vscode安装
 ################################################

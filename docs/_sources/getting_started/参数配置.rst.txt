@@ -53,11 +53,11 @@ bubble_launch文件内参数
       - 由于只有步兵机器人有能量机关击打任务，故此参数仅针对步兵机器人
     * - params_file
       - 调试参数文件的路径
-      - 'bringup_dir/config/infantry_params.yaml'
+      - \"bringup_dir/config/infantry_params.yaml\"
       - /
     * - robot_type 
       - 当前机器人类型
-      - 'infantry'
+      - \"infantry\"
       - 根据上位机部署的机器人进行选择，若选择错误的机器人类型会导致与下位机的通讯异常
     * - serial_port
       - 用于进行数据通讯的板载串口名称
