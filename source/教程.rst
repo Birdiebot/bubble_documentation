@@ -5,10 +5,10 @@
    :hidden:
    :glob:
 
-   tutorial/对Bubble进行调试
    tutorial/控制机器人并接收机器人数据
    tutorial/添加自定义数据控制机器人
    tutorial/编写攻击模块
+   tutorial/对Bubble进行调试
 
 .. note:: 教程部分的内容大部分是Bubble实现功能中的最小样例，您可以在Bubble源代码的相关部分看到教程中的内容并改写他们。
 

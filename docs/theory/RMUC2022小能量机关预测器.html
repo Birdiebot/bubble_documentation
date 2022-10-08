@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -87,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="rmuc2022">
-<h1>RMUC2022小能量机关预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
+<h1>RMUC2022小能量机关预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>HarryWen</p>
@@ -103,7 +104,7 @@
 </dd>
 </dl>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p>在RMU竞赛中，小能量机关是仅此与大能量机关的极为重要的视觉任务，需要确保场上击打响应快速且准确。由于小能量机关在2021赛季就能完成击打任务，该文档将阐述今年是如何减少系统响应时间实现更加快速的击打的。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -111,30 +112,30 @@
 </div>
 </section>
 <section id="id2">
-<h2>1. 问题分析<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>1. 问题分析<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <section id="id3">
-<h3>小能量机关旋转机制<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h3>小能量机关旋转机制<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>小能量机关的旋转方向随机，转速固定为 10RPM。</p>
 <p>在2021赛季的做法是计算当前转动的角速度对该值进行滤波处理，从而获得平均角速度用于预测。而进行滤波处理就需要有一定的数据，从而增加了系统响应时间。
 今年为减少响应时间采用固定的角度预测值从而减少了滤波处理的步骤，达到缩短响应时间的目的。两个方法有各自的利弊，前者有跟高的鲁棒性，后者响应跟快速，具体怎么选择根据需求进行选择。</p>
 </section>
 </section>
 <section id="id4">
-<h2>2. 模型建立<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2>2. 模型建立<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <section id="id5">
-<h3>2.1 坐标系定义<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<h3>2.1 坐标系定义<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>， 但针对RMU进行了一定的简化。</p>
 <p>能量机关坐标系以能量机关R标作为极坐标系原点。不同于极坐标系， 此处从参考系x轴正方向逆时针旋转到x轴负方向所经过的角度范围为 <img class="math" src="../_images/math/d0982d9f6cd4840974f4a9491a56c02271ba25f9.png" alt="\theta \varepsilon [0,180]"/>  顺时针旋转到x轴负方向所经过的角度范围为 <img class="math" src="../_images/math/55df4467c2605cd36788e1eef2a82b6986ca4110.png" alt="\theta \varepsilon [0,-180]"/>。</p>
 </section>
 </section>
 <section id="id6">
-<h2>3. 流程介绍<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<h2>3. 流程介绍<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <img alt="../_images/小能量机关预测器.png" src="../_images/小能量机关预测器.png" />
 <section id="id7">
-<h3>3.1 数据准备<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<h3>3.1 数据准备<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <p>在目标预测部分需要使用能量机关当前旋转所在角度、旋转方向和角速度，故此处先进行数据准备。</p>
 <section id="id8">
-<h4>旋转方向判断<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
+<h4>旋转方向判断<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
 <p>此处使用数据间隔相减的方法。对原始数组进行插值，然后计算列表中大于0的值占列表中所有数据的比例。最后根据计算出的比例来判断旋转方向。</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">judgeDirectionRotation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree_list</span><span class="p">):</span>
@@ -183,7 +184,7 @@
 </div></blockquote>
 </section>
 <section id="id9">
-<h4>角速度计算<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h4>
+<h4>角速度计算<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h4>
 <p>此处角速度计算是对对前后两帧数据计算角度差和时间差，然后计算两者的比值获得角速度。</p>
 <blockquote>
 <div><p>calAngularVelocity()用于计算角速度。 calRadianGap()用于计算弧度差， 由于坐标系定义的问题， 为避免在x轴交界处角度计算错误， 对弧度差计算进行处理 。</p>
@@ -229,10 +230,10 @@
 </section>
 </section>
 <section id="id10">
-<h3>3.2 目标预测<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<h3>3.2 目标预测<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <p>由于预测的角度使用定值，故只需考虑计算如何根据角度获取预测目标框在图像中的位置。</p>
 <section id="id11">
-<h4>计算预测矩形框的中心<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h4>
+<h4>计算预测矩形框的中心<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
 <blockquote>
 <div><p>calPredTarCenter() 用于计算预测矩形框的中心。rigidTransform()用于多边形在2D平面中的刚体变换。</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rigidTransform</span><span class="p">(</span><span class="n">center</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">theta</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">point_list</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">list</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
@@ -269,7 +270,7 @@
 </div></blockquote>
 </section>
 <section id="id12">
-<h4>计算预测矩形框<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h4>
+<h4>计算预测矩形框<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h4>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calPredTarRect</span><span class="p">(</span><span class="n">rect_rotation_info</span><span class="p">,</span> <span class="n">pred_center</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pred_angle</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
      <span class="n">pred_tar_rect</span> <span class="o">=</span> <span class="p">[]</span>

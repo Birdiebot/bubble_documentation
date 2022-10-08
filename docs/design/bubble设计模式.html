@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -82,7 +83,7 @@
            <div itemprop="articleBody">
              
   <section id="bubble">
-<h1>Bubble设计模式<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h1>
+<h1>Bubble设计模式<a class="headerlink" href="#bubble" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Ligcox</p>
@@ -113,7 +114,7 @@
 <p><strong>感知</strong> 和 <strong>决策</strong> 部分是Bubble主要实现的内容。在RMU中，机器人所处的环境使得机器人需要执行各种不同的任务，这些任务在Bubble中以不同功能包的形式组织在一起。
 通过对这些功能包的改变、组合，能够实现机器人在RoboMaster赛场上完成这些任务。</p>
 <section id="id2">
-<h2><a class="toc-backref" href="#id5">系统架构</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id5">系统架构</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>系统的输入包括了感知数据（来自工业相机、深度相机的图像、激光雷达的点云、IMU测量的状态等），这些信息主要来自与机器人上的各种传感器。
 输出信息主要为各类机械结构的控制信息，这些信息交由MUC处理产生机械结构的控制信号。
 Bubble负责对输入的信息进行处理，产生输出信息，通过BCP发送至MUC，使机器人执行预期的行为。
@@ -121,14 +122,14 @@ Bubble的模块示意图如下：</p>
 <img alt="../_images/模块划分.png" src="../_images/模块划分.png" />
 </section>
 <section id="id3">
-<h2><a class="toc-backref" href="#id6">模块划分和功能包维护</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id6">模块划分和功能包维护</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <p>面对RMU赛场复杂多变的任务，在Bubble将全部的逻辑分成了 <strong>任务</strong> 和 <strong>功能</strong> 进行系统的结构。</p>
 <p>不同的  <strong>功能</strong> 模块在不同的仓库中进行维护，在代码仓库中存在一个或多个 <strong>任务</strong> 模块，这些任务模块以ROS功能包的形式进行维护。</p>
 <p>不同 <strong>任务</strong> 模块间通过RMW的进行数据的交互。在 <strong>任务</strong> 模块中还拆分成了若干个子任务，这些子任务通过python packages的形式存在于 <strong>任务</strong> 模块的功能包中。</p>
 <p>总的来说，通过RMW将系统间不同的功能模块连接，并在功能模块内部实现功能的具体逻辑。</p>
 </section>
 <section id="id4">
-<h2><a class="toc-backref" href="#id7">消息接口</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id7">消息接口</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <p>Bubble中通过RMW实现Node间的数据交互。通常，绝大部分数据能够通过 <a class="reference external" href="https://docs.ros.org/en/humble/Concepts/About-ROS-Interfaces.html#field-types">ROS的内置类型</a> 进行传递。</p>
 <p>对于特殊数据类型，在 <code class="docutils literal notranslate"><span class="pre">bubble_interface</span></code> 模块中定义了Bubble Node间通讯的额外数据类型，这些数据类型包含了：</p>
 <ul class="simple">

@@ -42,17 +42,17 @@ Jetson平台
 -----------------------------
 X86平台
 -----------------------------
-部分bubble_detector中的功能包依赖于Nvidia TensorRT环境，如果您的X86设备上没有Nvidia硬件支持，可以删除这些功能包使用。
+部分 ``bubble_detector`` 中的功能包依赖于Nvidia TensorRT环境，如果您的X86设备上没有Nvidia硬件支持，可以删除这些功能包使用。
 
 .. list-table::
     :widths: 5 10
     :header-rows: 1
 
-    * - 需删除的功能包
+    * - 功能包
       - 功能包描述
 
     * - bubble_visual_SJTU
-      - 该功能包使用神经网络对装甲板进行识别，需TensorRT对网络进行加速
+      - 该功能包使用神经网络对装甲板进行识别，需使用TensorRT进行部署
 
 环境配置
 -----------------------------

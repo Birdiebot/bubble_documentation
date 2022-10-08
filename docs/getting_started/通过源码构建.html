@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/tabs.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -85,7 +86,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>通过源码构建<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
+<h1>通过源码构建<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>HarryWen,
@@ -102,25 +103,28 @@ Zhr</p>
 </dd>
 </dl>
 <section id="id2">
-<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <p>该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。环境配置包括：</p>
 <ul class="simple">
-<li><p>Ros Galactic环境</p></li>
+<li><p>ROS Galactic环境</p></li>
 <li><p>hikrobot和Daheng工业相机驱动</p></li>
 <li><p>Bubble运行时所需要的环境依赖</p></li>
 </ul>
 </section>
 <section id="id3">
-<h2>环境配置<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
+<h2>环境配置<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
 <section id="gitssh">
-<h3>git安装与ssh配置<a class="headerlink" href="#gitssh" title="Permalink to this headline"></a></h3>
+<h3>git安装与ssh配置<a class="headerlink" href="#gitssh" title="Permalink to this heading"></a></h3>
+<p>Bubble的不同模块在不同的代码仓库中维护，我们使用vcs工具进行管理，在使用前请先进行必要的ssh配置。</p>
 <p>git配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html">Installing Git</a>。</p>
-<p>ssh配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH keys to communicate with GitLab</a>  ,
-完成其中的以下步骤 <em>Generate an SSH key pair</em> 、<em>Add an SSH key to your GitLab account</em> 、<em>Verify that you can connect</em> 共三个步骤。</p>
+<p>ssh配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH keys to communicate with GitLab</a>  。</p>
 </section>
 <section id="id4">
-<h3>第三方库安装与配置<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
-<p><em>注意:在Jetson平台上使用numpy1.19以上版本实际测试会出现异常,请在安装完opencv-python及scipy后手动对NumPy降级</em></p>
+<h3>第三方库依赖与配置<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>在Jetson平台上使用NumPy1.19以上版本实际测试会出现异常,请在opencv-python及scipy安装完成后手动对NumPy降级</p>
+</div>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt update
 sudo apt install python3-pip
 pip3 install <span class="nv">pyserial</span><span class="o">=</span><span class="m">3</span>.5
@@ -131,88 +135,74 @@ sudo apt-get install python3-scipy
 </div>
 </section>
 <section id="ros2">
-<h3>ROS2安装与配置<a class="headerlink" href="#ros2" title="Permalink to this headline"></a></h3>
-<p>对于ROS2的构建这里采用官方的构建方法。在它其中会详细阐述在不同操作系统下的操作。具体请参考 <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#">构建ROS2</a>  完成与构建 。</p>
+<h3>ROS2安装与配置<a class="headerlink" href="#ros2" title="Permalink to this heading"></a></h3>
+<p>ROS环境的配置请参阅 <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#">安装ROS2</a>  。
+当前版本的Bubble使用了Galactic版本的ROS环境。</p>
 <p>如果不希望每次打开新 shell 时都进行source环境变量的操作,在终端中输入指令:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span> <span class="s2">&quot;source /opt/ros/galactic/setup.bash&quot;</span> &gt;&gt; ~/.bashrc
 </pre></div>
 </div>
 </section>
-<section id="id5">
-<h3>工业相机驱动安装与配置<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
-<p>在RMU赛事中我们主要使用hikrobot和Daheng的工业相机， 需要分别进行驱动的安装。</p>
-<p>配置前需要先下载相应的软件包,参见链接。</p>
-<p>&lt;链接&gt;</p>
+<section id="sdk">
+<h3>工业相机SDK配置<a class="headerlink" href="#sdk" title="Permalink to this heading"></a></h3>
+<p>在 <code class="docutils literal notranslate"><span class="pre">bubble_camera</span></code> 模块中我们维护了海康工业相机和大恒工业相机的SDK，在使用Bubble前，请确认相关驱动被正确安装。</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">大恒工业相机</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">海康工业相机相机</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-1-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-1-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-1-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-1-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id8">
-<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id8" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo tar -xzvf  Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz</span>
-<span class="go">cd Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071/</span>
-<span class="go">./Galaxy_camera.run</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">X86/X64</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">aarch64</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 海康工业相机配置，相关sdk下载请参见https://www.hikrobotics.com/cn2/source/support/software/MVS_STD_GML_V2.1.2_220929.zip</span>
+sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb
+
+<span class="c1"># 大恒工业相机配置，相关sdk下载请参见https://gb.daheng-imaging.com/CN/Software/Cameras/Linux/Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.4.2206.9161.tar.gz</span>
+sudo tar -xzvf  Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz
+<span class="nb">cd</span> Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071/
+./Galaxy_camera.run
 </pre></div>
 </div>
-</div>
-</div><div aria-labelledby="tab-1-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-1-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id9">
-<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id9" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz</span>
-<span class="go">cd Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071/</span>
-<span class="go">./Galaxy_camera.run</span>
+</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 海康工业相机配置，相关sdk下载请参见https://www.hikrobotics.com/cn2/source/support/software/MVS_STD_GML_V2.1.2_220929.zip</span>
+sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb
+
+<span class="c1"># 大恒工业相机配置，相关sdk下载请参见https://gb.daheng-imaging.com/CN/Software/Cameras/Linux/Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.4.2206.9161.tar.gz</span>
+sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz
+<span class="nb">cd</span> Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071/
+./Galaxy_camera.run
 </pre></div>
 </div>
-</div>
-</div></div>
-</div><div aria-labelledby="tab-0-0-1" class="sphinx-tabs-panel" hidden="true" id="panel-0-0-1" name="0-1" role="tabpanel" tabindex="0"><div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-2-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-2-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-2-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-2-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id10">
-<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id10" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb</span>
-</pre></div>
-</div>
-</div>
-</div><div aria-labelledby="tab-2-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-2-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id11">
-<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id11" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go"> sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb</span>
-</pre></div>
-</div>
-</div>
-</div></div>
 </div></div>
 </section>
 </section>
 <section id="vscode">
-<h2>VScode安装与使用<a class="headerlink" href="#vscode" title="Permalink to this headline"></a></h2>
+<h2>VScode安装与使用<a class="headerlink" href="#vscode" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>若在Jetson平台上使用 <a class="reference external" href="https://developer.nvidia.com/embedded/jetpack.html">JetPack SDK</a> 5.0.x 版本作为开发环境，实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。</p>
 </div>
-<section id="id6">
-<h3>vscode安装<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<section id="id5">
+<h3>vscode安装<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <p>请根据架构选择对应的安装包</p>
 <div class="sphinx-tabs docutils container">
-<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-3-QmFzaCBTZXNzaW9u" aria-selected="true" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tab" tabindex="0">Bash Session</button><button aria-controls="panel-3-QmFzaCBTZXNzaW9u-1" aria-selected="false" class="sphinx-tabs-tab code-tab group-tab" id="tab-3-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tab" tabindex="-1">Bash Session</button></div><div aria-labelledby="tab-3-QmFzaCBTZXNzaW9u" class="sphinx-tabs-panel code-tab group-tab" id="panel-3-QmFzaCBTZXNzaW9u" name="QmFzaCBTZXNzaW9u" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id12">
-<div class="code-block-caption"><span class="caption-text">X86/X64</span><a class="headerlink" href="#id12" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">    wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb</span>
-<span class="go">    sudo dpkg -i code_1.65.2_arm64.deb</span>
+<div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">X86/X64</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">aarch64</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb
+sudo dpkg -i code_1.65.2_arm64.deb
 </pre></div>
 </div>
-</div>
-</div><div aria-labelledby="tab-3-QmFzaCBTZXNzaW9u-1" class="sphinx-tabs-panel code-tab group-tab" hidden="true" id="panel-3-QmFzaCBTZXNzaW9u-1" name="QmFzaCBTZXNzaW9u-1" role="tabpanel" tabindex="0"><div class="literal-block-wrapper docutils container" id="id13">
-<div class="code-block-caption"><span class="caption-text">arrch64</span><a class="headerlink" href="#id13" title="Permalink to this code"></a></div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">    wget https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable -O code_1.65.2_x64.deb</span>
-<span class="go">    sudo dpkg -i code_1.65.2_x64.deb</span>
+</div><div aria-labelledby="tab-1-1-1" class="sphinx-tabs-panel" hidden="true" id="panel-1-1-1" name="1-1" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
 </pre></div>
 </div>
+<dl class="simple">
+<dt>wget <a class="reference external" href="https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable">https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable</a> -O code_1.65.2_x64.deb</dt><dd><p>sudo dpkg -i code_1.65.2_x64.deb</p>
+</dd>
+</dl>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
 </div>
 </div></div>
-<p>安装完成后在终端内输入</p>
+</section>
+<section id="id6">
+<h3>检查Vscode版本<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">code --verbose</span>
 </pre></div>
 </div>
-<p>若出现对应版本号则安装成功。</p>
 </section>
 <section id="id7">
-<h3>扩展安装<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
-<p>请在vscode的扩展内搜索以下扩展名进行安装。</p>
+<h3>推荐拓展<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<p>为了方便Bubble项目的调试，我们推荐一下VsCode拓展：</p>
 <ul class="simple">
 <li><p>IntelliCode</p></li>
 <li><p>python</p></li>
@@ -226,11 +216,8 @@ sudo apt-get install python3-scipy
 </section>
 </section>
 <section id="bubble">
-<h2>构建Bubble<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
-<ul class="simple">
-<li><p>注意：在进行该步前请确保以上步骤均已完成！</p></li>
-</ul>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@birdiebot.top:btp_pl/bubble.git
+<h2>构建Bubble源码<a class="headerlink" href="#bubble" title="Permalink to this heading"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:Birdiebot/bubble.git
 
 <span class="c1"># Install vcs tools</span>
 sudo apt-get install python3-vcstool

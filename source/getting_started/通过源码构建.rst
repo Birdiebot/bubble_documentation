@@ -12,7 +12,7 @@
 --------------------------
 该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。环境配置包括：
 
-* Ros Galactic环境
+* ROS Galactic环境
 * hikrobot和Daheng工业相机驱动
 * Bubble运行时所需要的环境依赖
 
@@ -21,16 +21,16 @@
 
 git安装与ssh配置
 ################################################
+Bubble的不同模块在不同的代码仓库中维护，我们使用vcs工具进行管理，在使用前请先进行必要的ssh配置。
 
 git配置请参考参考gitlab官网中的 `Installing Git <https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html>`__。
 
-ssh配置请参考参考gitlab官网中的 `Use SSH keys to communicate with GitLab <https://docs.gitlab.com/ee/user/ssh.html>`__  ,
-完成其中的以下步骤 *Generate an SSH key pair* 、*Add an SSH key to your GitLab account* 、*Verify that you can connect* 共三个步骤。
+ssh配置请参考参考gitlab官网中的 `Use SSH keys to communicate with GitLab <https://docs.gitlab.com/ee/user/ssh.html>`__  。
 
 
-第三方库安装与配置
+第三方库依赖与配置
 ################################################
-*注意:在Jetson平台上使用numpy1.19以上版本实际测试会出现异常,请在安装完opencv-python及scipy后手动对NumPy降级*
+.. note:: 在Jetson平台上使用NumPy1.19以上版本实际测试会出现异常,请在opencv-python及scipy安装完成后手动对NumPy降级
 
 .. code-block:: bash
 
@@ -44,7 +44,8 @@ ssh配置请参考参考gitlab官网中的 `Use SSH keys to communicate with Git
 
 ROS2安装与配置
 ################################################
-对于ROS2的构建这里采用官方的构建方法。在它其中会详细阐述在不同操作系统下的操作。具体请参考 `构建ROS2 <https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#>`__  完成与构建 。
+ROS环境的配置请参阅 `安装ROS2 <https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#>`__  。
+当前版本的Bubble使用了Galactic版本的ROS环境。
 
 如果不希望每次打开新 shell 时都进行source环境变量的操作,在终端中输入指令:
 
@@ -52,47 +53,36 @@ ROS2安装与配置
 
     echo "source /opt/ros/galactic/setup.bash" >> ~/.bashrc
 
-工业相机驱动安装与配置
+工业相机SDK配置
 ################################################
-在RMU赛事中我们主要使用hikrobot和Daheng的工业相机， 需要分别进行驱动的安装。
-
-配置前需要先下载相应的软件包,参见链接。
-
-<链接>
+在 ``bubble_camera`` 模块中我们维护了海康工业相机和大恒工业相机的SDK，在使用Bubble前，请确认相关驱动被正确安装。
 
 .. tabs::
     
-    .. tab:: 大恒工业相机
+    .. tab:: X86/X64
 
-        .. tabs::
-
-            .. code-tab:: console
-                :caption: X86/X64
-
+            .. code-block:: bash
+                
+                # 海康工业相机配置，相关sdk下载请参见https://www.hikrobotics.com/cn2/source/support/software/MVS_STD_GML_V2.1.2_220929.zip
+                sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb
+                
+                # 大恒工业相机配置，相关sdk下载请参见https://gb.daheng-imaging.com/CN/Software/Cameras/Linux/Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.4.2206.9161.tar.gz
                 sudo tar -xzvf  Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz 
                 cd Galaxy_Linux-x86_Gige-U3_32bits-64bits_1.2.2112.9071/
                 ./Galaxy_camera.run
 
-            .. code-tab:: console
-                :caption: arrch64
 
+    .. tab:: aarch64
+
+            .. code-block:: bash
+
+                # 海康工业相机配置，相关sdk下载请参见https://www.hikrobotics.com/cn2/source/support/software/MVS_STD_GML_V2.1.2_220929.zip
+                sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb
+
+                # 大恒工业相机配置，相关sdk下载请参见https://gb.daheng-imaging.com/CN/Software/Cameras/Linux/Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.4.2206.9161.tar.gz
                 sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz 
                 cd Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071/
                 ./Galaxy_camera.run
-
-    .. tab:: 海康工业相机相机
-
-        .. tabs::
-
-            .. code-tab:: console
-                :caption: X86/X64
-
-                sudo dpkg -i MVS-2.1.1_x86_64_20211224.deb
-
-            .. code-tab:: console
-                :caption: arrch64
-
-                 sudo dpkg -i MVS-2.1.1_aarch64_20211224.deb
 
 VScode安装与使用
 -------------------------------------------------
@@ -103,30 +93,33 @@ vscode安装
 请根据架构选择对应的安装包
 
 .. tabs::
+    .. tab:: X86/X64
 
-    .. code-tab:: console
-        :caption: X86/X64
+        .. code-block:: bash
 
             wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb
             sudo dpkg -i code_1.65.2_arm64.deb
-    
-    .. code-tab:: console
-        :caption: arrch64
 
-            wget https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable -O code_1.65.2_x64.deb
+    .. tab:: aarch64
+
+        .. code-block:: bash
+            
+        wget https://update.code.visualstudio.com/1.65.2/linux-deb-x64/stable -O code_1.65.2_x64.deb
             sudo dpkg -i code_1.65.2_x64.deb
 
-安装完成后在终端内输入 
+        .. code-block:: bash
+
+检查Vscode版本
+################################################
 
 .. code:: console
     
     code --verbose
 
-若出现对应版本号则安装成功。
 
-扩展安装
+推荐拓展
 ################################################
-请在vscode的扩展内搜索以下扩展名进行安装。
+为了方便Bubble项目的调试，我们推荐一下VsCode拓展：
 
 * IntelliCode
 * python
@@ -137,14 +130,12 @@ vscode安装
 * CMake Tools
 * ROS
 
-构建Bubble
+构建Bubble源码
 --------------------------
-
-* 注意：在进行该步前请确保以上步骤均已完成！
 
 .. code-block:: bash
 
-    git clone git@birdiebot.top:btp_pl/bubble.git
+    git clone git@github.com:Birdiebot/bubble.git
 
     # Install vcs tools
     sudo apt-get install python3-vcstool

@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -87,7 +88,7 @@
            <div itemprop="articleBody">
              
   <section id="rmuc2022">
-<h1>RMUC2022大能量机关预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
+<h1>RMUC2022大能量机关预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>HarryWen</p>
@@ -103,7 +104,7 @@
 </dd>
 </dl>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <p>在RMU竞赛中,大能量机关是最为重要的视觉任务,同样需要确保场上击打响应快速且准确。该文档将阐述如何实现能量机关预测器的。</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -111,24 +112,25 @@
 </div>
 </section>
 <section id="id2">
-<h2>1. 问题分析<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2>1. 问题分析<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <section id="id3">
-<h3>大能量机关旋转机制<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h3>大能量机关旋转机制<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>能量机关转速按照三角函数呈周期性变化。速度目标函数为：<img class="math" src="../_images/math/ab825c9249aea74791cd868b06835811db111a50.png" alt="a*\sin(\omega * t) + b"/> ,其中 <img class="math" src="../_images/math/3eb8b97d96e2e06a30803ec72f88870c09da7e3d.png" alt="spd"/> 的单位为
 <img class="math" src="../_images/math/f9f5cc84488b1dc007a58fc9ded8922d18e5c1bb.png" alt="rad/s"/> , <img class="math" src="../_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> 的单位为 <img class="math" src="../_images/math/106b04b320e75010b1d8029e59244f234f75e6f9.png" alt="s"/>, <img class="math" src="../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> 的取值范围为 <img class="math" src="../_images/math/77f7569a1615d178600c6fdb2845f8948342e4e2.png" alt="[0.780,1.045]"/> , <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> 的取值范围为 <img class="math" src="../_images/math/404824c8cd041dce1ae56c99369199987069e8d1.png" alt="[1.884,2.000]"/> , <img class="math" src="../_images/math/68c7c8c65602677ab56cf7fd88002023f0edc575.png" alt="b"/> 始终满足 <img class="math" src="../_images/math/50fbd38c4e0108e5e2b24af84c50ae26549ea4eb.png" alt="b=2.090-a"/> 。
 每次大能量机关进入可激活状态时,所有参数重置,其中 <img class="math" src="../_images/math/907a4add6d5db5b7f197f7924f1371b8ac404fe6.png" alt="t"/> 重置为 <img class="math" src="../_images/math/31fdf41b39df23c95e52c5aef07f59d9adf82f3c.png" alt="0"/> , <img class="math" src="../_images/math/b3e65e3b6408fcfa00452530b73f55d1755f9965.png" alt="a"/> 和 <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> 重置为取值范围内任意值。</p>
 <p>大能量机关的转速呈三角函数周期性变化,不同于2021赛季的大能量机关,今年函数内a和ω的随机取值,而这两者都与波峰和波谷有关。故思考是否可以利用三角函数的特性即波峰和波谷信息来获得能量机关可激活状态的目标函数。</p>
+<img alt="../_images/大能量机关预测器.png" src="../_images/大能量机关预测器.png" />
 </section>
 </section>
 <section id="id4">
-<h2>2. 模型建立<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h2>
+<h2>2. 模型建立<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
 <section id="id5">
-<h3>2.1 坐标系定义<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
+<h3>2.1 坐标系定义<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
 <p>坐标系定义原则上参考 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103</a>， 但针对RMU进行了一定的简化。</p>
 <p>能量机关坐标系以能量机关R标作为极坐标系原点。不同于极坐标系， 此处从参考系x轴正方向逆时针旋转到x轴负方向所经过的角度范围为 <img class="math" src="../_images/math/d0982d9f6cd4840974f4a9491a56c02271ba25f9.png" alt="\theta \varepsilon [0,180]"/>  顺时针旋转到x轴负方向所经过的角度范围为 <img class="math" src="../_images/math/55df4467c2605cd36788e1eef2a82b6986ca4110.png" alt="\theta \varepsilon [0,-180]"/>。</p>
 </section>
 <section id="id6">
-<h3>2.2 符号说明<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
+<h3>2.2 符号说明<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 17%" />
@@ -149,67 +151,62 @@
 <tr class="row-even"><td><p><img class="math" src="../_images/math/e8dea8254118f111b5fb20895b03528c17566f06.png" alt="T"/></p></td>
 <td><p>函数的周期</p></td>
 </tr>
-<tr class="row-odd"><td><p><img class="math" src="../_images/math/5114ad8cc693fa13729c1e9d8a95f341b8902519.png" alt="t_gap"/></p></td>
+<tr class="row-odd"><td><p><img class="math" src="../_images/math/ffb40ab2cc39b28041fb39ea3cff28a17e2a6ca9.png" alt="t_{gap}"/></p></td>
 <td><p>波峰和波谷相较于该周期原点的时间差</p></td>
 </tr>
-<tr class="row-even"><td><p><img class="math" src="../_images/math/17710a86d0f90d5efa075a126e6fbe614931bfa2.png" alt="t_peak"/></p></td>
+<tr class="row-even"><td><p><img class="math" src="../_images/math/171e789d1514058f8db625e4ae0015e108e77101.png" alt="t_{peak}"/></p></td>
 <td><p>波峰时间戳</p></td>
 </tr>
-<tr class="row-odd"><td><p><img class="math" src="../_images/math/5ccc315150f34fa11f7bbdeecc9796b7dde4f962.png" alt="t_trough"/></p></td>
+<tr class="row-odd"><td><p><img class="math" src="../_images/math/a90070fc738727ca65795136aa15aeb85b0dabbd.png" alt="t_{trough}"/></p></td>
 <td><p>波谷时间戳</p></td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="id7">
-<h3>2.3 数学推导<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
-<p>函数omega计算</p>
-<blockquote>
-<div><p>正弦函数参数: <img class="math" src="../_images/math/b56a06cb0d4ddc6501ce3c7a31197fb2ed0eb8b6.png" alt="a \in [0.78,1.045], b \in [0,0.53], \omega \in [1.884,2]"/></p>
-<div class="line-block">
-<div class="line">由正弦函数周期计算公式：<img class="math" src="../_images/math/58d157d68ce75152e84add609deaab725acd8fa3.png" alt="T = 2 \pi / \omega ,\omega \in [1.884,2]"/> 可得:</div>
-<div class="line-block">
-<div class="line"><img class="math" src="../_images/math/7ead0084e5714edf04fde96fafdd28e955fe9ae5.png" alt="T \in [3.14,3.335]"/></div>
-<div class="line"><br /></div>
-</div>
-<div class="line">由 <img class="math" src="../_images/math/3af1f59bb5fa2bb93273d104f2a8344915dad701.png" alt="spd = a*\sin(\omega * t) + b, \sin(\omega*t) \in [-1,1]"/> 可得:</div>
-<div class="line-block">
-<div class="line"><img class="math" src="../_images/math/4f9c8c281f890be62f9df5452a1fc1ea1f377067.png" alt="spd \in [2.090-2a,2.090]"/></div>
-<div class="line"><br /></div>
-</div>
-<div class="line"><img class="math" src="../_images/math/5a527fd15ba58a2d6dbee988cb8dafcbe99b3b23.png" alt="T = 2 * |t_peak - t_trough|, \omega = \pi / | t_peak - t_trough |"/></div>
-</div>
-<p>由此可以看出 a 可以由函数的波谷获得。omega 可以通过函数周期T获得。</p>
-</div></blockquote>
-<p>函数波峰和波谷与该周期原点的时间差计算</p>
-<blockquote>
-<div><div class="line-block">
-<div class="line"><img class="math" src="../_images/math/ebb94436d2b05ac9c2797075ae15ac3dc5e6d9cc.png" alt="peak_offset = \frac{\pi}{2 * \omega}"/> , <img class="math" src="../_images/math/797808e12577c205a22ffbe914a56d3885559285.png" alt="trough_offset = \frac{3 * \pi}{2 * \omega}"/></div>
-<div class="line"><br /></div>
-<div class="line">由 <img class="math" src="../_images/math/55dde1f5df6ce0e1b5db5a7a4074ca0ce5eb69ef.png" alt="T = 2 \pi / \omega"/> 和正弦函数特性：</div>
-<div class="line-block">
-<div class="line"><img class="math" src="../_images/math/3ccd09c6d84df6fddffeca3ef07bba4bff221755.png" alt="peak_offset = \frac{1}{4}*T = \frac{\pi}{2 * \omega}"/></div>
-<div class="line"><img class="math" src="../_images/math/d88372442d1d6bbf2655d1d6bb9fac86a023c133.png" alt="trough_offset = \frac{3}{4}*T = \frac{3 * \pi}{2 * \omega}"/></div>
-<div class="line"><br /></div>
-</div>
-<div class="line">当波峰时: <img class="math" src="../_images/math/c69a718a8a7c0590de678b1806e3fddc2b2cf1e7.png" alt="t_gap = t_peak - peak_offset"/></div>
-<div class="line">当波谷时: <img class="math" src="../_images/math/812d26c2e066af92f7b532ecac4a6c80fe67d582.png" alt="t_gap = t_trough - trough_offset"/></div>
-</div>
-</div></blockquote>
-</section>
+<h3>2.3 数学推导<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<section id="omega">
+<h4>2.3.1 参数 <img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/> 计算<a class="headerlink" href="#omega" title="Permalink to this heading"></a></h4>
+<p>正弦函数参数: <img class="math" src="../_images/math/b56a06cb0d4ddc6501ce3c7a31197fb2ed0eb8b6.png" alt="a \in [0.78,1.045], b \in [0,0.53], \omega \in [1.884,2]"/>，由正弦函数周期计算公式：<img class="math" src="../_images/math/58d157d68ce75152e84add609deaab725acd8fa3.png" alt="T = 2 \pi / \omega ,\omega \in [1.884,2]"/> 可得:</p>
+<div class="math">
+<p><img src="../_images/math/6a4557724942872343b80c3082db286b8b6a2f23.png" alt="T \in [3.14,3.335]"/></p>
+</div><p>由 <img class="math" src="../_images/math/3af1f59bb5fa2bb93273d104f2a8344915dad701.png" alt="spd = a*\sin(\omega * t) + b, \sin(\omega*t) \in [-1,1]"/> 可得:</p>
+<div class="math">
+<p><img src="../_images/math/82b6c11b543ad856d83cafb5cdb7f800605e8c1b.png" alt="spd \in [2.090-2a,2.090]"/></p>
+</div><div class="math">
+<p><img src="../_images/math/ca43b98d9fbafbd1a1513d3dfa445c666dec979c.png" alt="T = 2|t_{peak} - t_{trough}|"/></p>
+</div><div class="math">
+<p><img src="../_images/math/76605d0f68b079f67227a30d9ceff4dac709bae7.png" alt="\omega = \frac{\pi}{|t_{peak}-t_{trough}|}"/></p>
+</div><p>由此可以看出 a 可以由函数的波谷获得。<img class="math" src="../_images/math/16cb1e006199f0853a2dc67ea814446a38beb54e.png" alt="\omega"/>  可以通过函数周期 <img class="math" src="../_images/math/e8dea8254118f111b5fb20895b03528c17566f06.png" alt="T"/> 获得。</p>
 </section>
 <section id="id8">
-<h2>3. 流程介绍<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h2>
-<img alt="../_images/大能量机关预测器.png" src="../_images/大能量机关预测器.png" />
+<h4>2.3.2 函数波峰和波谷与该周期原点的时间差计算<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<div class="math">
+<p><img src="../_images/math/85683dfefc76652c5dbcd7e5d97e2122f55479e4.png" alt="peak\_offset = \frac{\pi}{2 * \omega}"/></p>
+</div><div class="math">
+<p><img src="../_images/math/534550ca64ce4e8f8c61330b75fe96ab0aeed8f3.png" alt="trough\_offset = \frac{3 * \pi}{2 * \omega}"/></p>
+</div><p>由 <img class="math" src="../_images/math/55dde1f5df6ce0e1b5db5a7a4074ca0ce5eb69ef.png" alt="T = 2 \pi / \omega"/> 和正弦函数特性：</p>
+<div class="math">
+<p><img src="../_images/math/9aeb6db4aa32a9cd95770063261c231d7087582e.png" alt="peak_{offset} = \frac{1}{4}*T = \frac{\pi}{2 * \omega}"/></p>
+</div><div class="math">
+<p><img src="../_images/math/8d1e5b41e67dcb26ae838146bfad254a19b64330.png" alt="trough_{offset} = \frac{3}{4}*T = \frac{3 * \pi}{2 * \omega}"/></p>
+</div><p>当波峰时:</p>
+<div class="math">
+<p><img src="../_images/math/2b6433fb32aa4840529e3924eae27beafde63a45.png" alt="t_{gap} = t_{peak} - peak_{offset}"/></p>
+</div><p>当波谷时:</p>
+<div class="math">
+<p><img src="../_images/math/c8d122ed06c3bb17169d006ecfc6782ea4f89e7c.png" alt="t_{gap} = t_{trough} - trough_{offset}"/></p>
+</div></section>
+</section>
 <section id="id9">
-<h3>3.1 数据准备<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<h3>3.1 数据准备<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <p>该部分可以参考小能量机关预测器中的数据准备</p>
 </section>
 <section id="id10">
-<h3>3.2 数据滤波处理<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
+<h3>3.2 数据滤波处理<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
 <p>观察计算所得角速度的波形图,发现其中存在大量杂波,破坏了函数的波形,导致无法准确找到函数的波峰和波谷。相较于函数的原始信号这些杂波属于高频信号,故此处使用低通滤波对波形中的高频信号进行滤波处理,从而消除杂波起到平滑曲线的作用。</p>
 <section id="id11">
-<h4>核心代码实现<a class="headerlink" href="#id11" title="Permalink to this headline"></a></h4>
+<h4>核心代码实现<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h4>
 <p>lowPassFilter()函数用于对数据进行低通滤波, filterVel()用于对角速度滤波和数据记录</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lowPassFilter</span><span class="p">(</span><span class="n">fps</span><span class="p">,</span> <span class="n">signal_fps</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
@@ -251,10 +248,10 @@
 </section>
 </section>
 <section id="id12">
-<h3>3.3 波形分析<a class="headerlink" href="#id12" title="Permalink to this headline"></a></h3>
+<h3>3.3 波形分析<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h3>
 <p>由问题分析可知, 函数中 <img class="math" src="../_images/math/9f2a84f659bb4943d8f17a8d115606aa8c2a0640.png" alt="a,w,b"/> 是通过波峰和波谷计算所得。所以波形分析主要目标是找到角速度波形曲线中的波峰和波谷。</p>
 <section id="id13">
-<h4>寻找波峰<a class="headerlink" href="#id13" title="Permalink to this headline"></a></h4>
+<h4>寻找波峰<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h4>
 <dl>
 <dt>通过设定波峰的阈值和最小水平距离来筛选出所有符合的波峰,最后获取所有波峰中最新时刻的波峰。</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">findPeak</span><span class="p">(</span><span class="n">data_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">thres</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
     <span class="n">peak_index</span> <span class="o">=</span> <span class="kc">None</span>
@@ -271,7 +268,7 @@
 </dl>
 </section>
 <section id="id14">
-<h4>寻找波谷<a class="headerlink" href="#id14" title="Permalink to this headline"></a></h4>
+<h4>寻找波谷<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h4>
 <dl>
 <dt>首先对波形取反, 即将波形沿x轴镜像翻转。然后流程和寻找波峰相同,最后得到波谷。</dt><dd><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">findTrough</span><span class="p">(</span><span class="n">data_array</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">thres</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
   <span class="n">trough_index</span> <span class="o">=</span> <span class="kc">None</span>
@@ -290,15 +287,15 @@
 </section>
 </section>
 <section id="a-w-b">
-<h3>3.4 计算函数的 <img class="math" src="../_images/math/9f2a84f659bb4943d8f17a8d115606aa8c2a0640.png" alt="a,w,b"/><a class="headerlink" href="#a-w-b" title="Permalink to this headline"></a></h3>
+<h3>3.4 计算函数的 <img class="math" src="../_images/math/9f2a84f659bb4943d8f17a8d115606aa8c2a0640.png" alt="a,w,b"/><a class="headerlink" href="#a-w-b" title="Permalink to this heading"></a></h3>
 <p>计算流程请参考</p>
 <img alt="../_images/逻辑处理.png" src="../_images/逻辑处理.png" />
 </section>
 <section id="id15">
-<h3>3.5 目标预测<a class="headerlink" href="#id15" title="Permalink to this headline"></a></h3>
+<h3>3.5 目标预测<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h3>
 <p>为保证计算的统一性,此处的时间差都是相较与该周期的原点进行计算的。</p>
 <section id="id16">
-<h4>当前时间与当前周期原点的时间差计算<a class="headerlink" href="#id16" title="Permalink to this headline"></a></h4>
+<h4>当前时间与当前周期原点的时间差计算<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h4>
 <p>根据上述公式获得波峰和波谷相较于该周期原点的时间差。然后将当前的时间减去计算获得的值,从而获得时间差。</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">alignTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pres_time</span><span class="p">,</span> <span class="n">peak_time</span><span class="p">,</span> <span class="n">trough_time</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
@@ -314,7 +311,7 @@
 </div></blockquote>
 </section>
 <section id="id17">
-<h4>预测角度计算<a class="headerlink" href="#id17" title="Permalink to this headline"></a></h4>
+<h4>预测角度计算<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h4>
 <p>为简化问题此处采用固定的预测时间来计算预测角度。然后对 <img class="math" src="../_images/math/ab825c9249aea74791cd868b06835811db111a50.png" alt="a*\sin(\omega * t) + b"/> 求定积分,将时间差加上设定的预测时间作为积分上限,将时间差的值作为积分的下限,积分获得预测角度。</p>
 <blockquote>
 <div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">predict_radian</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">integrate</span><span class="o">.</span><span class="n">quad</span><span class="p">(</span><span class="n">sine_func</span><span class="p">,</span> <span class="n">aligned_time</span><span class="p">,</span> <span class="n">aligned_time</span> <span class="o">+</span> <span class="n">predict_time</span><span class="p">)</span>
@@ -324,7 +321,7 @@
 </section>
 </section>
 <section id="id18">
-<h3>计算预测矩形框的中心和目标框<a class="headerlink" href="#id18" title="Permalink to this headline"></a></h3>
+<h3>计算预测矩形框的中心和目标框<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h3>
 <p>此处可参考小能量机关预测器中的目标预测。</p>
 </section>
 </section>

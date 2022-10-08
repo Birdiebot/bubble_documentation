@@ -11,7 +11,7 @@ Bubble alpha2是Bubble预计于2023年9月5日发布的版本。
 在下表中，是下一个Bubble发行版开发主要任务，
 
 .. list-table::
-    :widths: 35 10 10 20 25
+    :widths: 35 10 10 20
     :header-rows: 1
 
     * - 任务

@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/tabs.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -84,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="bubble">
-<h1>Bubble开发规范<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h1>
+<h1>Bubble开发规范<a class="headerlink" href="#bubble" title="Permalink to this heading"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Ligcox</p>
@@ -125,9 +126,9 @@ HarryWen</p>
 </ul>
 </div>
 <section id="id2">
-<h2><a class="toc-backref" href="#id10">1 代码风格规范</a><a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id10">1 代码风格规范</a><a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
 <section id="id3">
-<h3><a class="toc-backref" href="#id11">1.1 代码规范</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id11">1.1 代码规范</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>Bubble代码风格原则上使用 <a class="reference external" href="https://docs.ros.org/en/foxy/The-ROS2-Project/Contributing/Code-Style-Language-Versions.html">ROS2的代码风格和语言版本</a></p>
 <ul class="simple">
 <li><p>对于实现逻辑的函数、回调函数使用蛇形命名法（snake_case）命名。例如： <code class="docutils literal notranslate"><span class="pre">send_data()</span></code> 、 <code class="docutils literal notranslate"><span class="pre">data_callback()</span></code></p></li>
@@ -136,119 +137,119 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id4">
-<h3><a class="toc-backref" href="#id12">1.2 文件注释模板</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id12">1.2 文件注释模板</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
 <p>Bubble项目中使用的 <a class="reference external" href="https://marketplace.visualstudio.com/items?itemName=OBKoro1.korofileheader">koroFileHeader</a> 自动生成代码文件模板。
 配置字段具体功能介绍可参考 <a class="reference external" href="https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE">配置文档</a></p>
 <p>代码模板配置为：</p>
-<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;fileheader.customMade&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;custom_string_obkoro1&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Copyright (c) 2022 Birdiebot R&amp;D Department\nShanghai University Of Engineering Science. All Rights Reserved&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;custom_string_obkoro2&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;License: GNU General Public License v3.0.\nSee LICENSE file in root directory.&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;custom_string_obkoro3&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;Author&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;your name your email&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;Date&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;FilePath&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;LastEditors&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;your name your email&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;LastEditTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;fileheader.cursorMode&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;Description&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\n\t&quot;</span><span class="p">,</span><span class="w"></span>
+<div class="highlight-js notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="s2">&quot;fileheader.customMade&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;custom_string_obkoro1&quot;</span><span class="o">:</span> <span class="s2">&quot;Copyright (c) 2022 Birdiebot R&amp;D Department\nShanghai University Of Engineering Science. All Rights Reserved&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom_string_obkoro2&quot;</span><span class="o">:</span> <span class="s2">&quot;License: GNU General Public License v3.0.\nSee LICENSE file in root directory.&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;custom_string_obkoro3&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Author&quot;</span><span class="o">:</span> <span class="s2">&quot;your name your email&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;Date&quot;</span><span class="o">:</span> <span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;FilePath&quot;</span><span class="o">:</span> <span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LastEditors&quot;</span><span class="o">:</span> <span class="s2">&quot;your name your email&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;LastEditTime&quot;</span><span class="o">:</span> <span class="s2">&quot;Do not edit&quot;</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;fileheader.cursorMode&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;Description&quot;</span><span class="o">:</span> <span class="s2">&quot;\n\t&quot;</span><span class="p">,</span>
 
-<span class="w">        </span><span class="s2">&quot;Parameters&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;------------&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;param&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;&quot;</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+        <span class="s2">&quot;Parameters&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;------------&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;param&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;&quot;</span><span class="o">:</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
 
-<span class="w">        </span><span class="s2">&quot;Returns&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;-----------&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+        <span class="s2">&quot;Returns&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;-----------&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;fileheader.configObj&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;autoAdd&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;wideSame&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;writeLog&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;useWorker&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;moveCursor&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;headDesign&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;autoAlready&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;createHeader&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;designAddHead&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;CheckFileChange&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;showErrorMessage&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;openFunctionParamsCheck&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"></span>
+    <span class="p">},</span>
+    <span class="s2">&quot;fileheader.configObj&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;autoAdd&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;wideSame&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;writeLog&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;useWorker&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;moveCursor&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;headDesign&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;autoAlready&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;createHeader&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;designAddHead&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;CheckFileChange&quot;</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="s2">&quot;showErrorMessage&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="s2">&quot;openFunctionParamsCheck&quot;</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
 
-<span class="w">        </span><span class="s2">&quot;wideNum&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">13</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;functionWideNum&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;autoAddLine&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">10000</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;throttleTime&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">60000</span><span class="p">,</span><span class="w"></span>
+        <span class="s2">&quot;wideNum&quot;</span><span class="o">:</span> <span class="mf">13</span><span class="p">,</span>
+        <span class="s2">&quot;functionWideNum&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="s2">&quot;autoAddLine&quot;</span><span class="o">:</span> <span class="mf">10000</span><span class="p">,</span>
+        <span class="s2">&quot;throttleTime&quot;</span><span class="o">:</span> <span class="mf">60000</span><span class="p">,</span>
 
-<span class="w">        </span><span class="s2">&quot;prohibitAutoAdd&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;json&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;md&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;yaml&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;prohibitItemAutoAdd&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;项目的全称禁止项目自动添加头部注释, 使用快捷键自行添加&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;folderBlacklist&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;launch&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;headInsertLine&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;php&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">2</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;py&quot;</span><span class="o">:</span><span class="w"> </span><span class="mf">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
+        <span class="s2">&quot;prohibitAutoAdd&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;json&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;md&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;yaml&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;prohibitItemAutoAdd&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;项目的全称禁止项目自动添加头部注释, 使用快捷键自行添加&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;folderBlacklist&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;launch&quot;</span>
+        <span class="p">],</span>
+        <span class="s2">&quot;headInsertLine&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;php&quot;</span><span class="o">:</span> <span class="mf">2</span><span class="p">,</span>
+            <span class="s2">&quot;py&quot;</span><span class="o">:</span> <span class="mf">0</span><span class="p">,</span>
+        <span class="p">},</span>
 
-<span class="w">        </span><span class="s2">&quot;switch&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;newlineAddAnnotation&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">true</span><span class="w"></span>
-<span class="w">        </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;atSymbol&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;@&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;@&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
+        <span class="s2">&quot;switch&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;newlineAddAnnotation&quot;</span><span class="o">:</span> <span class="kc">true</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;atSymbol&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;@&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;@&quot;</span>
+        <span class="p">],</span>
 
-<span class="w">        </span><span class="s2">&quot;colon&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;: &quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;&quot;</span><span class="w"></span>
-<span class="w">        </span><span class="p">],</span><span class="w"></span>
+        <span class="s2">&quot;colon&quot;</span><span class="o">:</span> <span class="p">[</span>
+            <span class="s2">&quot;: &quot;</span><span class="p">,</span>
+            <span class="s2">&quot;&quot;</span>
+        <span class="p">],</span>
 
-<span class="w">        </span><span class="s2">&quot;filePathColon&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;functionTypeSymbol&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;*&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;typeParamOrder&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;param&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;headDesignName&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;random&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;functionParamAddStr&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;: &quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;NoMatchParams&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;no show param&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;dateFormat&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">,</span><span class="w"></span>
+        <span class="s2">&quot;filePathColon&quot;</span><span class="o">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;functionTypeSymbol&quot;</span><span class="o">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;typeParamOrder&quot;</span><span class="o">:</span> <span class="s2">&quot;param&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;headDesignName&quot;</span><span class="o">:</span> <span class="s2">&quot;random&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;functionParamAddStr&quot;</span><span class="o">:</span> <span class="s2">&quot;: &quot;</span><span class="p">,</span>
+        <span class="s2">&quot;NoMatchParams&quot;</span><span class="o">:</span> <span class="s2">&quot;no show param&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dateFormat&quot;</span><span class="o">:</span> <span class="s2">&quot;YYYY-MM-DD HH:mm:ss&quot;</span><span class="p">,</span>
 
-<span class="w">        </span><span class="s2">&quot;colonObj&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;atSymbolObj&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;afterAnnotation&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;customHasHeadEnd&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;beforeAnnotation&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;functionBlankSpaceAll&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;python&quot;</span><span class="o">:</span><span class="mf">4</span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;cursorModeInternalAll&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="s2">&quot;python&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">&quot;c11&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;supportAutoLanguage&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[],</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;functionParamsShape&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;: &quot;</span><span class="p">],</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;language&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;h/hpp/cpp&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;head&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/*** &quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;middle&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot; * @&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot; */&quot;</span><span class="w"></span>
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">            </span><span class="s2">&quot;py&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;head&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\&quot;\&quot;\&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;middle&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">                </span><span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;\&quot;\&quot;\&quot;&quot;</span><span class="p">,</span><span class="w"></span>
+        <span class="s2">&quot;colonObj&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;atSymbolObj&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;afterAnnotation&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;customHasHeadEnd&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;beforeAnnotation&quot;</span><span class="o">:</span> <span class="p">{},</span>
+        <span class="s2">&quot;functionBlankSpaceAll&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;python&quot;</span><span class="o">:</span><span class="mf">4</span><span class="p">},</span>
+        <span class="s2">&quot;cursorModeInternalAll&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;python&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span><span class="s2">&quot;c11&quot;</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span>
+        <span class="s2">&quot;supportAutoLanguage&quot;</span><span class="o">:</span> <span class="p">[],</span>
+        <span class="s2">&quot;functionParamsShape&quot;</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;: &quot;</span><span class="p">],</span>
+        <span class="s2">&quot;language&quot;</span><span class="o">:</span> <span class="p">{</span>
+            <span class="s2">&quot;h/hpp/cpp&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;head&quot;</span><span class="o">:</span> <span class="s2">&quot;/*** &quot;</span><span class="p">,</span>
+                <span class="s2">&quot;middle&quot;</span><span class="o">:</span> <span class="s2">&quot; * @&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="s2">&quot; */&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;py&quot;</span><span class="o">:</span> <span class="p">{</span>
+                <span class="s2">&quot;head&quot;</span><span class="o">:</span> <span class="s2">&quot;\&quot;\&quot;\&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;middle&quot;</span><span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="s2">&quot;\&quot;\&quot;\&quot;&quot;</span><span class="p">,</span>
 
-<span class="w">            </span><span class="p">},</span><span class="w"></span>
-<span class="w">        </span><span class="p">}</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="w">    </span><span class="s2">&quot;annotationStr&quot;</span><span class="o">:</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;head&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;/*&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;middle&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot; * @&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;end&quot;</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot; */&quot;</span><span class="p">,</span><span class="w"></span>
-<span class="w">        </span><span class="s2">&quot;use&quot;</span><span class="o">:</span><span class="w"> </span><span class="kc">false</span><span class="w"></span>
-<span class="w">    </span><span class="p">},</span><span class="w"></span>
-<span class="p">}</span><span class="w"></span>
+            <span class="p">},</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;annotationStr&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;head&quot;</span><span class="o">:</span> <span class="s2">&quot;/*&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;middle&quot;</span><span class="o">:</span> <span class="s2">&quot; * @&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;end&quot;</span><span class="o">:</span> <span class="s2">&quot; */&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;use&quot;</span><span class="o">:</span> <span class="kc">false</span>
+    <span class="p">},</span>
+<span class="p">}</span>
 </pre></div>
 </div>
 <p>文件头模板为：</p>
@@ -300,7 +301,7 @@ HarryWen</p>
 </section>
 </section>
 <section id="id5">
-<h2><a class="toc-backref" href="#id13">2 坐标系定义</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id13">2 坐标系定义</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
 <p>Bubble中的坐标系定义原则上使用 <a class="reference external" href="https://www.ros.org/reps/rep-0105.html">REP105 移动平台的坐标系</a> 定义的规范，
 坐标系中出现的单位，使用 <a class="reference external" href="https://www.ros.org/reps/rep-0103.html">REP103 标准测量单位和坐标约定</a> 定义的标准单位。</p>
 <p>特殊地，对于除RMUA及全自动步兵机器人外的绝大部分机器人，实际对移动关系不敏感，做以下额外地约定：</p>
@@ -314,9 +315,9 @@ HarryWen</p>
 </ul>
 </section>
 <section id="id6">
-<h2><a class="toc-backref" href="#id14">3 文件结构</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h2>
+<h2><a class="toc-backref" href="#id14">3 文件结构</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
 <section id="id7">
-<h3><a class="toc-backref" href="#id15">3.1 功能包结构</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id15">3.1 功能包结构</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
 <p>Bubble中的功能包以 <code class="docutils literal notranslate"><span class="pre">bubble_</span></code> 前缀命名，结构原则上使用 <a class="reference external" href="https://docs.ros.org/en/galactic/The-ROS2-Project/Contributing/Developer-Guide.html#package-layout">ROS2功能包layout</a> 定义的规范。</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-2-UHl0aG9u" aria-selected="true" class="sphinx-tabs-tab group-tab" id="tab-2-UHl0aG9u" name="UHl0aG9u" role="tab" tabindex="0">Python</button><button aria-controls="panel-2-Qy9DKys=" aria-selected="false" class="sphinx-tabs-tab group-tab" id="tab-2-Qy9DKys=" name="Qy9DKys=" role="tab" tabindex="-1">C/C++</button></div><div aria-labelledby="tab-2-UHl0aG9u" class="sphinx-tabs-panel group-tab" id="panel-2-UHl0aG9u" name="UHl0aG9u" role="tabpanel" tabindex="0"><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">bubble_python_pkg</span>
@@ -345,11 +346,11 @@ HarryWen</p>
 </div></div>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id16">3.2 代码仓库</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id16">3.2 代码仓库</a><a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
 <p>不同的功能包应当放置在相应的代码仓库下，当一个代码仓库仅有一个功能包时，它可以选择位于仓库的根目录中。</p>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id17">4 文档及注释</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
+<h3><a class="toc-backref" href="#id17">4 文档及注释</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
 <p>考虑到代码的可读性和维护</p>
 <p>Bubble的文档使用sphinx进行书写，各功能模块应保留必要的注释，配置模板头后，直接使用koroFileHeader生成，并导出到文档中。</p>
 <p>Bubble的文档及注释做以下约定：</p>

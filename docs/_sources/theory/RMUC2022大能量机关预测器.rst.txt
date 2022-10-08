@@ -24,6 +24,8 @@ RMUC2022大能量机关预测器
 
 大能量机关的转速呈三角函数周期性变化,不同于2021赛季的大能量机关,今年函数内a和ω的随机取值,而这两者都与波峰和波谷有关。故思考是否可以利用三角函数的特性即波峰和波谷信息来获得能量机关可激活状态的目标函数。
 
+.. image:: asset/大能量机关预测器.png
+
 2. 模型建立
 --------------------------
 
@@ -49,48 +51,67 @@ RMUC2022大能量机关预测器
       - 函数的波谷值
     * - :math:`T`
       - 函数的周期
-    * - :math:`t_gap`
+    * - :math:`t_{gap}`
       - 波峰和波谷相较于该周期原点的时间差
-    * - :math:`t_peak`
+    * - :math:`t_{peak}`
       - 波峰时间戳
-    * - :math:`t_trough`
+    * - :math:`t_{trough}`
       - 波谷时间戳
 
 
 2.3 数学推导
 ################################################
 
-函数\omega计算
+2.3.1 参数 :math:`\omega` 计算
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-    正弦函数参数: :math:`a \in [0.78,1.045], b \in [0,0.53], \omega \in [1.884,2]`
-        
-    | 由正弦函数周期计算公式：:math:`T = 2 \pi / \omega ,\omega \in [1.884,2]` 可得:  
-    |   :math:`T \in [3.14,3.335]`
-    |
-    | 由 :math:`spd = a*\sin(\omega * t) + b, \sin(\omega*t) \in [-1,1]` 可得:
-    |   :math:`spd \in [2.090-2a,2.090]`
-    |
-    | :math:`T = 2 * |t_peak - t_trough|, \omega = \pi / | t_peak - t_trough |`
+正弦函数参数: :math:`a \in [0.78,1.045], b \in [0,0.53], \omega \in [1.884,2]`，由正弦函数周期计算公式：:math:`T = 2 \pi / \omega ,\omega \in [1.884,2]` 可得:  
 
-    由此可以看出 a 可以由函数的波谷获得。\omega 可以通过函数周期T获得。 
+.. math::
+    T \in [3.14,3.335]
 
+由 :math:`spd = a*\sin(\omega * t) + b, \sin(\omega*t) \in [-1,1]` 可得:
 
-函数波峰和波谷与该周期原点的时间差计算
+.. math::
+    spd \in [2.090-2a,2.090]
 
+.. math::
+    T = 2|t_{peak} - t_{trough}|
     
-    | :math:`peak_offset = \frac{\pi}{2 * \omega}` , :math:`trough_offset = \frac{3 * \pi}{2 * \omega}`
-    |
-    | 由 :math:`T = 2 \pi / \omega` 和正弦函数特性：
-    |   :math:`peak_offset = \frac{1}{4}*T = \frac{\pi}{2 * \omega}`
-    |   :math:`trough_offset = \frac{3}{4}*T = \frac{3 * \pi}{2 * \omega}`
-    |
-    | 当波峰时: :math:`t_gap = t_peak - peak_offset`
-    | 当波谷时: :math:`t_gap = t_trough - trough_offset`
+.. math::
+    \omega = \frac{\pi}{|t_{peak}-t_{trough}|}
+
+由此可以看出 a 可以由函数的波谷获得。:math:`\omega`  可以通过函数周期 :math:`T` 获得。 
 
 
-3. 流程介绍
---------------------------------------------------
-.. image:: asset/大能量机关预测器.png
+2.3.2 函数波峰和波谷与该周期原点的时间差计算
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. math::
+    peak\_offset = \frac{\pi}{2 * \omega}
+
+.. math::
+    trough\_offset = \frac{3 * \pi}{2 * \omega}
+
+由 :math:`T = 2 \pi / \omega` 和正弦函数特性：
+
+.. math::
+    peak_{offset} = \frac{1}{4}*T = \frac{\pi}{2 * \omega}
+
+
+.. math::
+    trough_{offset} = \frac{3}{4}*T = \frac{3 * \pi}{2 * \omega}
+
+当波峰时:
+
+.. math::
+    t_{gap} = t_{peak} - peak_{offset}
+
+当波谷时:
+
+.. math::
+    t_{gap} = t_{trough} - trough_{offset}
+
 
 3.1 数据准备
 ################################################
