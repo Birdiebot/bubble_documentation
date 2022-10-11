@@ -81,6 +81,8 @@ RMUC2022旋转前哨站预测器
 .. math::
 
   S = \pi * r ^2
+  
+.. math::
 
   f_{x} = C \rho S  v_{x}^2 / 2 
 
@@ -98,10 +100,13 @@ RMUC2022旋转前哨站预测器
 .. math::
 
   - f_{x} / m = dv_{x} / dt
-  
+
+.. math::
   C \rho S v_{x}^2 dt / 2 m = - dv_{x} / v_{x}^2
 
+.. math::
   v_{x} = v_{x0} / (k_{1} v_{x0} t +1)
+
 .. image:: asset/旋转前哨站.png                                  
 
 
@@ -121,7 +126,7 @@ RMUC2022旋转前哨站预测器
 得到下坠时间后，可获得当前状态下从发射射击指令到弹丸射击到目标装甲板的总时间。
 
 .. math::
-  `t_{compensator} = t_{respond} + t_{distance}` 
+  t_{compensator} = t_{respond} + t_{distance}
 
 将上一帧识别到装甲板但至今未发射的数据时间戳与此刻时间戳进行比对，若两者差的绝对值与 :math:`t_{compensator}` 在一定范围即可视为此时发射弹丸理论情况下应能击中目标装甲板。
 
