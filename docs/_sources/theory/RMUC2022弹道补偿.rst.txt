@@ -78,13 +78,26 @@ RMUC2022弹道补偿
 2. 模型数学推导
 ################################################
   
-  | :math:`s_{hor} = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})`
-  | :math:`s_{ver} = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})`
-  | :math:`t = s / \vec{v}`
-  | :math:`\delta_h = 1/2 g t^2`
-  | :math:`error_{value} = s_ver - \delta_h - s * Cos (gimbal_{pitch} + target_{pitch})`
-  | :math:`iter_{radian} = math.atan(\frac{(Y+error_{value})}{ori_Z})`
-  | :math:`iter_{dis} = \frac{ori_Z}{iter_radian}`
+.. math::
+  s_{hor} = s * sin (gimbal_{yaw} + target_{yaw} + comp_{yaw})
+
+.. math::
+  s_{ver} = s * cos (gimbal_{pitch} + target_{pitch} + comp_{pitch})
+
+.. math::
+  t = s / \vec{v}
+
+.. math::  
+  \delta_h = 1/2 g t^2
+
+.. math::
+  error_{value} = s_ver - \delta_h - s * cos (gimbal_{pitch} + target_{pitch})
+
+.. math::  
+  iter_{radian} = math.atan(\frac{Y+error_{value}}{ori_Z})
+
+.. math::  
+  iter_{dis} = \frac{ori_Z}{iter_{radian}}
 
 
 1. 功能实现

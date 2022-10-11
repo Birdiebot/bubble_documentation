@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -85,9 +84,9 @@
            <div itemprop="articleBody">
              
   <section id="docker">
-<h1>通过预构建的Docker容器使用<a class="headerlink" href="#docker" title="Permalink to this heading"></a></h1>
+<h1>通过预构建的Docker容器使用<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h1>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>Bubble提供了一个预构建Docker容器，快速完成环境的搭建。
 您可以在容器中运行Bubble。Bubble的docker镜像托管在 <a class="reference external" href="https://hub.docker.com/repository/docker/birdiebot/bubble-aarch64v8">docker hub</a> 中。</p>
 <p>Bubble的Docker镜像基于 <a class="reference external" href="https://github.com/dusty-nv/jetson-containers">dustynv的galactic-ros-base-l4t-r34.1.1</a> 构建。镜像提供了：</p>
@@ -100,13 +99,13 @@
 </ul>
 </section>
 <section id="bubble">
-<h2>运行Bubble的容器<a class="headerlink" href="#bubble" title="Permalink to this heading"></a></h2>
+<h2>运行Bubble的容器<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
 <section id="id2">
-<h3>先决条件<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<h3>先决条件<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <p>Bubble容器在Jetson在使用，请确保Jetson上的NVIDIA Container Runtime已经安装。</p>
 </section>
 <section id="id3">
-<h3>运行容器<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>运行容器<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>允许外部应用程序连接到主机的显示器：</p></li>
 </ul>
@@ -139,7 +138,7 @@
 </ul>
 </section>
 <section id="id4">
-<h3>运行Bubble<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>运行Bubble<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <p>根据之前设置的源码路径，运行Bubble。</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ros2 launch bubble_bringup sentry_launch.py</span>
 </pre></div>

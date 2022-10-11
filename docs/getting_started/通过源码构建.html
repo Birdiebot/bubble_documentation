@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/tabs.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -86,7 +85,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>通过源码构建<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<h1>通过源码构建<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>HarryWen,
@@ -103,7 +102,7 @@ Zhr</p>
 </dd>
 </dl>
 <section id="id2">
-<h2>概述<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <p>该文档阐述Bubble在Ubuntu20.04操作系统下的环境配置。环境配置包括：</p>
 <ul class="simple">
 <li><p>ROS Galactic环境</p></li>
@@ -112,15 +111,15 @@ Zhr</p>
 </ul>
 </section>
 <section id="id3">
-<h2>环境配置<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<h2>环境配置<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <section id="gitssh">
-<h3>git安装与ssh配置<a class="headerlink" href="#gitssh" title="Permalink to this heading"></a></h3>
+<h3>git安装与ssh配置<a class="headerlink" href="#gitssh" title="Permalink to this headline"></a></h3>
 <p>Bubble的不同模块在不同的代码仓库中维护，我们使用vcs工具进行管理，在使用前请先进行必要的ssh配置。</p>
 <p>git配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/topics/git/how_to_install_git/index.html">Installing Git</a>。</p>
 <p>ssh配置请参考参考gitlab官网中的 <a class="reference external" href="https://docs.gitlab.com/ee/user/ssh.html">Use SSH keys to communicate with GitLab</a>  。</p>
 </section>
 <section id="id4">
-<h3>第三方库依赖与配置<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>第三方库依赖与配置<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>在Jetson平台上使用NumPy1.19以上版本实际测试会出现异常,请在opencv-python及scipy安装完成后手动对NumPy降级</p>
@@ -135,7 +134,7 @@ sudo apt-get install python3-scipy
 </div>
 </section>
 <section id="ros2">
-<h3>ROS2安装与配置<a class="headerlink" href="#ros2" title="Permalink to this heading"></a></h3>
+<h3>ROS2安装与配置<a class="headerlink" href="#ros2" title="Permalink to this headline"></a></h3>
 <p>ROS环境的配置请参阅 <a class="reference external" href="https://docs.ros.org/en/galactic/Installation/Ubuntu-Install-Debians.html#">安装ROS2</a>  。
 当前版本的Bubble使用了Galactic版本的ROS环境。</p>
 <p>如果不希望每次打开新 shell 时都进行source环境变量的操作,在终端中输入指令:</p>
@@ -144,7 +143,7 @@ sudo apt-get install python3-scipy
 </div>
 </section>
 <section id="sdk">
-<h3>工业相机SDK配置<a class="headerlink" href="#sdk" title="Permalink to this heading"></a></h3>
+<h3>工业相机SDK配置<a class="headerlink" href="#sdk" title="Permalink to this headline"></a></h3>
 <p>在 <code class="docutils literal notranslate"><span class="pre">bubble_camera</span></code> 模块中我们维护了海康工业相机和大恒工业相机的SDK，在使用Bubble前，请确认相关驱动被正确安装。</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-0-0-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-0-0-0" name="0-0" role="tab" tabindex="0">X86/X64</button><button aria-controls="panel-0-0-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-0-0-1" name="0-1" role="tab" tabindex="-1">aarch64</button></div><div aria-labelledby="tab-0-0-0" class="sphinx-tabs-panel" id="panel-0-0-0" name="0-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># 海康工业相机配置，相关sdk下载请参见https://www.hikrobotics.com/cn2/source/support/software/MVS_STD_GML_V2.1.2_220929.zip</span>
@@ -169,13 +168,13 @@ sudo tar -xzvf  Galaxy_Linux-armhf_Gige-U3_32bits-64bits_1.2.2112.9071.tar.gz
 </section>
 </section>
 <section id="vscode">
-<h2>VScode安装与使用<a class="headerlink" href="#vscode" title="Permalink to this heading"></a></h2>
+<h2>VScode安装与使用<a class="headerlink" href="#vscode" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>若在Jetson平台上使用 <a class="reference external" href="https://developer.nvidia.com/embedded/jetpack.html">JetPack SDK</a> 5.0.x 版本作为开发环境，实际测试若不使用指定版本会出现异常,请下载和安装 1.65.2版本。</p>
 </div>
 <section id="id5">
-<h3>vscode安装<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>vscode安装<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <p>请根据架构选择对应的安装包</p>
 <div class="sphinx-tabs docutils container">
 <div aria-label="Tabbed content" class="closeable" role="tablist"><button aria-controls="panel-1-1-0" aria-selected="true" class="sphinx-tabs-tab" id="tab-1-1-0" name="1-0" role="tab" tabindex="0">X86/X64</button><button aria-controls="panel-1-1-1" aria-selected="false" class="sphinx-tabs-tab" id="tab-1-1-1" name="1-1" role="tab" tabindex="-1">aarch64</button></div><div aria-labelledby="tab-1-1-0" class="sphinx-tabs-panel" id="panel-1-1-0" name="1-0" role="tabpanel" tabindex="0"><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>wget https://update.code.visualstudio.com/1.65.2/linux-deb-arm64/stable -O code_1.65.2_arm64.deb
@@ -195,13 +194,13 @@ sudo dpkg -i code_1.65.2_arm64.deb
 </div></div>
 </section>
 <section id="id6">
-<h3>检查Vscode版本<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3>检查Vscode版本<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">code --verbose</span>
 </pre></div>
 </div>
 </section>
 <section id="id7">
-<h3>推荐拓展<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<h3>推荐拓展<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <p>为了方便Bubble项目的调试，我们推荐一下VsCode拓展：</p>
 <ul class="simple">
 <li><p>IntelliCode</p></li>
@@ -216,7 +215,7 @@ sudo dpkg -i code_1.65.2_arm64.deb
 </section>
 </section>
 <section id="bubble">
-<h2>构建Bubble源码<a class="headerlink" href="#bubble" title="Permalink to this heading"></a></h2>
+<h2>构建Bubble源码<a class="headerlink" href="#bubble" title="Permalink to this headline"></a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone git@github.com:Birdiebot/bubble.git
 
 <span class="c1"># Install vcs tools</span>

@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -85,7 +84,7 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>编写攻击模块<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<h1>编写攻击模块<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>该文档主要描述了Bubble内部的攻击模块的实现。</p>
@@ -109,14 +108,14 @@
 </ul>
 </div>
 <section id="id3">
-<h2><a class="toc-backref" href="#id12">先决条件</a><a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id12">先决条件</a><a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <p>您具备了ROS的基本知识，掌握了如何编写一个 <a class="reference external" href="https://docs.ros.org/en/humble/Tutorials/Beginner-CLI-Tools/Understanding-ROS2-Nodes/Understanding-ROS2-Nodes.html">节点</a> 。</p>
 <section id="id4">
-<h3><a class="toc-backref" href="#id13">1 编写代码</a><a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id13">1 编写代码</a><a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <p>通过 <cite>bubble_aiming</cite> 模块定义的API，实现机器人的自瞄任务。下面的例子以自瞄装甲板模块为例。</p>
 </section>
 <section id="id5">
-<h3><a class="toc-backref" href="#id14">1.1 编写数据解析器</a><a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id14">1.1 编写数据解析器</a><a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <p>数据解析器用于将msg数据转换为对应模块所需的数据结构。</p>
 <p>编写数据解析器需首先创建订阅者订阅节点数据，通过create_subscription创建订阅者用于订阅需要的数据。
 此处订阅主题为 <code class="docutils literal notranslate"><span class="pre">/cv/armour</span></code> ，消息的类型为自定义BoundingPolygonBoxes2D消息。具体如何编写消息请参考 <a class="reference external" href="添加自定义数据控制机器人.html">添加自定义数据控制机器人</a>  。</p>
@@ -175,7 +174,7 @@ ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。�
 </div></blockquote>
 </section>
 <section id="id6">
-<h3><a class="toc-backref" href="#id15">1.2 目标决策器</a><a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id15">1.2 目标决策器</a><a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <p>目标决策器用于对多目标进行决策，可添加不同的决策器来满足不同的战术需求。目标决策器的需保证此刻仅有一个结果。</p>
 <p>编写决策器首先需分析战术需求，例如此处为保证快速锁敌优先瞄准更加靠近图像中心的目标。
 在明确战术需求后， 开始进行逻辑块的编写。逻辑块代码位于decision.py文件下，根据分析的需求进行compareTargetCenter的编写。</p>
@@ -201,7 +200,7 @@ ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。�
 </div></blockquote>
 </section>
 <section id="id7">
-<h3><a class="toc-backref" href="#id16">1.3 模式判别器</a><a class="headerlink" href="#id7" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id16">1.3 模式判别器</a><a class="headerlink" href="#id7" title="Permalink to this headline"></a></h3>
 <p>模式判别器用于判断机器人自身攻击模式，以满足场上出现的各类任务。模式切换有两种方法，手动切换模式和自动识别模式，此处的模式判别指的是自动识别模式这种方法。</p>
 <p>编写模式判别器首先分析识别该模式的逻辑。例如小陀螺识别会对多帧数据计算装甲板高度差和宽度差，来判断是否进入小陀螺模式。
 根据确定的逻辑在armourDecision.py文件内编写judgeMode函数。
@@ -217,14 +216,14 @@ ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。�
 </div></blockquote>
 </section>
 <section id="id8">
-<h3><a class="toc-backref" href="#id17">1.4 对应功能模块</a><a class="headerlink" href="#id8" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id17">1.4 对应功能模块</a><a class="headerlink" href="#id8" title="Permalink to this headline"></a></h3>
 <blockquote>
 <div><p>预测 ArmourPredictor
 补偿 adjustBallistics</p>
 </div></blockquote>
 </section>
 <section id="id9">
-<h3><a class="toc-backref" href="#id18">1.5 数据发送器</a><a class="headerlink" href="#id9" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id18">1.5 数据发送器</a><a class="headerlink" href="#id9" title="Permalink to this headline"></a></h3>
 <p>数据发送器用于将模块内的数据结构转换为msg数据。</p>
 <p>编写数据发送器需首先创建发布者发布节点数据，通过create_publisher创建订阅者创建发布者，发布对应的主题。
 此处订阅主题为 <code class="docutils literal notranslate"><span class="pre">/decision/gimbal_api</span></code> ，消息的类型为自定义Gimbal消息。具体如何编写消息请参考 <a class="reference external" href="添加自定义数据控制机器人.html">添加自定义数据控制机器人</a>  。</p>
@@ -258,7 +257,7 @@ ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。�
 </div></blockquote>
 </section>
 <section id="id10">
-<h3><a class="toc-backref" href="#id19">1.6 自定义数据结构</a><a class="headerlink" href="#id10" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id19">1.6 自定义数据结构</a><a class="headerlink" href="#id10" title="Permalink to this headline"></a></h3>
 <p>为了便于对数据进行管理，将所需的数据统一放进类中。需要使用该数据时，通过引用对象中的属性即可。</p>
 <p>首先分析所需数据是否存在相关性，若数据具有相关性可以将这些数据封装到类中。</p>
 <p>对类中包含的属性建立接口，用于对类属性的值进行设定与获取。</p>
@@ -299,7 +298,7 @@ ArmourInfo() 为自定义数据结构，用于存放和处理装甲板信息。�
 </div></blockquote>
 </section>
 <section id="id11">
-<h3><a class="toc-backref" href="#id20">2 编译并运行代码</a><a class="headerlink" href="#id11" title="Permalink to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id20">2 编译并运行代码</a><a class="headerlink" href="#id11" title="Permalink to this headline"></a></h3>
 <p>打开一个终端编译并运行当前节点</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">colcon build --packages-select YOUR_PKG</span>
 <span class="go">. install/setup.bash</span>

@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -88,7 +87,7 @@
            <div itemprop="articleBody">
              
   <section id="rmuc2022">
-<h1>RMUC2022旋转前哨站预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this heading"></a></h1>
+<h1>RMUC2022旋转前哨站预测器<a class="headerlink" href="#rmuc2022" title="Permalink to this headline"></a></h1>
 <dl class="field-list simple">
 <dt class="field-odd">Authors</dt>
 <dd class="field-odd"><p>Kinsley_gu</p>
@@ -104,7 +103,7 @@
 </dd>
 </dl>
 <section id="id1">
-<h2>概述<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
+<h2>概述<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h2>
 <p>在RMU竞赛中，前哨站的中部装甲为可旋转设计，于比赛开始30秒至比赛开始三分钟期间匀速随机方向旋转。在装甲板旋转期间累积伤害500+将获得金币激励。</p>
 <p>本文档将阐述匀速速率情况下考虑到水平空阻与距离因素导致的下落时长预测模型</p>
 <div class="admonition note">
@@ -113,14 +112,14 @@
 </div>
 </section>
 <section id="id2">
-<h2>1. 模型建立<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<h2>1. 模型建立<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <section id="id3">
-<h3>1.1 坐标系定义<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>1.1 坐标系定义<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
 <p>云台坐标系通过<img class="math" src="../_images/math/9043a099b0fe5efb9806f3b60edbb02493a3f1d5.png" alt="yaw"/>轴与<img class="math" src="../_images/math/7ee04942a071e0e8f0ae0232a4d970f0094d3eec.png" alt="pitch"/>轴连接在底盘上，初始坐标系<img class="math" src="../_images/math/40e0fb537d4d0bdf51a219d2987598aebe6cb064.png" alt="O_{gimbal\_xyz}"/>。
 其中前方为<img class="math" src="../_images/math/293367b6910e96be7886302f7ecac9de92aa7a4e.png" alt="{x}"/>正方向，左方为<img class="math" src="../_images/math/324fd22af5252d3c01d039faaca124ae7ab165ef.png" alt="{y}"/>正方向，上侧为<img class="math" src="../_images/math/3dc55ad521dd636bd88132878c829305698293b0.png" alt="{z}"/>正方向。重力加速度 <img class="math" src="../_images/math/157ba5711de84b4c715a0478fd8ae440e596d96e.png" alt="g"/> 方向为 <img class="math" src="../_images/math/8d051150f8669295ecdbe92367941012175a824d.png" alt="z"/> 轴负方向。</p>
 </section>
 <section id="id4">
-<h3>1.2 模型符号说明<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>1.2 模型符号说明<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <blockquote>
 <div><table class="colwidths-given docutils align-default">
 <colgroup>
@@ -172,41 +171,41 @@
 </div></blockquote>
 </section>
 <section id="id5">
-<h3>1.3 模型适用条件<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>1.3 模型适用条件<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <ol class="arabic simple">
 <li><p>弹丸垂直方向空气阻力大小可忽略</p></li>
 <li><p>弹丸弹速理想，未出现掉速情况</p></li>
 </ol>
 </section>
 <section id="id6">
-<h3>1.4 数学推导<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h3>
+<h3>1.4 数学推导<a class="headerlink" href="#id6" title="Permalink to this headline"></a></h3>
 <section id="id7">
-<h4>空气阻力模型<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h4>
+<h4>空气阻力模型<a class="headerlink" href="#id7" title="Permalink to this headline"></a></h4>
 <p>考虑在比赛过程中子弹飞行状态下斜抛少，因而以下空气阻力模型仅考虑水平方向（<img class="math" src="../_images/math/293367b6910e96be7886302f7ecac9de92aa7a4e.png" alt="{x}"/>方向）所受空气阻力。</p>
 <p>球体受空气阻力面积为球体迎风截面，所需球体半径由外部传入。</p>
 <div class="math">
-<p><img src="../_images/math/15b0de0da244cf7c8678bab5ebc5bbd63e910af1.png" alt="S = \pi * r ^2
-
-f_{x} = C \rho S  v_{x}^2 / 2"/></p>
+<p><img src="../_images/math/6527721096767d929f6f63bbea03d39d3c22a8da.png" alt="S = \pi * r ^2"/></p>
+</div><div class="math">
+<p><img src="../_images/math/7fea37c6f50d1560236564f7e3246e45d5af5375.png" alt="f_{x} = C \rho S  v_{x}^2 / 2"/></p>
 </div></section>
 <section id="id8">
-<h4>速度更迭模型<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h4>
+<h4>速度更迭模型<a class="headerlink" href="#id8" title="Permalink to this headline"></a></h4>
 <p>根据牛顿第二定律：物体的加速度 a 跟物体受到的合外力 F 成正比，跟物体的质量 m 成反比，有公式 <img class="math" src="../_images/math/930bc70006c3c135265af8266a86cafc677a9af4.png" alt="F=ma"/> 。同时根据加速度定义有，加速度在数值上等于单位时间内速度的变化量，即速度对时间的一阶导数 <img class="math" src="../_images/math/caff8fac357cf88e9477180df6921da33ab73738.png" alt="a = dv_{x} / dt"/>。</p>
 <div class="math">
 <p><img src="../_images/math/aa4fe7e4df4164e8582af737ab8a2d37a42d4d3e.png" alt="- f_{x} / m = dv_{x} / dt"/></p>
 </div><p>由上述空气阻力模型所得结论对于不同速度下空气阻力大小的表达式，可通过将 <img class="math" src="../_images/math/0c0df1b8482ed7d2f1d3bae08130ad6c98ef5513.png" alt="f_{x}"/> 的表达与速度对时间的一阶导数联立可得后续推导公式。</p>
 <div class="math">
-<p><img src="../_images/math/c1c882b7e850458a5d5c03c12c84dfd71d753be1.png" alt="- f_{x} / m = dv_{x} / dt
-
-C \rho S v_{x}^2 dt / 2 m = - dv_{x} / v_{x}^2
-
-v_{x} = v_{x0} / (k_{1} v_{x0} t +1)"/></p>
+<p><img src="../_images/math/aa4fe7e4df4164e8582af737ab8a2d37a42d4d3e.png" alt="- f_{x} / m = dv_{x} / dt"/></p>
+</div><div class="math">
+<p><img src="../_images/math/20f5963b53ab314757b0f684bde32b0c6f4026a1.png" alt="C \rho S v_{x}^2 dt / 2 m = - dv_{x} / v_{x}^2"/></p>
+</div><div class="math">
+<p><img src="../_images/math/cdd552f88aab3f0a666f7e8f2769eec5a523d2ff.png" alt="v_{x} = v_{x0} / (k_{1} v_{x0} t +1)"/></p>
 </div><img alt="../_images/旋转前哨站.png" src="../_images/旋转前哨站.png" />
 </section>
 </section>
 </section>
 <section id="id9">
-<h2>2. 功能实现<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
+<h2>2. 功能实现<a class="headerlink" href="#id9" title="Permalink to this headline"></a></h2>
 <p>操作手将旋转装甲板目标中心位置置于操作界面准心位置后先行进入弹道补偿流程（此部分代码于 <code class="docutils literal notranslate"><span class="pre">bubble_contrib/bubble_aiming/predictor/outpostPredictor.py</span></code> 模块下）。
 待补偿成功后，得到:math:<cite>compensator</cite>，计算标准位置信息并储存于 <img class="math" src="../_images/math/fd2cf401cbe30ff30ad700c1fac2e1d7e92ecfeb.png" alt="standard"/> 中。</p>
 <div class="math">
@@ -215,11 +214,11 @@ v_{x} = v_{x0} / (k_{1} v_{x0} t +1)"/></p>
 <p>通过循环更迭速度 <img class="math" src="../_images/math/7df538faee6f6d0ab88364eba6d48a70cb4dc9e3.png" alt="v_{x}"/> 与下坠时间 <img class="math" src="../_images/math/2aeb96a46ed92160e314834f32b781d727182e22.png" alt="t_{distance}"/> 得到下落时长输出值作为在一定距离情况下辅助射击旋转前哨站的调整参数之一（另外一项是上下位机通讯和枪管相应的时长）。
 得到下坠时间后，可获得当前状态下从发射射击指令到弹丸射击到目标装甲板的总时间。</p>
 <div class="math">
-<p><img src="../_images/math/f393b08072d79d1a3ca4b9304f623754a8d6b6dd.png" alt="`t_{compensator} = t_{respond} + t_{distance}`"/></p>
+<p><img src="../_images/math/558023d69c43a2dc8a1a9e2e75c76b43d07889a9.png" alt="t_{compensator} = t_{respond} + t_{distance}"/></p>
 </div><p>将上一帧识别到装甲板但至今未发射的数据时间戳与此刻时间戳进行比对，若两者差的绝对值与 <img class="math" src="../_images/math/234e7fa0ce9560fea7ea32443a11ba337c184ffc.png" alt="t_{compensator}"/> 在一定范围即可视为此时发射弹丸理论情况下应能击中目标装甲板。</p>
 </section>
 <section id="id10">
-<h2>结语<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
+<h2>结语<a class="headerlink" href="#id10" title="Permalink to this headline"></a></h2>
 <p>文档阐述了当前版本Bubble中旋转前哨站预测模块实现的过程，在不同粘滞度情况下需要更改摩擦系数进行使用。不适用于弹道轨迹过高等需要考虑 <img class="math" src="../_images/math/71aa5413ca7232a97441b49737aadf0093cf47b8.png" alt="f_{y}"/> 的情况。</p>
 </section>
 </section>

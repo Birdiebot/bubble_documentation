@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
@@ -85,18 +84,18 @@
            <div itemprop="articleBody">
              
   <section id="id1">
-<h1>参数配置<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<h1>参数配置<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h1>
 <section id="id2">
-<h2>概述<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<h2>概述<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h2>
 <p>所有兵种的视觉算法模块均是通过ROS的launch文件进行启动,对于机器人的初始运行参数均可以在 <code class="docutils literal notranslate"><span class="pre">bubble_bringup</span></code> 文件夹中进行配置。</p>
 <p>在 <code class="docutils literal notranslate"><span class="pre">bubble_bringup</span></code> 功能包的 <code class="docutils literal notranslate"><span class="pre">launch</span></code> 文件夹下包含每种机器人的功能模块启动文件。每种机器人内部通过 <code class="docutils literal notranslate"><span class="pre">DeclareLaunchArgument</span></code> 生成的参数都是依据 <code class="docutils literal notranslate"><span class="pre">bubble_launch</span></code> 和 <code class="docutils literal notranslate"><span class="pre">visual_launch</span></code> 文件中的参数进行重新赋值生成的。
 故此处主要介绍这两个文件内参数的意义和如何使用。</p>
 </section>
 <section id="id3">
-<h2>参数介绍<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<h2>参数介绍<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h2>
 <p>此处以步兵机器人为例进行参数介绍。</p>
 <section id="id4">
-<h3>机器人参数配置<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h3>
+<h3>机器人参数配置<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>机器人相关参数位于 <code class="docutils literal notranslate"><span class="pre">bubble_bringup</span></code> 模块中</p>
@@ -170,7 +169,7 @@
 </table>
 </section>
 <section id="id5">
-<h3>识别器节点参数配置<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h3>
+<h3>识别器节点参数配置<a class="headerlink" href="#id5" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>机器人相关参数位于 <code class="docutils literal notranslate"><span class="pre">bubble_bringup</span></code> 模块的 <code class="docutils literal notranslate"><span class="pre">visual_launch.py</span></code> 文件中</p>
